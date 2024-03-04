@@ -1,0 +1,49 @@
+
+.profile-intro{
+    background-color:var(--bg-color) ;
+    padding: 20px;
+    margin-bottom: 20px;
+    margin-top: 11px;
+    border-radius:4px ;
+
+}
+.gender{
+  color: black;
+  font-size: 15px;
+  font-family: inherit;
+  margin-bottom: 2px;
+}
+.Friends-box {
+    display: flex;
+    justify-content: space-between;  // Adjust as needed
+    flex-wrap: wrap;
+    align-items: flex-start; // Ensure the container adjusts to the height of its content
+    
+
+  }
+  .Friends-container {
+    display: flex;
+    align-items: flex-start;
+    overflow: scroll;
+  }
+  
+  .friend-item {
+    width: calc(33.33% - 20px);  // Adjust as needed, considering the grid gap
+    margin-bottom: 15px;         // Adjust as needed for vertical spacing
+  
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  
+    span {
+      display: block;
+      text-align: center;
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }

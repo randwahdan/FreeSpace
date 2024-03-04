@@ -1,0 +1,33 @@
+<div class="mainDiv" id="divAccount">
+  <div class="cardStyle">
+    <form [formGroup]="BasicInfo" (ngSubmit)="SaveInfo()" name="AccountForm" novalidate>
+
+      <h2 class="formTitle">
+        Account Information
+      </h2>
+
+      
+
+      <!-- <div class="inputDiv">
+        <label class="inputLabel" for="tbPhon">Phone Number:</label>
+        <input type="text" id="mobileNumber" formControlName="mobileNumber"  >
+
+      </div> -->
+      <div class="inputDiv">
+        <label class="inputLabel" for="bio">Bio:</label>
+        <textarea formControlName="bio" id="" cols="30" rows="10"></textarea>
+      </div>
+
+      <div class="inputDiv">
+        <label class="inputLabel" for="nickname">Nickname:</label>
+        <input type="text" id="nickname" formControlName="nickname" required>
+      </div>
+      <div class="buttonWrapper">
+        <button  type="submit" name="AccSaveButton"  class="submitButton pure-button pure-button-primary">
+          <span>Save </span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

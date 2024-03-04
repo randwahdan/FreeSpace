@@ -1,0 +1,39 @@
+<div class="">
+
+    <div class="profile-info">
+        <div class="info-col">
+            <div class="profile-intro">
+                <h3>Intro</h3>
+                <p style="font-size: 17px; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" class="intro-text">{{user.bio}}
+                </p>
+                <hr>
+                <ul>
+
+                    <li><img src="assets/image/icons/icons8-gender-100.png" alt="" style="width: 20px; "> 
+                        <span class="gender" *ngIf="user && user.gender === 2" >Female</span>
+                        <span class="gender"  *ngIf="user && user.gender === 1">Male</span></li>
+                    <li><img src="assets/image/icons/birthdate2.png" alt="">{{user.dateOfBirth | date:'dd/MM/yyyy'}}
+                   
+                </ul>
+
+            </div>
+
+            <div class="profile-intro">
+                <div class="title-box">
+                    <h3>Friends</h3>
+                </div>
+                <div class="Friends-container">
+                <div class="Friends-box">
+                    <div *ngFor="let friend of users" class="friend-item">
+                      <img [src]="friend.profilePicture" alt="">
+                      <span style="color: black; font-family: inherit;">{{friend.fullName}}</span>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+        <div class="info-col-post">
+            <app-mange-post></app-mange-post>
+            <app-post-list [userId]="userId"></app-post-list>
+        </div>
+    </div>

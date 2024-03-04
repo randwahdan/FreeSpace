@@ -1,0 +1,19 @@
+<div   class="friend-container">
+    <div class="friend-container-header">
+        <div class ="heading">
+            <button style="background: none; color: white; font-size: 18px; white-space: nowrap;text-align: center;"   (click)="showPendingFriends()">Pending Requests</button>
+        </div>
+
+    </div>
+    <div class="friends-body" *ngFor="let user of users">
+        <div class="user-row" *ngIf="!user.isAdded">
+            <div class="user-info">
+            <img [src]="user.profilePicture" alt="user">
+            <a><span style="font-size: 15px;">{{user.fullName}}</span></a>
+        </div>
+          <button class="action-follow" (click)="response(user, true)">Accept</button>
+          <button class="action-follow" (click)="response(user, false)">Reject</button>
+       </div>
+    </div>
+  
+</div>

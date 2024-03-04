@@ -1,0 +1,24 @@
+<form [formGroup]="postForm" (ngSubmit)="Post()">
+    <div class="write-post-container">
+        <div class="user-profile">
+            <img [src]="user.profilePicture"  alt="">
+        <div>
+        <p>{{user.fullName}}</p>
+    </div>
+        </div>
+
+        <div class="post-input-container">
+            <textarea formControlName="content"  rows="4" placeholder="What's on your mind ?" ></textarea>
+            <div class="add-post-links "style="display: inline-block;">
+                <label for="fileUpload" id="customFileLabel" (click)="onImageClick($event)">
+                    <img  src="assets/image/icons/photo.JPG" alt="">Photo  
+                  </label>
+                <input type="file" name="photo" id="fileUpload" accept=".jpg, .jpeg, .png" multiple style="display: none;" (change)="onFileSelected($event)" />
+                <input type="submit" value="Post" class="postClick" >
+            </div>
+        </div>
+    </div>
+</form>
+
+
+  <!--  <router-outlet></router-outlet>-->

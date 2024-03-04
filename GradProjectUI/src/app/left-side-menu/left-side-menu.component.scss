@@ -1,0 +1,32 @@
+// .left-sidebar{
+//     flex-basis: 25% !important;
+//     position: sticky !important;
+//     top:70px !important;
+//     align-self: flex-start !important;
+
+// }
+.left-sidebar {
+    flex-basis: 25% !important;
+    position: sticky !important;
+    top: 70px !important;
+    align-self: flex-start !important;
+  }
+  
+  .online-list {
+    display: flex;
+    align-items: center;
+  }
+  
+  .online {
+    margin-right: 10px; /* Adjust the margin as needed */
+  }
+  
+  p {
+    margin: 0; /* Remove default margin for paragraphs */
+    margin-right: 10px;
+  }
+  
+  .action-follow {
+    margin-left: auto; /* Push the buttons to the right */
+   background-color: var(--button-color);
+  }

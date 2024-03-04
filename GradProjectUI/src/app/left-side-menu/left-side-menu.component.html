@@ -1,0 +1,20 @@
+
+    <div class="left-sidebar">
+        <div class="imp-link">
+            <a  routerLink="/friends"  routerLinkActive="active"><img src="assets/image/icons/friends.png" alt="">Friends</a>
+        </div>
+        <div class="sidebar-title">
+            <h6 style=" color:#1876f2;margin-bottom: 20px;">Users suggestions</h6>
+
+        </div>
+        <div class="online-list" *ngFor="let user of users">
+            <div class="online">
+                <img [src]="user.profilePicture" alt="">
+            </div>
+            <p>{{user.fullName}}</p>
+          <button *ngIf="!user.isAdded" class="action-follow" (click)="addFriend(user)">Add Friend</button>
+          <button *ngIf="user.isAdded" class="action-follow" >Pending</button>
+
+        </div>
+
+    </div>

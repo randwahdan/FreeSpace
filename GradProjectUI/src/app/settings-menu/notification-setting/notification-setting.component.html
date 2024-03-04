@@ -1,0 +1,26 @@
+<div class="mainDiv" id="notification">
+  <div class="cardStyle">
+    <form [formGroup]="NotifyForm" (ngSubmit)="SaveNotify()" name="AccountInfoForm" id="AccountInfoForm">
+      <div   class="Notification-container">
+        <div class="Notification-container-header">
+          <div class ="heading"> Notification Settings</div>
+          <div class ="heading">
+            Once you press the notifications unable button, you won't receive any notifications from this app.</div>
+          <div class="settings">
+            <h2>General Settings</h2>
+            <label>
+              <input type="checkbox" formControlName="enableNotifications" checked>
+              Enable Notifications
+            </label>
+          </div>
+          <div class="buttonWrapper">
+            <button  type="submit" name="NotifySaveButton" style="background: white;color: black;font-weight: 800;"  class="submitButton pure-button pure-button-primary">
+              <span>Save Changes</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>

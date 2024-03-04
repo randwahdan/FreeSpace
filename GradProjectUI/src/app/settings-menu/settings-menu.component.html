@@ -1,0 +1,23 @@
+<app-header></app-header>
+<div class="container">
+
+  <div class="left-sidebar">
+    <div class="impset-links" style="color: var(--text-color);" >
+
+      <a [routerLink]="['/setting']" routerLinkActive="active"><img src="assets/image/icons/adjust.png" width="35px" >Settings</a><br>
+
+      <hr><br>
+     <a [routerLink]="['/setting/account']"><img src="assets/image/icons/setting.png" >Account Setting</a>
+     <a [routerLink]="['/setting/changePassword']"><img src="assets/image/icons/password.png" >Password</a>
+     <a [routerLink]="['/setting/changeProfile']"><img src="assets/image/icons/profile-pic.png" >Account Picture</a>
+     <a [routerLink]="['/setting/notification']"><img src="assets/image/icons/bell (2).png" >notifications</a>
+    </div>
+  </div>
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <div class="right-sidebar" style="background:none;"></div>
+
+
+</div>

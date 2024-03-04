@@ -1,0 +1,110 @@
+<div class="post-container" *ngFor="let post of postModelList">
+  <div class="post-row">
+    <div class="user-profile">
+      <img *ngIf="post && post.profilePicture" [src]="post.profilePicture"  alt="">
+      <div>
+        <p>{{post.fullName}}</p>
+        <span>{{post.createdDate |date:'dd/MM/yyyy HH:mm'}}</span>
+      </div>
+    </div>
+    <a href="#"><i class="bi bi-three-dots-vertical"></i></a>
+  </div>
+
+  <p class="post-text">{{post.content}}</p>
+  <div class="post-grid" >
+    <div *ngFor="let media of post.media " class="post-img-container">
+      <img class="post-img "  [src]="media?.url  " class="post-img">
+    </div>
+  </div>
+  
+  <div class="post-row">
+    <div class="activity-icons">
+      <div *ngIf="post.isLiked"><img src="assets/image/icons/like-blue.png" alt=""(click)="makeDislike(post)">{{post.likesCount}}</div>
+      <div *ngIf="!post.isLiked"><img src="assets/image/icons/like.png" alt="" (click)="makeLike(post)">{{post.likesCount}}</div>
+      <div><img src="assets/image/icons/comments.png" alt=""></div>
+      <br>
+      <br>
+
+<form [formGroup]="commentForm" (ngSubmit)="addComment(post)">
+<div style="width: 100%;" class="comment-box">
+  <input type="text"  name="content" id="content"  formControlName="content" placeholder="Add a comment" />
+  <button type="submit">Add Comment</button>
+</div>
+</form>
+</div>
+  </div>
+<div *ngFor="let comment of post.comments" class="comment-section">
+  <div class="comment">
+    <div class="user-profile">
+      <img style=" margin-right: 10px;" *ngIf="comment && comment.profilePicture" [src]="comment.profilePicture"  alt="">
+    </div>
+    <div class="comment-content">
+      <div class="comment-header">
+        <span class="user-name">{{comment.fullName}}</span>
+        <span class="comment-timestamp" >{{comment.createdDate |date:'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+      <div class="comment-body">
+        <p class="comment-text">{{comment.content}}</p>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+</div>
+
+
+
+
+<!--
+
+<div class="post-container">
+  <div class="post-row">
+    <div class="user-profile">
+      <img src="assets/image/profile/member6.jpg" alt="">
+      <div>
+        <p>Samer Wahdan</p>
+        <span>November 11 2023 , 16:30 pm</span>
+      </div>
+    </div>
+    <a href="#"><i class="bi bi-three-dots-vertical"></i></a>
+  </div>
+
+  <p class="post-text">Time spent amongst trees is never wasted time</p>
+  <img src="assets/image/post/imgPost3.JPG"class="post-img">
+  <div class="post-row">
+    <div class="activity-icons">
+      <div><img src="assets/image/icons/like-blue.png" alt="">95</div>
+      <div><img src="assets/image/icons/comments.png" alt="">15</div>
+      <div><img src="assets/image/icons/share.png" alt="">4</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="post-container">
+  <div class="post-row">
+    <div class="user-profile">
+      <img src="assets/image/profile/member4.jpg" alt="">
+      <div>
+        <p>Tasnim AlShishani</p>
+        <span>October 7 2023 , 13:40 pm</span>
+      </div>
+    </div>
+    <a href="#"><i class="bi bi-three-dots-vertical"></i></a>
+  </div>
+
+  <p class="post-text">We shouldn't stop talking about Ghaza
+    Israel is criming now</p>
+  <img src="assets/image/post/imgPost1.jpg"class="post-img">
+  <div class="post-row">
+    <div class="activity-icons">
+      <div><img src="assets/image/icons/like-blue.png" alt="">95</div>
+      <div><img src="assets/image/icons/comments.png" alt="">15</div>
+      <div><img src="assets/image/icons/share.png" alt="">4</div>
+
+
+    </div>
+  </div>
+</div>
+<button type="button"class="load-more-button">Load More</button> -->

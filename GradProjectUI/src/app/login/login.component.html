@@ -1,0 +1,71 @@
+
+     <div class="header">
+        <div class="logo">Free<img src="assets\image\logo\dove_3804900 (1).png"><span>Space</span></div>
+        <form  [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="on">
+            <div class="sign-in-form">
+                <div class="user-input">
+                    <div class="input-text">Email</div>
+                    <input type="email" name="in-email" formControlName="email" class="input-text-field" value="">
+                </div>
+                <div class="password-input">
+                    <div style="font-size:15px;padding-bottom:5px;">Password</div>
+                    <!-- <input type="password" formControlName="password" name="in-pass" id="in-password" class="input-text-field"> -->
+                    <input type="password" name="in-pass" formControlName="password" class="input-text-field" value="">
+
+                </div>
+              <div class="login-button">
+                <input type="submit" value="Log in" class="sign-in login">
+              </div>
+
+            </div>
+        </form>
+    </div>
+    <div class="main" style="width:100%;">
+        <div class="left-side">
+            <img class="sign-image" src="assets/image/pic/like-comment.png" alt="sign-up-image">
+        </div>
+        <div class="right-side">
+            <div class="error"></div>
+            <h1 style="color:#212121;">Create an account</h1>
+            <div style="color:#212121;font-size:20px;margin-top: 20px;">It's free and always will be</div>
+            <form [formGroup]="registerationForm" (ngSubmit)="Register()">
+                <div class="sign-up-form">
+                    <div class="sign-up-name">
+                        <input  type="text"  name="firstName" formControlName="firstname"  class="text-field" placeholder="First Name" required>
+                        <input type="text" name="lastName" formControlName="lastname" class="text-field" placeholder="Last Name" required>
+
+
+                    </div>
+                    <div class="sign-wrap-email">
+                        <input type="email" formControlName="email"   name="email" id="up-email" class="text-input" placeholder="Email address">
+                    </div>
+                    <div class="sign-up-password">
+                        <input type="password" name="password"formControlName="password"  class="text-input" placeholder="Password">
+                    </div>
+                    <div class="sign-up-birthday">
+                        <div class="bday">Birthday</div>
+                        <div class="form-birthday">
+
+                            <div class="input-group date">
+                                <input type="date" formControlName="dateOfBirth"  class="form-control"/>
+                              </div>
+                        </div>
+
+                    </div>
+                    <div class="gender-wrap">
+                        <input type="radio" name="gender" id="fem" value="female" formControlName="gender" class="m0">
+                        <label for="fem" class="gender">Female</label>
+                        <input type="radio" name="gender" id="male" value="male" formControlName="gender"  class="m0">
+                        <label  for="male" class="gender">Male</label>
+                    </div>
+                    <div class="term">
+                        By clicking Sign Up, you agree to our terms, Date policy and Cookie policy.
+                    </div>
+                    <input type="submit"   class="sign-up">
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+

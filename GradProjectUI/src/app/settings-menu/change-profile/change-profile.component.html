@@ -1,0 +1,26 @@
+<div class="mainDiv">
+  <div class="cardStyle" id="privacy">
+    <form [formGroup]="ChangePFP"   enctype="multipart/form-data">
+      <h2 class="formTitle">
+        Change profile picture
+      </h2>
+      <br>
+      <div class="UserProfile-info">
+        <img [src]="user.profilePicture" alt="user">
+      </div>
+      <label for="fileUploadPic">Upload Profile picture</label>
+      <br>
+      <input type="file" name="fileUploadPic" #fileInputProfile formControlName="fileUploadPic" (change)="onFileChanged($event)">
+      <button type="submit" class="btn" (click)="onUpload()">Upload</button>
+      <div class="buttonWrapper">
+      </div>
+      <label for="fileUploadPic">Upload Cover picture</label>
+      <br>
+      <input type="file" name="fileUploadCover" formControlName="fileUploadCover" #fileInputCover (change)="onFileCoverChanged($event)">
+      <button type="submit" class="btn" (click)="onUploadCover()">Upload</button>
+      <div class="buttonWrapper">
+      </div>
+
+    </form>
+  </div>
+</div>
