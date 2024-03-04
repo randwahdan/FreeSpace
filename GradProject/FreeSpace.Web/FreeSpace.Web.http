@@ -1,0 +1,6 @@
+@FreeSpace.Web_HostAddress = http://localhost:5233
+
+GET {{FreeSpace.Web_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

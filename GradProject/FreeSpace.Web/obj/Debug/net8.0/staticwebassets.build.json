@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "D0pYuTbJY0TtjAYdPN6fDvhH0cPjUdbwWPqf1f0IodY=",
+  "Source": "FreeSpace.Web",
+  "BasePath": "_content/FreeSpace.Web",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

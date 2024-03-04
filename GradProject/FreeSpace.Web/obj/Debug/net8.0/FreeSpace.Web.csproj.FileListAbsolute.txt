@@ -1,0 +1,302 @@
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\appsettings.json
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.exe
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.deps.json
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.runtimeconfig.json
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.pdb
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Azure.Core.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Azure.Identity.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\BCrypt.Net-Next.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Humanizer.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.OpenApi.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.CodeDom.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Memory.Data.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Text.Json.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.AssemblyReference.cache
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.GeneratedMSBuildEditorConfig.editorconfig
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.AssemblyInfoInputs.cache
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.AssemblyInfo.cs
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.CoreCompileInputs.cache
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.MvcApplicationPartsAssemblyInfo.cs
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.MvcApplicationPartsAssemblyInfo.cache
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.sourcelink.json
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets.build.json
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets.development.json
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets\msbuild.FreeSpace.Web.Microsoft.AspNetCore.StaticWebAssets.props
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets\msbuild.build.FreeSpace.Web.props
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.FreeSpace.Web.props
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FreeSpace.Web.props
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets.pack.json
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\scopedcss\bundle\FreeSpace.Web.styles.css
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.CopyComplete
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\refint\FreeSpace.Web.dll
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.pdb
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.genruntimeconfig.cache
+D:\GradBackend\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\ref\FreeSpace.Web.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\appsettings.json
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.exe
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.deps.json
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.runtimeconfig.json
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.pdb
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Azure.Core.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Azure.Identity.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\BCrypt.Net-Next.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Humanizer.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Data.SqlClient.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Caching.Memory.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Logging.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Identity.Client.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.OpenApi.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.SqlServer.Server.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Mono.TextTemplating.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.CodeDom.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.AttributedModel.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.Convention.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.Hosting.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.Runtime.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Composition.TypedParts.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Configuration.ConfigurationManager.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Drawing.Common.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Memory.Data.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Runtime.Caching.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Security.Cryptography.ProtectedData.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Security.Permissions.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Text.Encodings.Web.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Text.Json.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\System.Windows.Extensions.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.CSharp.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\cs\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\de\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\es\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\fr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\it\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ja\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ko\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pl\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\pt-BR\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\ru\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Data.SqlClient.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.AssemblyReference.cache
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.GeneratedMSBuildEditorConfig.editorconfig
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.AssemblyInfoInputs.cache
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.AssemblyInfo.cs
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.CoreCompileInputs.cache
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.MvcApplicationPartsAssemblyInfo.cs
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.MvcApplicationPartsAssemblyInfo.cache
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.sourcelink.json
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets.build.json
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets.development.json
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets\msbuild.FreeSpace.Web.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets\msbuild.build.FreeSpace.Web.props
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.FreeSpace.Web.props
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.FreeSpace.Web.props
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\staticwebassets.pack.json
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\scopedcss\bundle\FreeSpace.Web.styles.css
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.CopyComplete
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\refint\FreeSpace.Web.dll
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.pdb
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.genruntimeconfig.cache
+D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\ref\FreeSpace.Web.dll
