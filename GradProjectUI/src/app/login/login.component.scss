@@ -1,0 +1,47 @@
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fff;
+
+  background: -webkit-linear-gradient(to right, #4caf50, #d32f2f);
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #4caf50, #d32f2f);
+  }
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.logo img {
+  max-width: 80px; /* Adjust the max-width for the logo image */
+  max-height: 65px;
+}
+
+.logo span {
+  font-family: 'CustomLogoFont';
+  font-size: 60px; /* Adjust the font size for the logo text */
+  color: black;
+  margin-top: 10px;
+}
+
+a.btn.btn-light img:hover {
+  cursor: pointer; /* Optional: Change cursor to pointer on hover */
+}
+a.btn.btn-light img {
+  max-width: 20px;
+  transition: src 0.3s ease-in-out; /* Add a smooth transition effect over 0.3 seconds */
+}
+  @media (min-width: 768px) {
+  .gradient-form {
+  height: 100vh !important;
+  }
+  }
+  @media (min-width: 769px) {
+  .gradient-custom-2 {
+  border-top-right-radius: .3rem;
+  border-bottom-right-radius: .3rem;
+  }
+  }

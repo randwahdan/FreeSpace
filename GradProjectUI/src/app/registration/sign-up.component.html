@@ -1,0 +1,83 @@
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <div class="logo"><img src="assets\image\logo\watermelon.png"><span >FreeSpace</span></div>
+                </div>
+
+                <form [formGroup]="registerationForm" (ngSubmit)="Register()">
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="firstName">First Name</label>
+                        <input type="text" id="firstName" class="form-control form-control-lg" name="firstName" formControlName="firstname" />
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-outline">
+                        <label class="form-label" for="lastName">Last Name</label>
+                        <input type="text" id="lastName" class="form-control form-control-lg"  name="lastName" formControlName="lastname" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mb-4 pb-2">
+                      <div class="form-outline">
+                        <label class="form-label" for="emailAddress">Email</label>
+                        <input type="email" id="emailAddress" class="form-control form-control-lg" formControlName="email"   name="email" placeholder="Enter your Email..." />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mb-4 pb-2">
+                      <div class="form-outline">
+                        <label class="form-label" for="password">Password</label>
+                        <input type="password" name="password"formControlName="password"   class="form-control form-control-lg" placeholder="Password" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-4 d-flex align-items-center">
+                      <div class="form-outline datepicker w-100">
+                        <label for="birthdayDate" class="form-label">Birthday</label>
+                        <input type="date" formControlName="dateOfBirth"  class="form-control form-control-lg"  />
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <h6 class="mb-2 pb-1">Gender: </h6>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="fem" value="female" formControlName="gender"  />
+                        <label class="form-check-label" for="femaleGender">Female</label>
+                      </div>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="male" formControlName="gender" />
+                        <label class="form-check-label" for="maleGender">Male</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="mt-4 pt-2">
+                    <input class="btn btn-primary btn-lg col-md-12" type="submit" value="Sign Up" style="background-color: #1E5128;" />
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                <h4 class="mb-4">We are more than just a company</h4>
+                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

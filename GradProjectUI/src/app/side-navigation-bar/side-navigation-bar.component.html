@@ -1,0 +1,131 @@
+<!--Main Navigation-->
+<header>
+  <!-- Sidebar -->
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+    <div class="position-sticky">
+      <div class="list-group list-group-flush mx-3 mt-5">
+        <a
+          routerLink="/home/manage"  routerLinkActive="active"
+          class="list-group-item list-group-item-action py-2 ripple custom-link"
+          aria-current="true"
+        >
+          <i class="fa-solid fa-house fa-fw me-3"></i><span>Home</span>
+        </a>
+        <a routerLink="/Event" class="list-group-item list-group-item-action py-2 ripple"
+          ><i class="fa-solid fa-calendar-days fa-fw me-3"></i><span>Events</span></a
+        >
+        <a href="#" class="list-group-item list-group-item-action py-2 ripple"
+          ><i class="fa-solid fa-bell fa-fw me-3"></i><span>Notification</span></a
+        >
+        <a routerLink="/friends" class="list-group-item list-group-item-action py-2 ripple">
+          <i class="fa-solid fa-user-group fa-fw me-3"></i><span>Friends</span>
+        </a>
+        <a routerLink="/friends"  routerLinkActive="active" class="list-group-item list-group-item-action py-2 ripple"
+          ><i class="fa-solid fa-message fa-fw me-3"></i><span>Massages</span></a
+        >
+        <a routerLink="/setting" class="list-group-item list-group-item-action py-2 ripple"
+          ><i class="fa-solid fa-gear fa-fw me-3"></i><span>Sittings</span></a
+        >
+        <a (click)="viewUserDetail()" class="list-group-item list-group-item-action py-2 ripple"
+          ><i class="fa-solid fa-user fa-fw me-3"></i><span>Profile</span></a
+        >
+
+        <a  class="list-group-item list-group-item-action py-2 ripple"
+          ><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a
+        >
+        <a (click)="Logout()" style="cursor: pointer;" class="list-group-item list-group-item-action py-2 ripple"
+          ><i class="fa-solid fa-right-from-bracket fa-fw me-3"></i><span>Logout</span></a
+        >
+      </div>
+    </div>
+  </nav>
+  <!-- Sidebar -->
+
+  <!-- Navbar -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <div class="d-flex align-items-center ">
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#sidebarMenu"
+        aria-controls="sidebarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Brand -->
+      <a class="navbar-brand" routerLink="/home">
+        <img
+        src="assets\image\logo\watermelon.png"
+        height="40"
+        alt=""
+        loading="lazy"
+        style="margin-top: 2px;"
+        alt="FreeSpace Logo"
+        />
+        <span style="font-family: 'CustomLogoFont'; font-size: 40px;margin-top: 4px;">FreeSpace</span>
+      </a>
+      <!-- Search form -->
+      <form class="d-none d-md-flex input-group w-auto my-auto">
+        <input
+          autocomplete="off"
+          type="search"
+          class="form-control rounded"
+          placeholder='Search'
+          style="min-width: 225px;"
+        />
+        <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+      </form>
+      <ul class="navbar-nav  d-none  d-md-flex  w-auto mt-4 " >
+        <li class="nav-item me-3 me-lg-1 active">
+          <a class="nav-link" routerLink="/home">
+            <span><i class="fas fa-home fa-lg"></i></span>
+          </a>
+          </li>
+      </ul>
+    </div>
+
+      <!-- Right links -->
+      <div class="d-flex">
+        <ul class="navbar-nav flex-row">
+          <li class="nav-item  me-lg-1">
+            <a class="nav-link d-sm-flex align-items-sm-center" (click)="viewUserDetail()" style="cursor: pointer;">
+              <img [src]="user.profilePicture" class="rounded-circle" height="30" alt="" loading="lazy" />
+              <strong class="d-none d-sm-block ms-2" (click)="viewUserDetail()" style="cursor: pointer;">{{user.firstName+" "+user.lastName}}</strong>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav flex-row mt-3" >
+          <li class="nav-item me-3 me-lg-1 active d-flex ms-auto">
+            <span class="nav-link"><i class="fas fa-chevron-circle-down fa-lg" (click)="settingsMenuToggle()"></i></span>
+            <div [ngClass]="hideActionMenu ? 'settings-menu settings-menu-height' : 'settings-menu'">
+              <div class="settings-links">
+                <img src="assets/image/icons/setting.png" class="settings-icon">
+                <a routerLink="/setting">Settings <img src="assets/image/icons/arrow.png" width="10px"></a>
+              </div>
+              <div class="settings-links">
+                <img src="assets/image/icons/logout.png" class="settings-icon">
+                <a (click)="Logout()" style="cursor: pointer; color: black;">Logout <img src="assets/image/icons/arrow.png" width="10px"></a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main style="margin-top: 58px;">
+  <div class="container pt-4"></div>
+</main>
+<!--Main layout-->
