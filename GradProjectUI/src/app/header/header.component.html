@@ -1,95 +1,87 @@
-<nav>
+<!-- Navbar-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid justify-content-between">
+    <!-- Left elements -->
+    <div class="d-flex">
+      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" routerLink="/home">
+        <img
+          src="assets\image\logo\watermelon.png"
+          height="40"
+          alt=""
+          loading="lazy"
+          style="margin-top: 2px;"
+        />
+        <span style="font-family: 'CustomLogoFont'; font-size: 40px;margin-top: 4px;">FreeSpace</span>
+      </a>
+      <!-- Search form -->
 
-    <div class="nav-left">
-        <div >
-            <div class="logo">Free<img src="assets\image\logo\dove_3804900 (1).png"><span>Space</span></div>
-        </div>
-
-        <div class="icon" >
-            <button type="button" (click)="toggleMenu()">
-            <img  src="assets/image/icons/icons8-notification-50.png"alt="notification-icon"><span>{{notificationsModels.length}}</span>
-            </button>
-        </div>
-
-
-        <div class="notifi-box" id="box" [ngClass]="{'notifi-box-height': !hideActionMenu2}" >
-            <h2>Notification <span style="font-family: inherit; font-size: 18px; font-weight: 800;color: #1876f2;">{{notificationsModels.length}}</span></h2>
-            <div class="notifi-item" *ngFor="let notification of notificationsModels">
-                <img [src]="notification.profilePicture" alt="">
-                <div class="text">
-                    <h4>{{notification.fullName}}</h4>
-                    <p>{{notification.content}}</p>
-                </div>
-            </div>
-      <!--      <div class="notifi-item">
-                <img src="assets/image/profile/member5.jpg" alt="">
-                <div class="text">
-                    <h4>Rahaf Abu-Samrah </h4>
-                    <p>Rahaf Abu-Samrah Aadded you as a friend!</p>
-                </div>
-            </div>
-            <div class="notifi-item">
-                <img src="assets/image/profile/member7.jpg" alt="">
-                <div class="text">
-                    <h4>Rahaf Kisbeh </h4>
-                    <p>Rahaf Kisbeh likes your comment</p>
-                </div>
-            </div>
-            <div class="notifi-item">
-                <img src="assets/image/profile/member6.jpg" alt="">
-                <div class="text">
-                    <h4>Samer Wahdan</h4>
-                    <p>Samer Wahdan addedd a new post "Gaza "</p>
-                </div>
-            </div>
-            <div class="notifi-item">
-                <img src="assets/image/profile/member8.jpg" alt="">
-                <div class="text">
-                    <h4>Mohammad Wahdan </h4>
-                    <p>Mohammad Wahdan Share your post</p>
-                </div>
-            </div>-->
-        </div>
-            <a routerLink="/home/manage"><img src="assets/image/icons/home.png" style="margin-top: 20px;"  alt="Home"></a>
-        </div>
-
-
-
-
-
-
-
-    <div class="nav-right">
-        <!-- <div class="search-box">
-            <img src="assets/image/icons/search.png">
-            <input type="text"placeholder="Search">
-        </div> -->
-        <button type="button" class="nav-user-icon online" (click)="settingsMenuToggle()">
-            <img [src]="user.profilePicture" >
-        </button>
+      <form class="input-group w-auto my-auto d-none d-sm-flex" style="margin-left: 10px;">
+        <input
+          autocomplete="off"
+          type="search"
+          class="form-control rounded"
+          placeholder="Search"
+          style="min-width: 125px;"
+        />
+        <span class="input-group-text border-0 d-none d-lg-flex"
+          ><i class="fas fa-search"></i
+        ></span>
+      </form>
     </div>
-    <div class=" " [ngClass]="hideActionMenu  ? 'settings-menu settings-menu-height' : 'settings-menu'">
-       
-        <div class="setting-menu-inner">
-            <div class="user-profile">
-                <img [src]="user.profilePicture"  alt="">
-            <div>
-            <p>{{user.firstName+' '+ user.lastName}}</p>
-            <a (click)="viewUserDetail()" style="cursor: pointer;color:#1876f2;font-size: 12px;">See your profile</a>
-        </div>
-            </div>
-            <hr>
-
-
+    <!-- Left elements -->
+    <!-- Center elements -->
+    <ul class="navbar-nav flex-row d-none d-md-flex"[ngClass]="{'notifi-box-height': !hideActionMenu2}">
+      <li class="nav-item me-3 me-lg-1 active">
+        <a class="nav-link" routerLink="/home">
+          <span><i class="fas fa-home fa-lg"></i></span>
+        </a>
+        </li>
+        <li class="nav-item me-3 me-lg-1 active d-flex align-items-center">
+            <span class="nav-link"><i class="fas fa-bell fa-lg" (click)="toggleMenu()" ></i></span>
+            <!-- <span>{{notificationsModels.length}}</span> -->
+          <div class="notifi-box" id="box" [ngClass]="{'notifi-box-height': !hideActionMenu2}" >
+          <h2>Notification <span style="font-family: inherit; font-size: 16px; font-weight: 700;color: #304D30">{{notificationsModels.length}}</span></h2>
+          <div class="notifi-item" *ngFor="let notification of notificationsModels">
+              <img [src]="notification.profilePicture" alt="">
+              <div class="text">
+                  <h4>{{notification.fullName}}</h4>
+                  <p>{{notification.content}}</p>
+              </div>
+          </div>
+      </div>
+        </li>
+      <li class="nav-item me-3 me-lg-1">
+        <a class="nav-link" routerLink="/friends">
+          <span><i class="fas fa-users fa-lg"></i></span>
+        </a>
+      </li>
+    </ul>
+    <!-- Right elements -->
+    <div class="d-flex">
+      <ul class="navbar-nav flex-row">
+        <li class="nav-item  me-lg-1">
+          <a class="nav-link d-sm-flex align-items-sm-center" (click)="viewUserDetail()" style="cursor: pointer;">
+            <img [src]="user.profilePicture" class="rounded-circle" height="30" alt="" loading="lazy" />
+            <strong class="d-none d-sm-block ms-1" (click)="viewUserDetail()" style="cursor: pointer;">{{user.firstName}}</strong>
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav flex-row"style="margin-top: 8px;">
+        <li class="nav-item me-3 me-lg-1 active d-flex ms-auto">
+          <span class="nav-link"><i class="fas fa-chevron-circle-down fa-lg" (click)="settingsMenuToggle()"></i></span>
+          <div [ngClass]="hideActionMenu ? 'settings-menu settings-menu-height' : 'settings-menu'">
             <div class="settings-links">
-                <img src="assets/image/icons/setting.png" class="settings-icon">
-                <a routerLink="/setting">Settings <img src="assets/image/icons/arrow.png"width="10px"></a>
+              <img src="assets/image/icons/setting.png" class="settings-icon">
+              <a routerLink="/setting">Settings <img src="assets/image/icons/arrow.png" width="10px"></a>
             </div>
             <div class="settings-links">
-                <img src="assets/image/icons/logout.png" class="settings-icon">
-                <a (click)="Logout()" style="cursor: pointer; color: black;">Logout <img src="assets/image/icons/arrow.png"width="10px"></a>
+              <img src="assets/image/icons/logout.png" class="settings-icon">
+              <a (click)="Logout()" style="cursor: pointer; color: black;">Logout <img src="assets/image/icons/arrow.png" width="10px"></a>
             </div>
-        </div>
-
+          </div>
+        </li>
+      </ul>
     </div>
-   </nav>
+      </div>
+</nav>
+

@@ -13,7 +13,10 @@
   justify-content: center;
   margin-bottom: 30px;
 }
-
+.form-check-inline .form-check-input {
+  margin-right: 10px; /* Adjust this value to increase or decrease space */
+  gap: 10px;
+}
 .logo img {
   max-width: 80px; /* Adjust the max-width for the logo image */
   max-height: 65px;

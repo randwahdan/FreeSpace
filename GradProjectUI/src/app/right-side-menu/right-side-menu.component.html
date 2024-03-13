@@ -1,56 +1,14 @@
 <div class="right-sidebar">
-    <div class="sidebar-title">
-        <h4 class="title"><img src="assets/image/icons/icons8-event-25.png" alt=""> Events</h4>
-        <a  routerLink="/Event">See All</a>
-    </div>
-    <div class="event">
-        <div class="left-event">
-            <h3>16</h3>
-            <span>November</span>
-        </div>
-        <div class="right-event">
-            <h4>Cycling</h4>
-            <p>Khalda & Dabouq</p>
-            <a href="#">More Info</a>
-        </div>
-
-    </div>
-    <div class="event">
-        <div class="left-event">
-            <h3>17</h3>
-            <span>November</span>
-        </div>
-        <div class="right-event">
-            <h4>Social Media</h4>
-            <p>Free Space plateform</p>
-            <a href="#">More Info</a>
-        </div>
-
-    </div>
-    <div class="event">
-        <div class="left-event">
-            <h3>22</h3>
-            <span>November</span>
-        </div>
-        <div class="right-event">
-            <h4>Palestine Film Days</h4>
-            <p>Free Space plateform</p>
-            <a href="#">More Info</a>
-        </div>
-
-    </div>
-    <div class="event">
-        <div class="left-event">
-            <h3>24</h3>
-            <span>November</span>
-        </div>
-        <div class="right-event">
-            <h4>YOGA class</h4>
-            <p>Free Space plateform</p>
-            <a href="#">More Info</a>
-        </div>
-
-    </div>
-    
-   
+  <div class="sidebar-title">
+      <h4 class="title">Suggested for you</h4>
+      <a routerLink="/Event">See All</a>
+  </div>
+  <div class="online-list" *ngFor="let user of users">
+      <div class="online">
+          <img [src]="user.profilePicture" alt="">
+      </div>
+      <p>{{user.fullName}}</p>
+      <button *ngIf="!user.isAdded" class="action-follow" (click)="addFriend(user)">Add</button>
+      <button *ngIf="user.isAdded" class="action-follow">Pending</button>
+  </div>
 </div>

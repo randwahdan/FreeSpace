@@ -1,71 +1,51 @@
-
-     <div class="header">
-        <div class="logo">Free<img src="assets\image\logo\dove_3804900 (1).png"><span>Space</span></div>
-        <form  [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="on">
-            <div class="sign-in-form">
-                <div class="user-input">
-                    <div class="input-text">Email</div>
-                    <input type="email" name="in-email" formControlName="email" class="input-text-field" value="">
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+                <div class="text-center">
+                  <div class="logo"><img src="assets\image\logo\watermelon.png"><span >FreeSpace</span></div>
                 </div>
-                <div class="password-input">
-                    <div style="font-size:15px;padding-bottom:5px;">Password</div>
-                    <!-- <input type="password" formControlName="password" name="in-pass" id="in-password" class="input-text-field"> -->
-                    <input type="password" name="in-pass" formControlName="password" class="input-text-field" value="">
-
-                </div>
-              <div class="login-button">
-                <input type="submit" value="Log in" class="sign-in login">
+                <form  [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+                  <p style="font-weight: 550">Please login to your account</p>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example11">Email</label>
+                    <input type="email" id="form2Example11" name="in-email" formControlName="email"  class="form-control"  placeholder="Email address">
+                  </div>
+                  <div class="form-outline mb-4">
+                    <label class="form-label" for="form2Example22">Password</label>
+                    <input type="password" name="in-pass" formControlName="password" id="form2Example22" class="form-control" placeholder="Password">
+                  </div>
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button class="btn btn-primary btn-block   mb-3 col-md-6 rounded-5" type="submit"style="background-color: #1E5128;">Log
+                      in</button>
+                  </div>
+                  <div class="d-flex align-items-center justify-content-center pb-4">
+                    <p class="mb-0 me-2">Don't have an account?</p>
+                    <a routerLink="/register" routerLinkActive="active" class="btn btn-light" style="font-weight: 550;"
+                    (mouseenter)="hovered = true" (mouseleave)="hovered = false">
+                    Create <img [src]="hovered ? 'assets/image/logo/watermelon.png' : 'assets/image/logo/watermelon (9).png'" style="max-width: 20px;">
+                    </a>
+                  </div>
+                </form>
               </div>
-
             </div>
-        </form>
-    </div>
-    <div class="main" style="width:100%;">
-        <div class="left-side">
-            <img class="sign-image" src="assets/image/pic/like-comment.png" alt="sign-up-image">
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                  <h4 class="mb-4 text-center">Welcome to FreeSpace: Where Your Voice Matters</h4>
+                  <p class="small mb-4">FreeSpace: Where every voice is heard and respected. Join us to freely express your opinions without fear of censorship or reach limitations.</p>
+                  <h5>Why Choose FreeSpace?</h5>
+                  <p class="small mb-4">Empowering voices, celebrating diversity, and ensuring seamless support. Join FreeSpace for a valued and protected experience.</p>
+                  <p class="mb-0">Join the FreeSpace Community Today</p>
+                  <a routerLink="/register" routerLinkActive="active" class="btn btn-outline-light mt-2 align-items-center">Sign up now</a>
+              </div>
+          </div>
+          </div>
         </div>
-        <div class="right-side">
-            <div class="error"></div>
-            <h1 style="color:#212121;">Create an account</h1>
-            <div style="color:#212121;font-size:20px;margin-top: 20px;">It's free and always will be</div>
-            <form [formGroup]="registerationForm" (ngSubmit)="Register()">
-                <div class="sign-up-form">
-                    <div class="sign-up-name">
-                        <input  type="text"  name="firstName" formControlName="firstname"  class="text-field" placeholder="First Name" required>
-                        <input type="text" name="lastName" formControlName="lastname" class="text-field" placeholder="Last Name" required>
-
-
-                    </div>
-                    <div class="sign-wrap-email">
-                        <input type="email" formControlName="email"   name="email" id="up-email" class="text-input" placeholder="Email address">
-                    </div>
-                    <div class="sign-up-password">
-                        <input type="password" name="password"formControlName="password"  class="text-input" placeholder="Password">
-                    </div>
-                    <div class="sign-up-birthday">
-                        <div class="bday">Birthday</div>
-                        <div class="form-birthday">
-
-                            <div class="input-group date">
-                                <input type="date" formControlName="dateOfBirth"  class="form-control"/>
-                              </div>
-                        </div>
-
-                    </div>
-                    <div class="gender-wrap">
-                        <input type="radio" name="gender" id="fem" value="female" formControlName="gender" class="m0">
-                        <label for="fem" class="gender">Female</label>
-                        <input type="radio" name="gender" id="male" value="male" formControlName="gender"  class="m0">
-                        <label  for="male" class="gender">Male</label>
-                    </div>
-                    <div class="term">
-                        By clicking Sign Up, you agree to our terms, Date policy and Cookie policy.
-                    </div>
-                    <input type="submit"   class="sign-up">
-                </div>
-            </form>
-        </div>
+      </div>
     </div>
-
-
-
+  </div>
+</section>

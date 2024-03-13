@@ -8,10 +8,11 @@ import { HttpClient } from '@angular/common/http';
 import {environment} from "../../../environment";
 import {SharedService} from "../../services/shared.service";
 import { UserModel } from '../../models/user-model';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-change-profile',
   templateUrl: './change-profile.component.html',
-  
+
 })
 export class ChangeProfileComponent {
   ChangePFP:FormGroup;
@@ -24,7 +25,7 @@ export class ChangeProfileComponent {
   @ViewChild('fileInputCover') fileInputCover: any;
   constructor( private router: Router, private authService: AuthService, private fb: FormBuilder,
                private sharedService: SharedService,
-               private http: HttpClient){
+               private http: HttpClient,private toastr:ToastrService){
     this.ChangePFP = this.fb.group({
       fileUploadPic: '',
       fileUploadCover:''
@@ -64,6 +65,7 @@ export class ChangeProfileComponent {
       (response) => {
         console.log('Image uploaded successfully:', response);
         this.sharedService.updateProfile(true);
+        this.toastr.success("Image uploaded successfully");
         this.fileInputCover.nativeElement.value = '';
       },
       (error) => {
@@ -76,7 +78,7 @@ export class ChangeProfileComponent {
     this.uploadImage(this.selectedFile).subscribe(
       (response) => {
         console.log('Image uploaded successfully:', response);
- 
+        this.toastr.success("Image uploaded successfully");
         this.sharedService.updateProfile(true);
         this.fileInputProfile.nativeElement.value = '';
       },

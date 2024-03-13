@@ -43,38 +43,43 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6 mb-4 d-flex align-items-center">
+                    <div class="col-md-12 mb-4 d-flex align-items-center">
                       <div class="form-outline datepicker w-100">
                         <label for="birthdayDate" class="form-label">Birthday</label>
                         <input type="date" formControlName="dateOfBirth"  class="form-control form-control-lg"  />
                       </div>
                     </div>
-                    <div class="col-md-6 mb-4">
-                      <h6 class="mb-2 pb-1">Gender: </h6>
-                      <div class="form-check form-check-inline">
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mb-4">
+                      <h6 class="mb-2 pb-1 d-inline-block ml-3">Gender: </h6>
+                      <div class="form-check form-check-inline mr-5 d-inline-block" >
                         <input class="form-check-input" type="radio" name="gender" id="fem" value="female" formControlName="gender"  />
                         <label class="form-check-label" for="femaleGender">Female</label>
                       </div>
-                      <div class="form-check form-check-inline">
+                      <div class="form-check form-check-inline mr-4 d-inline-block">
                         <input class="form-check-input" type="radio" name="gender" id="male" value="male" formControlName="gender" />
                         <label class="form-check-label" for="maleGender">Male</label>
                       </div>
                     </div>
                   </div>
-                  <div class="mt-4 pt-2">
-                    <input class="btn btn-primary btn-lg col-md-12" type="submit" value="Sign Up" style="background-color: #1E5128;" />
+
+                  <div class="pt-2">
+                    <input class="btn btn-primary btn-lg col-md-12 rounded-5" type="submit" value="Sign Up" style="background-color: #1E5128;" />
                   </div>
                 </form>
               </div>
             </div>
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
               <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                <h4 class="mb-4">We are more than just a company</h4>
-                <p class="small mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                  exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                  <h4 class="mb-4 text-center">Create Your FreeSpace Account</h4>
+                  <p class="small mb-4">Welcome to FreeSpace, where your voice matters. We stand for freedom of expression and provide a platform where every opinion is heard and respected. Join us and be part of a community where you can freely express your thoughts without fear of censorship or limited reach.</p>
+                  <h5>Why Choose FreeSpace?</h5>
+                  <p class="small mb-4">Join our inclusive community where your voice matters. Share stories, connect with like-minded individuals, and express yourself freely. Your freedom of speech is protected, and our team ensures a seamless and enjoyable experience every step of the way.</p>
+                  <p class="mb-0">Already have an account? <a routerLink="/login" routerLinkActive="active" class="text-white">Log in here</a></p>
               </div>
-            </div>
+          </div>
+
           </div>
         </div>
       </div>

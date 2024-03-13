@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Configures the application to use EF Core with SQL Server as the database provider.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
-    options.UseSqlServer("Data Source=localhost;Initial Catalog=FreeSpace;Integrated Security=True;TrustServerCertificate=True;");
+    options.UseSqlServer("Data Source=localhost;Initial Catalog=FreeSpaceDb;Integrated Security=True;TrustServerCertificate=True;");
 });
 
 //Add Controller

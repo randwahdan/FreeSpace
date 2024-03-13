@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-mange-post',
   templateUrl: './mange-post.component.html',
+  styleUrl: './manage-post.component.scss'
 })
 
 export class MangePostComponent  implements OnInit{

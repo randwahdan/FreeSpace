@@ -12,8 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl:'./side-navigation-bar.component.scss'
 
 })
-export class SideBarComponent
-  implements OnInit {
+export class SideBarComponent implements OnInit {
   @Input() userId:any;
   hideActionMenu=false;
   hideActionMenu2: boolean = true;

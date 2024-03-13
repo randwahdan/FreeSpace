@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "VrYOZ1aaOj6/mA8bsMqIcuZzlWRk2X9xzzfAgBA1AIura3mybDUbrTwPiBUpAVGJFR2Jq2rIhJrIhtJAeEwv3A==",
+  "dgSpecHash": "CHqvgqQvSZN9XN7VV/5jBiACgKYdKyYFbcbgMIXHH5DH906M/3UTax5EdggS5rTxGehtUGhwwnx6+oyesjs5CQ==",
   "success": true,
-  "projectFilePath": "D:\\Graduation project 1\\FreeSpace\\FreeSpace.Web\\FreeSpace.Web.csproj",
+  "projectFilePath": "C:\\Users\\rand_\\OneDrive\\Desktop\\FreeSpace\\FreeSpace\\GradProject\\FreeSpace.Web\\FreeSpace.Web.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\rand_\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\rand_\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

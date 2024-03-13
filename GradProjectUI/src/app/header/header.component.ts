@@ -7,7 +7,7 @@ import {NotificationModel} from "../models/Notification-model";
 import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
+  templateUrl: './header.component.html'
 
 })
 export class HeaderComponent implements OnInit {

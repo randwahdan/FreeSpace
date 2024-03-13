@@ -1,26 +1,43 @@
-<div class="mainDiv">
-  <div class="cardStyle" id="privacy">
-    <form [formGroup]="ChangePFP"   enctype="multipart/form-data">
-      <h2 class="formTitle">
-        Change profile picture
-      </h2>
-      <br>
-      <div class="UserProfile-info">
-        <img [src]="user.profilePicture" alt="user">
+<div style=" padding: 20px; border-radius: 10px;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-body tab-content mt-5">
+            <div class="tab-pane active" id="profile">
+              <h6>EDIT PROFILE PICTURE OR COVER</h6>
+              <hr>
+              <form [formGroup]="ChangePFP"   enctype="multipart/form-data">
+                <div class="UserProfile-info">
+                  <img [src]="user.profilePicture" alt="user">
+                </div>
+                <div class="form-group">
+                  <label for="fileUploadPic" class="inputLabel">Upload Profile Picture</label>
+                  <div class="form-group row">
+                  <div class="col-sm-10">
+                    <input type="file" class="form-control" name="fileUploadPic" #fileInputProfile formControlName="fileUploadPic" (change)="onFileChanged($event)">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" (click)="onUpload()" class="btn btn-light" style="background-color: #82CD47;">Upload</button>
+                </div>
+                </div>
+              </div>
+                <div class="form-group mt-2">
+                  <label for="fileUploadPic" class="inputLabel">Upload Cover Picture</label>
+                  <div class="form-group row">
+                    <div class="col-sm-10">
+                  <input type="file"  class="form-control"name="fileUploadCover" formControlName="fileUploadCover" #fileInputCover (change)="onFileCoverChanged($event)">
+                    </div>
+                    <div class="col-sm-2">
+                  <button type="submit" (click)="onUploadCover()" class="btn btn-light " style="background-color: #82CD47;">Upload</button>
+                  </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-      <label for="fileUploadPic">Upload Profile picture</label>
-      <br>
-      <input type="file" name="fileUploadPic" #fileInputProfile formControlName="fileUploadPic" (change)="onFileChanged($event)">
-      <button type="submit" class="btn" (click)="onUpload()">Upload</button>
-      <div class="buttonWrapper">
-      </div>
-      <label for="fileUploadPic">Upload Cover picture</label>
-      <br>
-      <input type="file" name="fileUploadCover" formControlName="fileUploadCover" #fileInputCover (change)="onFileCoverChanged($event)">
-      <button type="submit" class="btn" (click)="onUploadCover()">Upload</button>
-      <div class="buttonWrapper">
-      </div>
-
-    </form>
+    </div>
   </div>
 </div>

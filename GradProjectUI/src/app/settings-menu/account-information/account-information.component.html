@@ -1,33 +1,33 @@
-<div class="mainDiv" id="divAccount">
-  <div class="cardStyle">
-    <form [formGroup]="BasicInfo" (ngSubmit)="SaveInfo()" name="AccountForm" novalidate>
-
-      <h2 class="formTitle">
-        Account Information
-      </h2>
-
-      
-
-      <!-- <div class="inputDiv">
-        <label class="inputLabel" for="tbPhon">Phone Number:</label>
-        <input type="text" id="mobileNumber" formControlName="mobileNumber"  >
-
-      </div> -->
-      <div class="inputDiv">
-        <label class="inputLabel" for="bio">Bio:</label>
-        <textarea formControlName="bio" id="" cols="30" rows="10"></textarea>
+<div style=" padding: 20px; border-radius: 10px;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow">
+          <div class="card-body tab-content mt-5">
+            <div class="tab-pane active" id="profile">
+              <h6>YOUR PROFILE INFORMATION</h6>
+              <hr>
+              <form [formGroup]="BasicInfo" (ngSubmit)="SaveInfo()" name="AccountForm">
+                <div class="form-group">
+                  <label class="inputLabel" for="bio">Your Bio</label>
+                  <textarea formControlName="bio" class="form-control autosize" id="bio" placeholder="Write something about you" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 62px; "></textarea>
+                </div>
+                <div class="form-group mt-2">
+                  <label class="inputLabel" for="nickname">Your Nickname</label>
+                  <input type="text" class="form-control" id="nickname" formControlName="nickname" placeholder="Enter your nickname">
+                </div>
+                <div class="form-group small text-muted mt-1">
+                  All of the fields on this page are required, and by filling them out, you're giving us consent to share this data wherever your user profile appears.
+                </div>
+                <div class="mt-3">
+                  <button type="submit" name="AccSaveButton" class="btn btn-light" style="background-color: #82CD47;">Update Profile</button>
+                  <button type="reset" click="AccRestButton" class="btn btn-light">Reset Changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="inputDiv">
-        <label class="inputLabel" for="nickname">Nickname:</label>
-        <input type="text" id="nickname" formControlName="nickname" required>
-      </div>
-      <div class="buttonWrapper">
-        <button  type="submit" name="AccSaveButton"  class="submitButton pure-button pure-button-primary">
-          <span>Save </span>
-        </button>
-      </div>
-
-    </form>
+    </div>
   </div>
 </div>

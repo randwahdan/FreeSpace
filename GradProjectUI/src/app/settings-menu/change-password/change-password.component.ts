@@ -17,6 +17,7 @@ export class ChangePasswordComponent {
       confirmPassword:['', [Validators.required]],
     });
   }
+
   UpdatePassword(){
     var formValue = this.ChangePassword.value;
     this.ChangePasswordModel.oldPassword = formValue.oldPassword;
@@ -26,5 +27,4 @@ export class ChangePasswordComponent {
       this.router.navigateByUrl('login');
     });
   }
-
 }

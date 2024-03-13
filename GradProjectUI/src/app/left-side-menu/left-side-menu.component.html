@@ -1,20 +1,114 @@
-
-    <div class="left-sidebar">
-        <div class="imp-link">
-            <a  routerLink="/friends"  routerLinkActive="active"><img src="assets/image/icons/friends.png" alt="">Friends</a>
-        </div>
-        <div class="sidebar-title">
-            <h6 style=" color:#1876f2;margin-bottom: 20px;">Users suggestions</h6>
-
-        </div>
-        <div class="online-list" *ngFor="let user of users">
-            <div class="online">
-                <img [src]="user.profilePicture" alt="">
-            </div>
-            <p>{{user.fullName}}</p>
-          <button *ngIf="!user.isAdded" class="action-follow" (click)="addFriend(user)">Add Friend</button>
-          <button *ngIf="user.isAdded" class="action-follow" >Pending</button>
-
-        </div>
-
+<!--Main Navigation-->
+<header>
+  <!-- Sidebar -->
+  <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+    <div class="position-sticky">
+      <div class="list-group list-group-flush mx-3 mt-5">
+        <a [routerLink]="['/setting']" routerLinkActive="active" class="list-group-item list-group-item-action py-2 ripple custom-link"
+          ><i class="fa-solid fa-gear fa-fw me-3"></i><span>Settings</span>
+        </a>
+        <a [routerLink]="['/setting/account']"  class="list-group-item list-group-item-action py-2 ripple "
+          ><i class="fa-solid fa-user fa-fw me-3"></i><span>Profile Information</span></a
+        >
+        <a [routerLink]="['/setting/changeProfile']"  class="list-group-item list-group-item-action py-2 ripple "
+          ><i class="fa-solid fa-image fa-fw me-3"></i><span>Account Picture</span></a
+        >
+        <a [routerLink]="['/setting/changePassword']"  class="list-group-item list-group-item-action py-2 ripple ">
+          <i class="fa-solid fa-shield fa-fw me-3"></i><span>Security</span>
+        </a>
+        <a  [routerLink]="['/setting/deleteAccount']"  class="list-group-item list-group-item-action py-2 ripple "
+          ><i class="fa-solid fa-user-minus fa-fw me-3"></i><span>Account Settings</span></a
+        >
+      </div>
     </div>
+  </nav>
+  <!-- Sidebar -->
+
+  <!-- Navbar -->
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <!-- Container wrapper -->
+    <div class="container-fluid">
+      <div class="d-flex align-items-center ">
+      <!-- Toggle button -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#sidebarMenu"
+        aria-controls="sidebarMenu"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Brand -->
+      <a class="navbar-brand" routerLink="/home">
+        <img
+        src="assets\image\logo\watermelon.png"
+        height="40"
+        alt=""
+        loading="lazy"
+        style="margin-top: 2px;"
+        alt="FreeSpace Logo"
+        />
+        <span style="font-family: 'CustomLogoFont'; font-size: 40px;margin-top: 4px;">FreeSpace</span>
+      </a>
+      <!-- Search form -->
+      <form class="d-none d-md-flex input-group w-auto my-auto">
+        <input
+          autocomplete="off"
+          type="search"
+          class="form-control rounded"
+          placeholder='Search'
+          style="min-width: 225px;"
+        />
+        <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+      </form>
+      <ul class="navbar-nav  d-none  d-md-flex  w-auto mt-4 " >
+        <li class="nav-item me-3 me-lg-1 active">
+          <a class="nav-link" routerLink="/home">
+            <span><i class="fas fa-home fa-lg"></i></span>
+          </a>
+          </li>
+      </ul>
+    </div>
+
+      <!-- Right links -->
+      <div class="d-flex">
+        <ul class="navbar-nav flex-row">
+          <li class="nav-item  me-lg-1">
+            <a class="nav-link d-sm-flex align-items-sm-center" (click)="viewUserDetail()" style="cursor: pointer;">
+              <img [src]="user.profilePicture" class="rounded-circle" height="30" alt="" loading="lazy" />
+              <strong class="d-none d-sm-block ms-2" (click)="viewUserDetail()" style="cursor: pointer;">{{user.firstName+" "+user.lastName}}</strong>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav flex-row mt-3" >
+          <li class="nav-item me-3 me-lg-1 active d-flex ms-auto">
+            <span class="nav-link"><i class="fas fa-chevron-circle-down fa-lg" (click)="settingsMenuToggle()"></i></span>
+            <div [ngClass]="hideActionMenu ? 'settings-menu settings-menu-height' : 'settings-menu'">
+              <div class="settings-links">
+                <img src="assets/image/icons/setting.png" class="settings-icon">
+                <a routerLink="/setting">Settings <img src="assets/image/icons/arrow.png" width="10px"></a>
+              </div>
+              <div class="settings-links">
+                <img src="assets/image/icons/logout.png" class="settings-icon">
+                <a (click)="Logout()" style="cursor: pointer; color: black;">Logout <img src="assets/image/icons/arrow.png" width="10px"></a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- Container wrapper -->
+  </nav>
+  <!-- Navbar -->
+</header>
+<!--Main Navigation-->
+
+<!--Main layout-->
+<main style="margin-top: 58px;">
+  <div class="container pt-4"></div>
+</main>
+<!--Main layout-->

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
+import{DeleteAccountComponent} from './settings-menu/delete-account/delete-account.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { LeftSideMenuComponent } from './left-side-menu/left-side-menu.component';
@@ -14,7 +15,6 @@ import { SettingsMenuComponent } from './settings-menu/settings-menu.component';
 import { AccountInformationComponent } from './settings-menu/account-information/account-information.component';
 import { ChangePasswordComponent } from './settings-menu/change-password/change-password.component';
 import { ChangeProfileComponent } from './settings-menu/change-profile/change-profile.component';
-import { NotificationSettingComponent } from './settings-menu/notification-setting/notification-setting.component';
 import { FriendsListComponent } from './friend-list/friend-list.component';
 import { LeftSideFriendList } from './friend-list/left-side-bar/left-side-bar.component';
 import { ProfilePage } from './profile/profile-page.component';
@@ -26,9 +26,14 @@ import { LeftSide } from './event/left-side/left-side.component';
 import { EventCards } from './event/event-card/event-card.component';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {AppHttpInterceptor} from "./services/app-interceptor.service";
-import {MatSnackBarModule} from '@angular/material/snack-bar'; 
-import { MatButtonModule } from '@angular/material/button'; 
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {RegisterComponent} from './registration/sign-up.component';
+import { ToastrModule } from 'ngx-toastr';
+import{SideBarComponent}from './side-navigation-bar/side-navigation-bar.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +49,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SettingsMenuComponent,
     AccountInformationComponent,
     ChangePasswordComponent,
-    NotificationSettingComponent,
     LeftSideFriendList,
     ProfilePage,
     ProfileInfo,
@@ -55,19 +59,28 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     EventCards,
     LoginComponent,
     ChangeProfileComponent,
-    
-
+    RegisterComponent,
+    SideBarComponent,
+    DeleteAccountComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    CarouselModule.forRoot(),
     HttpClientModule,
-    MatButtonModule,  
-    MatSnackBarModule,  
-    BrowserAnimationsModule
-    
+    MatButtonModule,
+    MatSnackBarModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      positionClass:'toast-top-right',
+      timeOut: 3000,  // Toast timeout in milliseconds
+      preventDuplicates: false,  // Prevent showing duplicate toasts
+      closeButton: true,
+    }),
+
   ],
   providers: [
     {
@@ -76,7 +89,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       multi: true,}
   ],
 
-  
+
 
   bootstrap: [AppComponent]
 })

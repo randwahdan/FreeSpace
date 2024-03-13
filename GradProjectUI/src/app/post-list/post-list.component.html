@@ -1,110 +1,107 @@
-<div class="post-container" *ngFor="let post of postModelList">
-  <div class="post-row">
-    <div class="user-profile">
-      <img *ngIf="post && post.profilePicture" [src]="post.profilePicture"  alt="">
-      <div>
-        <p>{{post.fullName}}</p>
-        <span>{{post.createdDate |date:'dd/MM/yyyy HH:mm'}}</span>
+<div *ngFor="let post of postModelList">
+<div class="col-md-11 gedf-main ">
+  <div class="card gedf-card">
+      <div class="card-header">
+          <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-between align-items-center">
+                  <div class="mr-2">
+                      <img class="rounded-circle" width="45" *ngIf="post && post.profilePicture" [src]="post.profilePicture" alt="">
+                  </div>
+                  <div class="ml-2">
+                      <div class="h5 m-0"></div>
+                      <div class="h7 text-muted ">{{post.fullName}}</div>
+                  </div>
+              </div>
+              <div>
+                  <div class="dropdown">
+                      <button class="btn btn-link dropdown-toggle" type="button" id="gedf-drop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"style="color:#000">
+                          <i class="fa fa-ellipsis-h"></i>
+                      </button>
+                      <div class="dropdown-menu dropdown-menu-right" aria-labelledby="gedf-drop1">
+                          <div class="h6 dropdown-header">Configuration</div>
+                          <a class="dropdown-item" href="#">Save</a>
+                          <a class="dropdown-item" href="#">Hide</a>
+                          <a class="dropdown-item" href="#">Report</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
-    </div>
-    <a href="#"><i class="bi bi-three-dots-vertical"></i></a>
-  </div>
-
-  <p class="post-text">{{post.content}}</p>
-  <div class="post-grid" >
-    <div *ngFor="let media of post.media " class="post-img-container">
-      <img class="post-img "  [src]="media?.url  " class="post-img">
-    </div>
-  </div>
-  
-  <div class="post-row">
-    <div class="activity-icons">
-      <div *ngIf="post.isLiked"><img src="assets/image/icons/like-blue.png" alt=""(click)="makeDislike(post)">{{post.likesCount}}</div>
-      <div *ngIf="!post.isLiked"><img src="assets/image/icons/like.png" alt="" (click)="makeLike(post)">{{post.likesCount}}</div>
-      <div><img src="assets/image/icons/comments.png" alt=""></div>
-      <br>
-      <br>
-
-<form [formGroup]="commentForm" (ngSubmit)="addComment(post)">
-<div style="width: 100%;" class="comment-box">
-  <input type="text"  name="content" id="content"  formControlName="content" placeholder="Add a comment" />
-  <button type="submit">Add Comment</button>
-</div>
-</form>
-</div>
-  </div>
-<div *ngFor="let comment of post.comments" class="comment-section">
-  <div class="comment">
-    <div class="user-profile">
-      <img style=" margin-right: 10px;" *ngIf="comment && comment.profilePicture" [src]="comment.profilePicture"  alt="">
-    </div>
-    <div class="comment-content">
-      <div class="comment-header">
-        <span class="user-name">{{comment.fullName}}</span>
-        <span class="comment-timestamp" >{{comment.createdDate |date:'dd/MM/yyyy HH:mm' }}</span>
+      <div class="card-body">
+          <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> <span>{{post.createdDate |date:'dd/MM/yyyy HH:mm'}}</span></div>
+          <p class="card-text">
+            {{post.content}}
+          </p>
       </div>
-      <div class="comment-body">
-        <p class="comment-text">{{comment.content}}</p>
+
+      <div class="carousel-container">
+        <ngb-carousel>
+          <ng-template ngbSlide *ngFor="let media of post.media">
+            <img class="d-block w-100 post-img" [src]="media?.url" alt="Slide">
+          </ng-template>
+        </ngb-carousel>
       </div>
-      
-    </div>
+
+      <div class="card-footer">
+        <div class="activity-icons">
+          <div *ngIf="post.isLiked" (click)="makeDislike(post)" class="card-link">
+            <img src="assets/image/icons/icons8-like-32.png" alt="">
+            {{ post.likesCount }} Like
+          </div>
+          <div *ngIf="!post.isLiked" (click)="makeLike(post)" class="card-link">
+            <img src="assets/image/icons/icons8-facebook-like-32.png" alt="">
+            {{ post.likesCount }} Like
+          </div>
+          <div (click)="showCommentSection = !showCommentSection" class="card-link">
+            <img *ngIf="!showCommentSection" src="assets/image/icons/icons8-chat-bubble-32 (1).png" alt="">
+            <img *ngIf="showCommentSection" src="assets/image/icons/icons8-chat-bubble-32.png" alt="">
+            {{ post.comments.length }} Comment
+          </div>
   </div>
-  
+        </div>
+
+        <div *ngIf="showCommentSection">
+          <div class="container mt-5 mb-5">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="p-3">
+                    <h6>Comments</h6>
+                  </div>
+                  <div class="mt-3 d-flex flex-row align-items-center p-3 form-color">
+                    <img [src]="post.profilePicture" width="50" class="rounded-circle mr-2">
+                    <form [formGroup]="commentForm" (ngSubmit)="addComment(post)" class="d-flex flex-grow-1">
+                      <div class="input-group flex-grow-1">
+                        <input type="text" class="form-control" placeholder="Write a comment..." formControlName="content">
+                        <div class="input-group-append">
+                          <button type="submit" class="btn btn-primary">Add Comment</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="mt-2">
+                    <!-- Loop through comments -->
+                    <div *ngFor="let comment of post.comments" class="d-flex flex-row p-3 comment-item">
+                      <img src="{{ comment.profilePicture }}" width="40" height="40" class="rounded-circle mr-3">
+                      <div class="w-100">
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="d-flex flex-row align-items-center">
+                            <span class="mr-2">{{ comment.fullName }}</span>
+                            <small class="c-badge">Top Comment</small>
+                          </div>
+                          <small>{{ comment.createdDate | date:'dd/MM/yyyy HH:mm' }}</small>
+                        </div>
+                        <p class="text-justify comment-text mb-0">{{ comment.content }}</p>
+                      </div>
+                    </div>
+                    <!-- COMMENT - END -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+  </div>
 </div>
-</div>
 
-
-
-
-<!--
-
-<div class="post-container">
-  <div class="post-row">
-    <div class="user-profile">
-      <img src="assets/image/profile/member6.jpg" alt="">
-      <div>
-        <p>Samer Wahdan</p>
-        <span>November 11 2023 , 16:30 pm</span>
-      </div>
-    </div>
-    <a href="#"><i class="bi bi-three-dots-vertical"></i></a>
-  </div>
-
-  <p class="post-text">Time spent amongst trees is never wasted time</p>
-  <img src="assets/image/post/imgPost3.JPG"class="post-img">
-  <div class="post-row">
-    <div class="activity-icons">
-      <div><img src="assets/image/icons/like-blue.png" alt="">95</div>
-      <div><img src="assets/image/icons/comments.png" alt="">15</div>
-      <div><img src="assets/image/icons/share.png" alt="">4</div>
-    </div>
-
-  </div>
-</div>
-
-<div class="post-container">
-  <div class="post-row">
-    <div class="user-profile">
-      <img src="assets/image/profile/member4.jpg" alt="">
-      <div>
-        <p>Tasnim AlShishani</p>
-        <span>October 7 2023 , 13:40 pm</span>
-      </div>
-    </div>
-    <a href="#"><i class="bi bi-three-dots-vertical"></i></a>
-  </div>
-
-  <p class="post-text">We shouldn't stop talking about Ghaza
-    Israel is criming now</p>
-  <img src="assets/image/post/imgPost1.jpg"class="post-img">
-  <div class="post-row">
-    <div class="activity-icons">
-      <div><img src="assets/image/icons/like-blue.png" alt="">95</div>
-      <div><img src="assets/image/icons/comments.png" alt="">15</div>
-      <div><img src="assets/image/icons/share.png" alt="">4</div>
-
-
-    </div>
-  </div>
-</div>
-<button type="button"class="load-more-button">Load More</button> -->

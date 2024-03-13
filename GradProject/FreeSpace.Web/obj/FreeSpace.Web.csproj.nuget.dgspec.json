@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Graduation project 1\\FreeSpace\\FreeSpace.Web\\FreeSpace.Web.csproj": {}
+    "C:\\Users\\rand_\\OneDrive\\Desktop\\FreeSpace\\FreeSpace\\GradProject\\FreeSpace.Web\\FreeSpace.Web.csproj": {}
   },
   "projects": {
-    "D:\\Graduation project 1\\FreeSpace\\FreeSpace.Web\\FreeSpace.Web.csproj": {
+    "C:\\Users\\rand_\\OneDrive\\Desktop\\FreeSpace\\FreeSpace\\GradProject\\FreeSpace.Web\\FreeSpace.Web.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Graduation project 1\\FreeSpace\\FreeSpace.Web\\FreeSpace.Web.csproj",
+        "projectUniqueName": "C:\\Users\\rand_\\OneDrive\\Desktop\\FreeSpace\\FreeSpace\\GradProject\\FreeSpace.Web\\FreeSpace.Web.csproj",
         "projectName": "FreeSpace.Web",
-        "projectPath": "D:\\Graduation project 1\\FreeSpace\\FreeSpace.Web\\FreeSpace.Web.csproj",
+        "projectPath": "C:\\Users\\rand_\\OneDrive\\Desktop\\FreeSpace\\FreeSpace\\GradProject\\FreeSpace.Web\\FreeSpace.Web.csproj",
         "packagesPath": "C:\\Users\\rand_\\.nuget\\packages\\",
-        "outputPath": "D:\\Graduation project 1\\FreeSpace\\FreeSpace.Web\\obj\\",
+        "outputPath": "C:\\Users\\rand_\\OneDrive\\Desktop\\FreeSpace\\FreeSpace\\GradProject\\FreeSpace.Web\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

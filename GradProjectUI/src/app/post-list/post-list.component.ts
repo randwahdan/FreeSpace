@@ -8,6 +8,9 @@ import { SharedService } from '../services/shared.service';
 import { CommentModel } from "../models/comment-model";
 import { FormBuilder, FormGroup } from '@angular/forms';
 
+
+
+
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -19,11 +22,13 @@ export class PostListComponent implements OnInit {
   post: PostModel;
   postModelList: PostModel[] = [];
   isCurrentPostLiked = false;
+  showCommentSection = false;
   @Input() userId: any;
   constructor(private postService: PostService, private sharedService: SharedService, private fb: FormBuilder) {
     this.commentForm = this.fb.group({
       content: '',
     });
+
   }
 
   ngOnInit(): void {
@@ -50,7 +55,7 @@ export class PostListComponent implements OnInit {
 
   getPosts() {
     this.postService.getPost().subscribe(async result => {
-        
+
       this.postModelList = result;
       console.log(result);
 

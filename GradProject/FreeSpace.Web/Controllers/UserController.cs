@@ -360,6 +360,36 @@ namespace FreeSpace.Web.Controllers
             return BadRequest(new { message = "User not found" });
         }
 
+        [HttpPost("changePassword")]
+        public IActionResult ChangePassword([FromBody] ChangePassword model)
+        {
+            if (model == null)
+            {
+                return BadRequest(new { message = "Invalid data received" });
+            }
+
+            Guid userId = Guid.Parse(User.Identity?.Name);
+            var user = _dbContext.Users.Find(userId);
+            if (user != null)
+            {
+                if (model.oldPassword != user.Password)
+                {
+                    return BadRequest(new { message = "Old password is incorrect" });
+                }
+
+                user.Password = model.newPassword;
+
+                _dbContext.Entry(user).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+
+                return Ok(new { message = "Password updated successfully" });
+            }
+
+            return BadRequest(new { message = "User not found" });
+        }
     }
-   
+
 }
+
+   
+
