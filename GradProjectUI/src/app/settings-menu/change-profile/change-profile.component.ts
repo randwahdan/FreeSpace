@@ -23,9 +23,7 @@ export class ChangeProfileComponent {
   @ViewChild('fileInputProfile') fileInputProfile: any;
 
   @ViewChild('fileInputCover') fileInputCover: any;
-  constructor( private router: Router, private authService: AuthService, private fb: FormBuilder,
-               private sharedService: SharedService,
-               private http: HttpClient,private toastr:ToastrService){
+  constructor( private router: Router, private authService: AuthService, private fb: FormBuilder,private sharedService: SharedService,private http: HttpClient,private toastr:ToastrService){
     this.ChangePFP = this.fb.group({
       fileUploadPic: '',
       fileUploadCover:''
@@ -69,7 +67,12 @@ export class ChangeProfileComponent {
         this.fileInputCover.nativeElement.value = '';
       },
       (error) => {
-        console.error('Error uploading image:', error);
+        if (error.message === "Failed to upload imageNo file received or file is empty") {
+        this.toastr.error('No image uplouded.');
+        }
+        else if (error.message === "Only image files are allowed") {
+          this.toastr.error('Only image files are allowed');
+          }
       }
     );
   }
@@ -83,7 +86,12 @@ export class ChangeProfileComponent {
         this.fileInputProfile.nativeElement.value = '';
       },
       (error) => {
-        console.error('Error uploading image:', error);
+        if (error.message === "Failed to upload imageNo file received or file is empty") {
+        this.toastr.error('No image uplouded.');
+        }
+        else if (error.message === "Only image files are allowed") {
+          this.toastr.error('Only image files are allowed');
+          }
       }
     );
   }

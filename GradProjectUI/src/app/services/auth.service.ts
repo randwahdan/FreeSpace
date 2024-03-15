@@ -14,7 +14,7 @@ export class AuthService {
     localStorage.removeItem('jwt');
     return this.httpClient.post('/Auth/Login', data);
   }
- 
+
   Register(data:any):Observable<any>{
     debugger
     localStorage.removeItem('jwt');
@@ -27,7 +27,10 @@ export class AuthService {
     return this.httpClient.post('/User/updateUserInfo',data);
   }
   UpdatePassword(data:any):Observable<any>{
-    return this.httpClient.post('/Auth/Register',data);
+    return this.httpClient.post('/User/changePassword',data);
+  }
+  deleteAccount(data:any):Observable<any>{
+    return this.httpClient.post('/User/deleteUser',data);
   }
   UpdatePFP(data:any):Observable<any>{
     return this.httpClient.post('/Auth/Register',data);

@@ -108,14 +108,21 @@ margin-right: 15px;
 
 }
 .settingsForm-position {
-  margin-left: 22rem; /* Adjust the top margin as needed */
-  padding: 36px 0;
-  @media only screen and (max-width: 480px) {
-  margin-left: 0; /* Reset margin for smaller screens */  }
-  @media only screen and (min-width: 768px) {
-    flex-direction: row;
+  padding: 37px 0;
+  @media only screen and (min-width: 768px){
+    .settingsForm-position {
+      margin-left: 22rem;
+      display: flex; /* Use flexbox layout */
+    }
+  }
+
+  @media only screen and (max-width: 767px)  {
+    .settingsForm-position {
+      margin-left: 0;
+    }
   }
 }
+
 .categories-list{
     display:flex;
     align-items: center;

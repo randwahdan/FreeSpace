@@ -27,6 +27,22 @@ export class AccountInformationComponent {
     this.sharedService.updateProfile(true);
     this.BasicInfo.reset();
     this.toastr.success("Your Info successfully Updated");
+  },
+  (error) => {
+    console.error(' error:', error); // Log the error object to the console
+    // Handle different error messages
+    if (error.message === "Invalid data received") {
+      this.toastr.error('All the fields are required');
+    }
+    else if(error.message === "Bio and Nickname cannot be empty"){
+      this.toastr.error('Bio and Nickname cannot be empty');
+    }
+    else if(error.message === "Bio cannot be empty"){
+      this.toastr.error('Bio cannot be empty');
+    }
+    else if(error.message === "NickName cannot be empty"){
+      this.toastr.error('Nickname cannot be empty');
+    }
     });
     }
     onResetClick(){

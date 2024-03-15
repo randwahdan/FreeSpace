@@ -32,7 +32,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
     // Append 'Accept' and 'Cache-control' headers
     headers = headers.append('Accept', 'application/json');
     headers = headers.append('Cache-control', 'no-cache');
-   
+
     // Get the original request URL
     var url = req.url;
 
@@ -40,14 +40,14 @@ export class AppHttpInterceptor implements HttpInterceptor {
 
     // Check if there's a JWT token in local storage
     if (localStorage.getItem('jwt')) {
-      
+
       // If yes, append 'Authorization' header with the JWT token
       headers = headers.append(
         'Authorization',
         'Bearer ' + localStorage.getItem('jwt')
       );
     }
-   
+
     const options = { headers: headers, url: url };
     const authReq = req.clone(options);
 
@@ -59,7 +59,7 @@ export class AppHttpInterceptor implements HttpInterceptor {
           //    this.router.navigate(['/login']);
           //   return throwError({});
           // }
-          this.router.navigate(['/login']);
+          //this.router.navigate(['/login']);
           return throwError(err.error);
         }
         // TODO: Check what we need to return

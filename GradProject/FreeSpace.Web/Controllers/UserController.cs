@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text.RegularExpressions;
 namespace FreeSpace.Web.Controllers
+
+
+
 {
     [Route("api/[controller]")]
     [Authorize]
@@ -20,17 +23,17 @@ namespace FreeSpace.Web.Controllers
             _dbContext = dbContext;
         }
 
-       [HttpGet("getNonFriends")]
+        [HttpGet("getNonFriends")]
         public List<UserInfoModel> GetNonFriends()
         {
             try
             {
-                List<UserInfoModel> userInfoModels = new List<UserInfoModel>(); 
+                List<UserInfoModel> userInfoModels = new List<UserInfoModel>();
                 Guid userId = Guid.Parse(User.Identity?.Name);
 
                 // Query the database to get a list of friend relationships involving the authenticated user
                 var friendIds = _dbContext.FriendShips
-              .Where(f => (f.SourceId == userId || f.TargetId==userId) )
+              .Where(f => (f.SourceId == userId || f.TargetId == userId))
               .ToList();
 
                 // Extract the IDs of the source and target users from the friend relationships
@@ -40,10 +43,10 @@ namespace FreeSpace.Web.Controllers
 
                 // Retrieve users who are not friends with the user
                 List<User> nonFriends = _dbContext.Users
-                    .Where(u => !allUsers.Contains(u.Id) && u.Id !=userId)
+                    .Where(u => !allUsers.Contains(u.Id) && u.Id != userId)
                     .ToList();
 
-                if (nonFriends!=null && nonFriends.Count()>0)
+                if (nonFriends != null && nonFriends.Count() > 0)
                 {
                     foreach (var friend in nonFriends)
                     {
@@ -75,7 +78,7 @@ namespace FreeSpace.Web.Controllers
         }
 
 
-        
+
 
 
         [HttpGet("getFriends")]
@@ -88,7 +91,7 @@ namespace FreeSpace.Web.Controllers
 
                 // Query the database to get a list of friend relationships involving the authenticated user
                 var friendIds = _dbContext.FriendShips
-              .Where(f => (f.SourceId == userId || f.TargetId == userId )&& f.Status== "Approved")
+              .Where(f => (f.SourceId == userId || f.TargetId == userId) && f.Status == "Approved")
               .ToList();
 
                 // Extract the IDs of the source and target users from the friend relationships
@@ -146,7 +149,7 @@ namespace FreeSpace.Web.Controllers
                     .Where(f => (f.TargetId == userId) && f.Status == "Pending")
                     .ToList();
 
-                if (friendIds!=null && friendIds.Count()>0)
+                if (friendIds != null && friendIds.Count() > 0)
                 {
                     // Extract the IDs of users who sent the pending friend requests
                     var sendersList = friendIds.Select(c => c.SourceId).ToList();
@@ -177,7 +180,7 @@ namespace FreeSpace.Web.Controllers
                         }
                     }
                 }
-             
+
 
                 // You might want to return a DTO or transform the entities before returning them
                 return userInfoModels;
@@ -200,7 +203,7 @@ namespace FreeSpace.Web.Controllers
 
             // Retrieve the authenticated user from the database
             var user = _dbContext.Users.Find(userId);
-            
+
             FriendShip friendShip = new FriendShip();
             friendShip.Status = "Pending";
             friendShip.SourceId = userId;
@@ -236,8 +239,8 @@ namespace FreeSpace.Web.Controllers
 
             // Find the friend request sent by another user to the authenticated user
             FriendShip userAddedMe = _dbContext.FriendShips.Where(u => u.SourceId == (friendRequestModel.UserSourceId) && u.Status == "Pending").FirstOrDefault();
-            
-            if (userAddedMe!=null)
+
+            if (userAddedMe != null)
             {
                 if (friendRequestModel.Status == "Approved")
                     userAddedMe.Status = "Approved";
@@ -246,7 +249,7 @@ namespace FreeSpace.Web.Controllers
                 {
                     userAddedMe.Status = "Reject";
                     _dbContext.FriendShips.Remove(userAddedMe);
-                  
+
                 }
                 _dbContext.Entry(user).State = EntityState.Modified;
                 _dbContext.SaveChanges();
@@ -277,28 +280,32 @@ namespace FreeSpace.Web.Controllers
         [HttpPost("upload")]
         public IActionResult UploadProfileImage()
         {
-            // Retrieve the uploaded file from the request
-            var file = Request.Form.Files[0];
+            var files = Request.Form.Files;
 
-            // Check if the uploaded file has content
-            if (file.Length > 0)
+            if (files.Count == 0 || files[0] == null || files[0].Length == 0)
             {
-                // Use a memory stream to read the content of the file
-                using (var memoryStream = new MemoryStream())
+                return BadRequest(new { message = "No file received or file is empty" });
+            }
+
+            var file = files[0];
+
+            // Check if the uploaded file is an image
+            if (!IsImageFile(file))
+            {
+                return BadRequest(new { message = "Only image files are allowed" });
+            }
+
+            using (var memoryStream = new MemoryStream())
+            {
+                file.CopyTo(memoryStream);
+
+                Guid userId = Guid.Parse(User.Identity?.Name);
+                var user = _dbContext.Users.Find(userId);
+                if (user != null)
                 {
-                    // Copy the content of the file to the memory stream asynchronously
-                    file.CopyToAsync(memoryStream);
-
-                    Guid userId = Guid.Parse(User.Identity?.Name);
-                   var user =  _dbContext.Users.Find(userId);
-                    if (user!=null)
-                    {
-                        user.ProfilePicture = memoryStream.ToArray();
-                        _dbContext.Entry(user).State = EntityState.Modified;
-                        _dbContext.SaveChanges();
-                    }
-
-                 
+                    user.ProfilePicture = memoryStream.ToArray();
+                    _dbContext.Entry(user).State = EntityState.Modified;
+                    _dbContext.SaveChanges();
 
                     return Ok(new { message = "Image uploaded successfully" });
                 }
@@ -309,33 +316,47 @@ namespace FreeSpace.Web.Controllers
 
 
         [HttpPost("uploadCover")]
-        public IActionResult UploadCoverImage()
+    public IActionResult UploadCoverImage()
+    {
+        var files = Request.Form.Files;
+
+        if (files.Count == 0 || files[0] == null || files[0].Length == 0)
         {
-            var file = Request.Form.Files[0];
-
-            if (file.Length > 0)
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    file.CopyToAsync(memoryStream);
-
-                    Guid userId = Guid.Parse(User.Identity?.Name);
-                    var user = _dbContext.Users.Find(userId);
-                    if (user != null)
-                    {
-                        user.CoverPicture = memoryStream.ToArray();
-                        _dbContext.Entry(user).State = EntityState.Modified;
-                        _dbContext.SaveChanges();
-                    }
-
-
-
-                    return Ok(new { message = "Image uploaded successfully" });
-                }
-            }
-
-            return BadRequest(new { message = "Failed to upload image" });
+            return BadRequest(new { message = "No file received or file is empty" });
         }
+
+        var file = files[0];
+
+        if (!IsImageFile(file))
+        {
+            return BadRequest(new { message = "Only image files are allowed" });
+        }
+
+        using (var memoryStream = new MemoryStream())
+        {
+            file.CopyTo(memoryStream);
+
+            Guid userId = Guid.Parse(User.Identity?.Name);
+            var user = _dbContext.Users.Find(userId);
+            if (user != null)
+            {
+                user.CoverPicture = memoryStream.ToArray();
+                _dbContext.Entry(user).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+
+                return Ok(new { message = "Image uploaded successfully" });
+            }
+        }
+
+        return BadRequest(new { message = "Failed to upload image" });
+    }
+
+    private bool IsImageFile(IFormFile file)
+    {
+        // Check if the uploaded file is an image
+        return file.ContentType.StartsWith("image/");
+    }
+
 
         [HttpPost("updateUserInfo")]
         public IActionResult UpdateUserInfo([FromBody] UserInfoModel model)
@@ -343,6 +364,19 @@ namespace FreeSpace.Web.Controllers
             if (model == null)
             {
                 return BadRequest(new { message = "Invalid data received" });
+            }
+
+            if (string.IsNullOrWhiteSpace(model.Bio) && string.IsNullOrWhiteSpace(model.NickName))
+            {
+                return BadRequest(new { message = "Bio and Nickname cannot be empty" });
+            }
+            if (string.IsNullOrWhiteSpace(model.Bio) )
+            {
+                return BadRequest(new { message = "Bio cannot be empty" });
+            }
+            if (string.IsNullOrWhiteSpace(model.NickName))
+            {
+                return BadRequest(new { message = "NickName cannot be empty" });
             }
 
             Guid userId = Guid.Parse(User.Identity?.Name);
@@ -360,6 +394,7 @@ namespace FreeSpace.Web.Controllers
             return BadRequest(new { message = "User not found" });
         }
 
+
         [HttpPost("changePassword")]
         public IActionResult ChangePassword([FromBody] ChangePassword model)
         {
@@ -372,12 +407,17 @@ namespace FreeSpace.Web.Controllers
             var user = _dbContext.Users.Find(userId);
             if (user != null)
             {
-                if (model.oldPassword != user.Password)
+                if (BCrypt.Net.BCrypt.Verify(model.oldPassword, user.Password) == false)
                 {
                     return BadRequest(new { message = "Old password is incorrect" });
                 }
+                if (model.newPassword != model.confirmPassword)
+                {
+                    return BadRequest(new { message = "New password and confirm password do not match" });
+                }
 
-                user.Password = model.newPassword;
+                // Hash the new password before storing it
+                user.Password = BCrypt.Net.BCrypt.HashPassword(model.newPassword);
 
                 _dbContext.Entry(user).State = EntityState.Modified;
                 _dbContext.SaveChanges();
@@ -387,9 +427,25 @@ namespace FreeSpace.Web.Controllers
 
             return BadRequest(new { message = "User not found" });
         }
+        [HttpPost("deleteUser")]
+        public IActionResult DeleteUser()
+        {
+            Guid userId = Guid.Parse(User.Identity?.Name);
+            var user = _dbContext.Users.Find(userId);
+            if (user != null)
+            {
+                _dbContext.Users.Remove(user);
+                _dbContext.SaveChanges();
+
+                return Ok(new { message = "User deleted successfully" });
+            }
+
+            return BadRequest(new { message = "User not found" });
+        }
     }
 
-}
+    }
 
-   
+
+
 
