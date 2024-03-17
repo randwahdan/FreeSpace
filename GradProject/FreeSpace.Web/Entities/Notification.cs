@@ -9,6 +9,7 @@ namespace FreeSpace.Web.Entities;
     public string Content { get; set; }
         public string FullName { get; set; }
         public Guid? PostId { get; set; }
+   
 
     #region Releations
 

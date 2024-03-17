@@ -1,0 +1,24 @@
+<side-navigation-bar [userId]="userId"></side-navigation-bar>
+<section class="section-50 my-custom-position ">
+  <div class="container">
+      <h3 class="m-b-50 heading-line">Notifications <span style="font-size: 23px;"><i class="fa fa-bell" aria-hidden="true"></i> </span>  </h3>
+
+      <div class="notification-ui_dd-content">
+          <div class="notification-list notification-list--unread" *ngFor="let notification of notificationsModels">
+              <div class="notification-list_content">
+                  <div class="notification-list_img">
+                      <img [src]="notification.profilePicture" alt="" alt="user">
+                  </div>
+                  <div class="notification-list_detail">
+                      <p><b>{{notification.fullName}}</b> </p>
+                      <p>{{notification.content}}</p>
+                      <p class="text-muted"><small>{{formatTimeAgo(notification.createdDate)}} </small></p>
+                    </div>
+              </div>
+              <!-- <div class="notification-list_feature-img">
+                  <img src="https://i.imgur.com/AbZqFnR.jpg" alt="Feature image">
+              </div> -->
+          </div>
+  </div>
+  </div>
+</section>

@@ -6,6 +6,7 @@ import { PostService } from '../services/post.service';
 import { UserModel } from '../models/user-model';
 import { SharedService } from '../services/shared.service';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-mange-post',
@@ -23,7 +24,7 @@ export class MangePostComponent  implements OnInit{
      private fb: FormBuilder,
       private postService: PostService,
       private sharedService: SharedService,
-      private http: HttpClient){
+      private http: HttpClient,private toastr:ToastrService){
       // Initialize the form in the constructor
       this.postForm = this.fb.group({
       content:''
@@ -74,6 +75,7 @@ Post(){
     formValue.content = '';
     this.postForm.reset();
     this.sharedService.updatePosts(true);
+    this.toastr.success('Your post created successfully.');
     this.fileInputProfile.nativeElement.value = '';
   });
 }

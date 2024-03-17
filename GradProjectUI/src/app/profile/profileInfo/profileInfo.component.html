@@ -1,5 +1,5 @@
-<div class="profile-info">
-        <div class="info-col">
+<div class="row profile-info">
+        <div class="info-col col-md-5">
             <div class="profile-intro bg-light">
                 <h3>Intro</h3>
                 <p style="font-size: 17px;" class="intro-text">{{user.bio}}
@@ -15,11 +15,10 @@
             <div class ="bg-light">
             <div class="title-box ">
               <h3>Friends</h3>
-              <a routerLink="/friends">All Friends</a>
+              <a routerLink="/friends" style="color:#DF2E38 ;" >All Friends</a>
             </div>
-          <div class="Friends-box ">
-                <div class="Friends-container">
-                <div class="Friends-box">
+                <div class="friends-container">
+                <div class="friends-box">
                     <div *ngFor="let friend of users" class="friend-item">
                       <img [src]="friend.profilePicture" alt="">
                       <span style="color: black; font-family: inherit;">{{friend.fullName}}</span>
@@ -28,9 +27,8 @@
             </div>
         </div>
       </div>
-    </div>
-      <div class="col-md-8 justify-content-end">
+
+      <div class="col-md-7">
             <app-mange-post></app-mange-post>
             <app-post-list [userId]="userId"></app-post-list>
-          </div>
     </div>

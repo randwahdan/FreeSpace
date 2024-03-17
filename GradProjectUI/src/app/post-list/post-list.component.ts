@@ -7,7 +7,7 @@ import { LikeModel } from '../models/like-model';
 import { SharedService } from '../services/shared.service';
 import { CommentModel } from "../models/comment-model";
 import { FormBuilder, FormGroup } from '@angular/forms';
-
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -24,7 +24,7 @@ export class PostListComponent implements OnInit {
   isCurrentPostLiked = false;
   showCommentSection = false;
   @Input() userId: any;
-  constructor(private postService: PostService, private sharedService: SharedService, private fb: FormBuilder) {
+  constructor(private postService: PostService, private sharedService: SharedService, private fb: FormBuilder,private toastr:ToastrService) {
     this.commentForm = this.fb.group({
       content: '',
     });
@@ -104,8 +104,16 @@ export class PostListComponent implements OnInit {
   addComment(post: any) {
     let commentModel = new CommentModel();
     var formValue = this.commentForm.value;
+
+    // Check if the comment content is empty
+    if (!formValue.content.trim()) {
+      // Display an error message or handle the empty content case as needed
+      return; // Exit the method
+    }
+
     commentModel.content = formValue.content;
     commentModel.postId = post.postId;
+
     this.postService.makeComment(commentModel).subscribe(async result => {
       if (result == true) {
         this.sharedService.updateComments(true);

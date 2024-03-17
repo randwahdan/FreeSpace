@@ -36,6 +36,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import{UsersListComponent} from './Users/users.component';
 import {FriendsComponent} from './friend-list/friend-list/friendsList.component';
 import{PendingFriendsList} from './friend-list/pending-list/pending-list.component';
+import {NotificationPage} from './notification/notification.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +66,8 @@ import{PendingFriendsList} from './friend-list/pending-list/pending-list.compone
     DeleteAccountComponent,
     UsersListComponent,
     FriendsComponent,
-    PendingFriendsList
+    PendingFriendsList,
+    NotificationPage
   ],
   imports: [
     BrowserModule,

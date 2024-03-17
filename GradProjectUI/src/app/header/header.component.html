@@ -36,19 +36,10 @@
           <span><i class="fas fa-home fa-lg"></i></span>
         </a>
         </li>
-        <li class="nav-item me-3 me-lg-1 active d-flex align-items-center">
-            <span class="nav-link"><i class="fas fa-bell fa-lg" (click)="toggleMenu()" ></i></span>
-            <!-- <span>{{notificationsModels.length}}</span> -->
-          <div class="notifi-box" id="box" [ngClass]="{'notifi-box-height': !hideActionMenu2}" >
-          <h2>Notification <span style="font-family: inherit; font-size: 16px; font-weight: 700;color: #304D30">{{notificationsModels.length}}</span></h2>
-          <div class="notifi-item" *ngFor="let notification of notificationsModels">
-              <img [src]="notification.profilePicture" alt="">
-              <div class="text">
-                  <h4>{{notification.fullName}}</h4>
-                  <p>{{notification.content}}</p>
-              </div>
-          </div>
-      </div>
+        <li class="nav-item me-3 me-lg-1 active" >
+          <a class="nav-link" routerLink="/notofication">
+            <span ><i class="fas fa-bell fa-lg"  ></i></span>
+          </a>
         </li>
       <li class="nav-item me-3 me-lg-1">
         <a class="nav-link" routerLink="/friends">

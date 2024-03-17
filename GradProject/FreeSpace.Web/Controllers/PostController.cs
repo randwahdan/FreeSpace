@@ -232,8 +232,9 @@ public class PostController : ControllerBase
 
                 notificationModel.Content = notification.Content;
                 notificationModel.FullName = notification.FullName;
-
+                notificationModel.CreatedDate = notification.CreatedDate;
                 notificationsModel.Add(notificationModel);
+                
 
             }
         }
@@ -295,8 +296,12 @@ public class PostController : ControllerBase
 
 
     [HttpPost("make-comment")]
-    public bool AddComment(CommentModel model)
+    public IActionResult AddComment(CommentModel model)
     {
+        if (string.IsNullOrEmpty(model.Content))
+        {
+            return BadRequest("Comment content cannot be empty.");
+        }
 
         Guid userId = Guid.Parse(User.Identity?.Name);
         var user = _dbContext.Users.Find(userId);
@@ -306,10 +311,9 @@ public class PostController : ControllerBase
         comment.UserId = userId;
         comment.PostId = model.PostId;
         comment.Content = model.Content;
-        comment.CreatedDate= DateTime.UtcNow;
+        comment.CreatedDate = DateTime.UtcNow;
 
         _dbContext.Comments.Add(comment);
-
 
         Notification notification = new Notification();
         var userName = string.Concat(user.FirstName, " ", user.LastName);
@@ -321,14 +325,12 @@ public class PostController : ControllerBase
         notification.UserRefrenceId = userId;
         notification.CreatedDate = DateTime.Now;
 
-
         _dbContext.Notifications.Add(notification);
 
         _dbContext.SaveChanges();
 
-        return true;
+        return Ok(true); // Return Ok if the comment is successfully added
     }
-
 
 
     [HttpPost("create-post")]
@@ -339,7 +341,11 @@ public class PostController : ControllerBase
        
 
         var files = Request.Form.Files;
-
+        if (string.IsNullOrWhiteSpace(model.content) && (files == null || files.Count == 0))
+        {
+            // Return BadRequest with an error message
+            return BadRequest("Post content and media cannot be empty.");
+        }
 
         Guid userId = Guid.Parse(User.Identity?.Name);
           Post post = new Post();

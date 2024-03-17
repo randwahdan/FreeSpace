@@ -13,6 +13,7 @@ import { Event } from './event/event.component';
 import {RegisterComponent} from './registration/sign-up.component';
 import {DeleteAccountComponent} from './settings-menu/delete-account/delete-account.component';
 import { UsersListComponent } from './Users/users.component';
+import { NotificationPage } from './notification/notification.component';
 
 
 const routes: Routes = [
@@ -53,6 +54,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'Event', component:Event,
+  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'notofication', component:NotificationPage,
   }
 
 ];

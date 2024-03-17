@@ -28,13 +28,13 @@ body {
   display: none;
 }
 .carousel-container {
-  width: 500px; /* Adjust the maximum width as needed */
+  width: 100%; /* Adjust the maximum width as needed */
   margin: 0 auto;   /* Center the carousel horizontally */
 }
 
 .post-img {
   max-height: 400px; /* Adjust the maximum height as needed */
-  object-fit: cover; /* Maintain the aspect ratio while covering the container */
+  object-fit: contain; /* Maintain the aspect ratio while covering the container */
 }
 
 body {
