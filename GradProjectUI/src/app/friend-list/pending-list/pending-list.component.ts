@@ -4,10 +4,11 @@ import {UserService} from "../../services/user.service";
 import {FriendRequestModel} from "../../models/friend-request";
 
 @Component({
-  selector: 'left-side-bar',
-  templateUrl: './left-side-bar.component.html',
+  selector: 'pending-list',
+  templateUrl: './pending-list.component.html',
+  styleUrl:'./pending-list.component.scss'
 })
-export class LeftSideFriendList implements OnInit {
+export class PendingFriendsList implements OnInit {
   users:UserModel[]=[];
   constructor(private  userService: UserService) {
   }
@@ -24,7 +25,7 @@ export class LeftSideFriendList implements OnInit {
     });
   }
 
-  response(user :any, acceptOrReject:boolean){ 
+  response(user :any, acceptOrReject:boolean){
     let friendRequestModel=new FriendRequestModel();
     friendRequestModel.status = acceptOrReject==true? 'Approved':'Rejected';
     friendRequestModel.userSourceId=user.id;

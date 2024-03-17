@@ -701,9 +701,9 @@ gap: 1rem;
 
 }
 .cover-img{
-    width: 97.2%;
-   border-radius: 6px;
-   margin-bottom: 14px;
+  width: 96%;
+  border-radius: 6px;
+   margin-bottom: 12px;
    height:250px;
 
 }
@@ -905,7 +905,7 @@ margin-right: 30px ;
 
 }
 .post-profile-icon{
- display: flex;
+display: flex;
 align-items: center;
 }
 .post-profile-icon img{
@@ -946,8 +946,7 @@ align-items: center;
  /* width: 30%; */
 }
 .info-col-post{
-    flex-basis: 55%;
-
+    flex-basis: 70%;
 }
 
 .profile-intro{

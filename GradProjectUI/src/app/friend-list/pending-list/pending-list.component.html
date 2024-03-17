@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <div class="people-nearby" *ngIf="users.length>0">
+        <div class="tab-pane fade in active show mt-5 mb-4" id="profile-friends">
+          <h4 class="m-t-2 m-b-20">Pending Requests ({{users.length}})</h4>
+        </div>
+        <div class="nearby-user"  *ngFor="let user of users">
+          <div class="row"  *ngIf="!user.isAdded">
+            <div class="col-md-2 col-sm-3">
+              <img [src]="user.profilePicture" alt="user" class="profile-photo-lg">
+            </div>
+            <div class="col-md-7 col-sm-7 align-items-center d-flex">
+              <h5><a [routerLink]="'/ProfilePage' + user.id" class="profile-link" style="color:#1E5128 ;text-decoration: none;">{{user.fullName}}</a></h5>
+            </div>
+            <div class="col-md-3 col-sm-3 d-flex justify-content-end align-items-center">
+              <button class="btn btn-success btn-sm mr-sm-2 accept-button" (click)="response(user, true)"><i class="fa fa-check" aria-hidden="true"></i> Accept</button>
+              <button class="btn btn-danger btn-sm" (click)="response(user, false)"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

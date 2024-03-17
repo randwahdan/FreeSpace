@@ -1,0 +1,32 @@
+<app-header></app-header>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="people-nearby">
+              <div class="tab-pane fade in active show mt-5 mb-5" id="profile-friends">
+                <h3 class="m-t-0 m-b-20">Discover People ({{users.length}})</h3>
+              </div>
+                <div class="nearby-user" *ngFor="let user of users">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2">
+                            <img [src]="user.profilePicture" alt="user" class="profile-photo-lg">
+                        </div>
+                        <div class="col-md-7 col-sm-7 align-items-center d-flex">
+                            <h5><a routerLink="/ProfilePage{{user.id}}" class="profile-link "style="color:#DF2E38 ; text-decoration: none;" >{{user.fullName}}</a></h5>
+                        </div>
+                        <div class="col-md-3 col-sm-3 d-flex justify-content-end align-items-center"> <!-- Align button to the end of the row -->
+                          <button class="btn btn-light btn-sm" (click)="addFriend(user)" style="background-color:#82CD47;">
+                            <ng-container *ngIf="!user.isAdded; else pendingIcon">
+                              <i class="fa fa-plus" aria-hidden="true"></i> Add Friend
+                            </ng-container>
+                            <ng-template #pendingIcon>
+                                Pending
+                            </ng-template>
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -62,11 +62,11 @@
         <li class="nav-item  me-lg-1">
           <a class="nav-link d-sm-flex align-items-sm-center" (click)="viewUserDetail()" style="cursor: pointer;">
             <img [src]="user.profilePicture" class="rounded-circle" height="30" alt="" loading="lazy" />
-            <strong class="d-none d-sm-block ms-1" (click)="viewUserDetail()" style="cursor: pointer;">{{user.firstName}}</strong>
+            <strong class="d-none d-sm-block ms-2" (click)="viewUserDetail()" style="cursor: pointer;">{{user.firstName+" "+user.lastName}}</strong>
           </a>
         </li>
       </ul>
-      <ul class="navbar-nav flex-row"style="margin-top: 8px;">
+      <ul class="navbar-nav flex-row mt-1" >
         <li class="nav-item me-3 me-lg-1 active d-flex ms-auto">
           <span class="nav-link"><i class="fas fa-chevron-circle-down fa-lg" (click)="settingsMenuToggle()"></i></span>
           <div [ngClass]="hideActionMenu ? 'settings-menu settings-menu-height' : 'settings-menu'">

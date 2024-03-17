@@ -20,7 +20,5 @@ export class ProfileDetails implements OnInit{
         this.user  = userStorge ? JSON.parse(userStorge) : null;
       }
     });
-   }
-
-
+  }
 }

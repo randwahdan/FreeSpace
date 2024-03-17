@@ -1,6 +1,27 @@
 <app-header></app-header>
-<div class="container">          
-<left-side-bar></left-side-bar>
- <div class="profile">
-    
+<div class="container">
+<div class="row">
+    <div class="col-md-12 mt-2">
+      <div id="content" class="content content-full-width">
+          <div class="profile-header">
+            <div class="profile-header-cover">
+              <img [src]="user.coverPicture" alt="Profile CoverPhoto">
+            </div>
+            <div class="profile-header-content">
+              <div class="profile-header-img">
+                <img [src]="user.profilePicture" alt="Profile Picture">
+              </div>
+              <!-- <div class="profile-header-info">
+                <div class="overlay-content">
+                <h4 class="m-t-10 m-b-5">{{user.fullName}}</h4>
+                <a routerLink="/setting" class="btn btn-xs btn-yellow" style="color: #82CD47;">Edit Profile</a>
+              </div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+      <pending-list></pending-list>
+      <app-friends-list></app-friends-list>
     </div>
+  </div>

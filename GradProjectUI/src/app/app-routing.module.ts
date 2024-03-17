@@ -11,7 +11,8 @@ import {ChangeProfileComponent} from "./settings-menu/change-profile/change-prof
 import { ProfilePage } from './profile/profile-page.component';
 import { Event } from './event/event.component';
 import {RegisterComponent} from './registration/sign-up.component';
-import {DeleteAccountComponent} from './settings-menu/delete-account/delete-account.component'
+import {DeleteAccountComponent} from './settings-menu/delete-account/delete-account.component';
+import { UsersListComponent } from './Users/users.component';
 
 
 const routes: Routes = [
@@ -30,12 +31,18 @@ const routes: Routes = [
     path: 'home', component: HomeComponent,
     children: [
       {path: 'friends', component: FriendsListComponent},
+      {path:'users',component:UsersListComponent},
       {path: 'manage', component: MangePostComponent},
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'friends', component:FriendsListComponent,
+
+  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'users', component:UsersListComponent,
 
   },
 
@@ -46,7 +53,6 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'Event', component:Event,
-
   }
 
 ];

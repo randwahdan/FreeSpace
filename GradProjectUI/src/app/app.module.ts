@@ -16,7 +16,6 @@ import { AccountInformationComponent } from './settings-menu/account-information
 import { ChangePasswordComponent } from './settings-menu/change-password/change-password.component';
 import { ChangeProfileComponent } from './settings-menu/change-profile/change-profile.component';
 import { FriendsListComponent } from './friend-list/friend-list.component';
-import { LeftSideFriendList } from './friend-list/left-side-bar/left-side-bar.component';
 import { ProfilePage } from './profile/profile-page.component';
 import { ProfileInfo } from './profile/profileInfo/profileInfo.component';
 import { ProfileDetails } from './profile/profile-details/profile-details.component';
@@ -34,6 +33,9 @@ import { ToastrModule } from 'ngx-toastr';
 import{SideBarComponent}from './side-navigation-bar/side-navigation-bar.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import{UsersListComponent} from './Users/users.component';
+import {FriendsComponent} from './friend-list/friend-list/friendsList.component';
+import{PendingFriendsList} from './friend-list/pending-list/pending-list.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +51,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SettingsMenuComponent,
     AccountInformationComponent,
     ChangePasswordComponent,
-    LeftSideFriendList,
     ProfilePage,
     ProfileInfo,
     ProfileDetails,
@@ -61,7 +62,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ChangeProfileComponent,
     RegisterComponent,
     SideBarComponent,
-    DeleteAccountComponent
+    DeleteAccountComponent,
+    UsersListComponent,
+    FriendsComponent,
+    PendingFriendsList
   ],
   imports: [
     BrowserModule,
