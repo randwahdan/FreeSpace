@@ -28,6 +28,15 @@ builder.Services.AddCors(options =>
             .AllowAnyHeader()
             .AllowCredentials());
 });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowLocalhost", builder =>
+    {
+        builder.WithOrigins("http://localhost:7086")
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 //Add JWT authentication
 builder.Services.AddAuthentication(opt =>
@@ -94,8 +103,9 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseCors();
 app.MapControllers();
+app.UseCors("AllowLocalhost");
 
- 
+
 app.Run();
 
 

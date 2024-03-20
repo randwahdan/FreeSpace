@@ -7,5 +7,6 @@ namespace FreeSpace.Web.Models
         public string FileName { get; set; }
         public byte[] File { get; set; }
         public string Url { get; set; }
+        public bool IsVideo { get; set; } // Add a property to indicate if the media is a video
     }
 }

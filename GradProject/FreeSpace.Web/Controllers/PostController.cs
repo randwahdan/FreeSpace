@@ -3,6 +3,7 @@ using FreeSpace.Web.Entities;
 using FreeSpace.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 
 using System.Text.Json;
@@ -18,7 +19,7 @@ public class PostController : ControllerBase
 
     public PostController(ApplicationDbContext dbContext)
     {
-        _dbContext =  dbContext;
+        _dbContext = dbContext;
     }
 
     [HttpGet("get-posts")]
@@ -26,21 +27,21 @@ public class PostController : ControllerBase
     {
         Guid userId = Guid.Parse(User.Identity?.Name);
 
-        var followers = _dbContext.FriendShips.Where(c => ( c.SourceId == userId || c.TargetId == userId) && c.Status== "Approved").ToList();
+        var followers = _dbContext.FriendShips.Where(c => (c.SourceId == userId || c.TargetId == userId) && c.Status == "Approved").ToList();
         var sourceList = followers.Select(c => c.SourceId).ToList();
         var targetList = followers.Select(c => c.TargetId).ToList();
         var allUsers = targetList.Concat(sourceList);
 
 
 
-        var posts = _dbContext.Posts.Where(c => allUsers.Contains(c.UserId) || c.UserId==userId)
+        var posts = _dbContext.Posts.Where(c => allUsers.Contains(c.UserId) || c.UserId == userId)
              .Include(p => p.Likes)
-             .Include(p => p.Comments).OrderByDescending(c=>c.CreatedDate)
+             .Include(p => p.Comments).OrderByDescending(c => c.CreatedDate)
              .Include(p => p.Medias).OrderByDescending(c => c.CreatedDate)
              .ToList().OrderByDescending(c => c.CreatedDate);
 
 
-         List<PostModel> postListResult = new List<PostModel>();
+        List<PostModel> postListResult = new List<PostModel>();
 
         foreach (var postEntity in posts)
         {
@@ -65,9 +66,33 @@ public class PostController : ControllerBase
                 foreach (var postMedia in postEntity.Medias)
                 {
                     MediaModel mediaModel = new MediaModel();
-                    mediaModel.File = postMedia.File;
-                    mediaModel.Url = postMedia.Url;
                     mediaModel.FileName = postMedia.FileName;
+                    mediaModel.IsVideo = IsVideoFile(postMedia.FileName); // Check if the file is a video based on its extension
+
+                    if (mediaModel.IsVideo)
+                    {
+                        // Read the video file from disk and get its content as a byte array
+                        byte[] videoData = ReadVideoFile(postMedia.Url);
+
+                        if (videoData != null)
+                        {
+                            // Serve the video content through your ASP.NET Core application
+                            // Store the video data in the response body and set the appropriate content type
+                            mediaModel.Url = $"data:video/mp4;base64,{Convert.ToBase64String(videoData)}";
+                        }
+                        else
+                        {
+                            // Handle if video data could not be read
+                            // For example, return a placeholder URL or log an error
+                            mediaModel.Url = $"Error: Unable to read video data for {postMedia.FileName}";
+                        }
+                    }
+                    else
+                    {
+                        mediaModel.Url = postMedia.Url;
+                    }
+
+
                     mediaList.Add(mediaModel);
                 }
                 postModel.Media = mediaList;
@@ -115,6 +140,10 @@ public class PostController : ControllerBase
 
         return postListResult;
     }
+    private byte[] ReadVideoFile(string filePath)
+    {
+        return System.IO.File.ReadAllBytes(filePath);
+    }
 
     [HttpGet("get-posts/{userId}")]
     public List<PostModel> GetPosts(string userId)
@@ -150,9 +179,33 @@ public class PostController : ControllerBase
                 foreach (var postMedia in postEntity.Medias)
                 {
                     MediaModel mediaModel = new MediaModel();
-                    mediaModel.File = postMedia.File;
-                    mediaModel.Url = postMedia.Url;
                     mediaModel.FileName = postMedia.FileName;
+                    mediaModel.IsVideo = IsVideoFile(postMedia.FileName); // Check if the file is a video based on its extension
+
+                    if (mediaModel.IsVideo)
+                    {
+                        // Read the video file from disk and get its content as a byte array
+                        byte[] videoData = ReadVideoFile(postMedia.Url);
+
+                        if (videoData != null)
+                        {
+                            // Serve the video content through your ASP.NET Core application
+                            // Store the video data in the response body and set the appropriate content type
+                            mediaModel.Url = $"data:video/mp4;base64,{Convert.ToBase64String(videoData)}";
+                        }
+                        else
+                        {
+                            // Handle if video data could not be read
+                            // For example, return a placeholder URL or log an error
+                            mediaModel.Url = $"Error: Unable to read video data for {postMedia.FileName}";
+                        }
+                    }
+                    else
+                    {
+                        mediaModel.Url = postMedia.Url;
+                    }
+
+
                     mediaList.Add(mediaModel);
                 }
                 postModel.Media = mediaList;
@@ -208,12 +261,12 @@ public class PostController : ControllerBase
     {
         Guid userId = Guid.Parse(User.Identity?.Name);
         List<NotificationModel> notificationsModel = new List<NotificationModel>();
-       var notifications =  _dbContext.Notifications.Where(c=>c.UserId== userId).ToList().OrderByDescending(c=>c.CreatedDate);
+        var notifications = _dbContext.Notifications.Where(c => c.UserId == userId).ToList().OrderByDescending(c => c.CreatedDate);
 
-        
-        if (notifications!=null && notifications.Count()>0)
+
+        if (notifications != null && notifications.Count() > 0)
         {
-            
+
             foreach (var notification in notifications)
             {
                 NotificationModel notificationModel = new NotificationModel();
@@ -234,7 +287,7 @@ public class PostController : ControllerBase
                 notificationModel.FullName = notification.FullName;
                 notificationModel.CreatedDate = notification.CreatedDate;
                 notificationsModel.Add(notificationModel);
-                
+
 
             }
         }
@@ -242,7 +295,7 @@ public class PostController : ControllerBase
         return notificationsModel;
     }
 
-     [HttpPost("make-like")]
+    [HttpPost("make-like")]
     public bool Like(LikeModel model)
     {
 
@@ -259,12 +312,12 @@ public class PostController : ControllerBase
         var userName = string.Concat(user.FirstName, " ", user.LastName);
 
         notification.Content = userName + " likes  your post";
-        notification.FullName = userName ;
+        notification.FullName = userName;
         notification.UserId = post.UserId;
         notification.UserRefrenceId = userId;
 
         notification.PostId = model.PostId;
-        notification.CreatedDate= DateTime.Now;
+        notification.CreatedDate = DateTime.Now;
 
         _dbContext.Notifications.Add(notification);
 
@@ -274,7 +327,7 @@ public class PostController : ControllerBase
         return true;
     }
 
-     
+
 
     [HttpPost("make-disLike")]
     public bool DisLike(LikeModel model)
@@ -283,7 +336,7 @@ public class PostController : ControllerBase
         Guid userId = Guid.Parse(User.Identity?.Name);
         var like = _dbContext.Likes.FirstOrDefault(c => c.UserId == userId && c.PostId == model.PostId);
 
-        if (like!=null)
+        if (like != null)
         {
             _dbContext.Likes.Remove(like);
             _dbContext.SaveChanges();
@@ -338,7 +391,6 @@ public class PostController : ControllerBase
     {
         string postModelContent = Request.Form["postModel"];
         PostMediaModel model = JsonSerializer.Deserialize<PostMediaModel>(postModelContent);
-       
 
         var files = Request.Form.Files;
         if (string.IsNullOrWhiteSpace(model.content) && (files == null || files.Count == 0))
@@ -348,42 +400,112 @@ public class PostController : ControllerBase
         }
 
         Guid userId = Guid.Parse(User.Identity?.Name);
-          Post post = new Post();
-          post.UserId = userId;
-          post.Content = model.content;
-          post.CreatedDate = DateTime.UtcNow;
-          post.CreatedBy = userId;
-          if (files != null)
-          {
-              List<Media> mediaList = new List<Media>();
-              foreach (var file in files)
-              {
+        Post post = new Post();
+        post.UserId = userId;
+        post.Content = model.content;
+        post.CreatedDate = DateTime.UtcNow;
+        post.CreatedBy = userId;
+
+        if (files != null)
+        {
+            List<Media> mediaList = new List<Media>();
+            foreach (var file in files)
+            {
+                // Check if the uploaded file is an image or video
+                if (!IsImage(file) && !IsVideo(file))
+                {
+                    // Return BadRequest with an error message
+                    return BadRequest("Uploaded file is neither an image nor a video.");
+                }
 
                 using (var memoryStream = new MemoryStream())
                 {
                     // Copy the content of the file to the memory stream asynchronously
                     file.CopyToAsync(memoryStream);
 
-                    var base64String = Convert.ToBase64String(memoryStream.ToArray());
-                    var dataUrl = $"data:image/jpeg;base64,{base64String}";
-
-
                     Media mediaModel = new Media();
                     mediaModel.File = memoryStream.ToArray();
-                    mediaModel.Url = dataUrl;
                     mediaModel.FileName = file.FileName;
+
+                    // Set the URL based on the type of media
+                    if (IsImage(file))
+                    {
+                        var base64String = Convert.ToBase64String(memoryStream.ToArray());
+                        var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                        mediaModel.Url = dataUrl;
+                    }
+                    else if (IsVideo(file))
+                    {
+                        // Generate file path for video
+                        var videoFilePath = GenerateVideoPath(file);
+                        // Create media model for video
+                        mediaModel.FileName = file.FileName;
+                        mediaModel.Url = videoFilePath; // Store the file path where the video is saved
+                        mediaList.Add(mediaModel);
+                    }
+
                     mediaList.Add(mediaModel);
-
                 }
-             
+            }
+            post.Medias = mediaList;
+        }
 
-              }
-              post.Medias = mediaList;
-          }
-
-          _dbContext.Posts.Add(post);
-          _dbContext.SaveChanges();
+        _dbContext.Posts.Add(post);
+        _dbContext.SaveChanges();
         return Ok();
     }
 
+    // Helper method to check if the file is an image
+    private bool IsImage(IFormFile file)
+    {
+        // Check the file's MIME type
+        if (file.ContentType.ToLower().StartsWith("image/"))
+        {
+            return true;
+        }
+
+        // Check the file extension
+        string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+        string fileExtension = Path.GetExtension(file.FileName).ToLower();
+        return allowedExtensions.Contains(fileExtension);
+    }
+
+    // Helper method to check if the file is a video
+    private bool IsVideo(IFormFile file)
+    {
+        string[] videoMimeTypes = { "video/mp4", "video/mpeg", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv" };
+        return videoMimeTypes.Contains(file.ContentType.ToLower());
+    }
+    private string GenerateVideoPath(IFormFile videoFile)
+    {
+
+        string videoDirectory = @"C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\Videos\"; ; // Path to directory where videos will be saved
+        string fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(videoFile.FileName)}"; // Generate unique file name
+        string filePath = Path.Combine(videoDirectory, fileName);
+
+        // Ensure the directory exists or create it if it doesn't
+        if (!Directory.Exists(videoDirectory))
+        {
+            Directory.CreateDirectory(videoDirectory);
+        }
+
+        // Copy the video file to the specified location
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            videoFile.CopyTo(stream);
+        }
+
+        return filePath; // Return the file path where the video is saved
+    }
+
+
+    private bool IsVideoFile(string fileName)
+    {
+        string[] videoExtensions = { ".mp4", ".mpeg", ".mov", ".avi", ".wmv" };
+        string fileExtension = Path.GetExtension(fileName).ToLower();
+        return videoExtensions.Contains(fileExtension);
+    }
+
 }
+
+

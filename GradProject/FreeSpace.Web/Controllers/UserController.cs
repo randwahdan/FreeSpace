@@ -361,6 +361,8 @@ namespace FreeSpace.Web.Controllers
         [HttpPost("updateUserInfo")]
         public IActionResult UpdateUserInfo([FromBody] UserInfoModel model)
         {
+            Guid userId = Guid.Parse(User.Identity?.Name);
+            var user = _dbContext.Users.Find(userId);
             if (model == null)
             {
                 return BadRequest(new { message = "Invalid data received" });
@@ -370,25 +372,28 @@ namespace FreeSpace.Web.Controllers
             {
                 return BadRequest(new { message = "Bio and Nickname cannot be empty" });
             }
-            if (string.IsNullOrWhiteSpace(model.Bio) )
+            if (string.IsNullOrWhiteSpace(model.Bio) && !string.IsNullOrWhiteSpace(model.NickName))
             {
-                return BadRequest(new { message = "Bio cannot be empty" });
-            }
-            if (string.IsNullOrWhiteSpace(model.NickName))
-            {
-                return BadRequest(new { message = "NickName cannot be empty" });
-            }
+                user.NickName = model.NickName;
+                _dbContext.Entry(user).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+                return Ok(new { message = "Your Nickname updated successfully" });
 
-            Guid userId = Guid.Parse(User.Identity?.Name);
-            var user = _dbContext.Users.Find(userId);
-            if (user != null)
+            }
+            if (!string.IsNullOrWhiteSpace(model.Bio) && string.IsNullOrWhiteSpace(model.NickName))
+            {
+                user.Bio = model.Bio;
+                _dbContext.Entry(user).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+                return Ok(new { message = "Your Bio updated successfully" });
+            }
+            if (!string.IsNullOrWhiteSpace(model.Bio) && !string.IsNullOrWhiteSpace(model.NickName))
             {
                 user.Bio = model.Bio;
                 user.NickName = model.NickName;
                 _dbContext.Entry(user).State = EntityState.Modified;
                 _dbContext.SaveChanges();
-
-                return Ok(new { message = "Profile Info updated successfully" });
+                return Ok(new { message = "Your Info updated successfully" });
             }
 
             return BadRequest(new { message = "User not found" });

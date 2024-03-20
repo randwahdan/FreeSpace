@@ -67,7 +67,8 @@ import {NotificationPage} from './notification/notification.component';
     UsersListComponent,
     FriendsComponent,
     PendingFriendsList,
-    NotificationPage
+    NotificationPage,
+
   ],
   imports: [
     BrowserModule,

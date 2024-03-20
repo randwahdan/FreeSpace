@@ -451,3 +451,4 @@ C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\ob
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.pdb
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.genruntimeconfig.cache
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\ref\FreeSpace.Web.dll
+C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.staticwebassets.runtime.json

@@ -35,13 +35,7 @@ export class AccountInformationComponent {
       this.toastr.error('All the fields are required');
     }
     else if(error.message === "Bio and Nickname cannot be empty"){
-      this.toastr.error('Bio and Nickname cannot be empty');
-    }
-    else if(error.message === "Bio cannot be empty"){
-      this.toastr.error('Bio cannot be empty');
-    }
-    else if(error.message === "NickName cannot be empty"){
-      this.toastr.error('Nickname cannot be empty');
+    
     }
     });
     }

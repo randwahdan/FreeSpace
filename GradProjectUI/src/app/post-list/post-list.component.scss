@@ -31,6 +31,11 @@ body {
   width: 100%; /* Adjust the maximum width as needed */
   margin: 0 auto;   /* Center the carousel horizontally */
 }
+.post-video{
+  max-height: 450px; /* Adjust the maximum height as needed */
+  width: 70%;
+  object-fit: contain; /* Maintain the aspect ratio while covering the container */
+}
 
 .post-img {
   max-height: 400px; /* Adjust the maximum height as needed */

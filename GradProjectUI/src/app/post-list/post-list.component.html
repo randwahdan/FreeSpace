@@ -32,14 +32,22 @@
             {{post.content}}
           </p>
       </div>
-
       <div class="carousel-container">
-        <ngb-carousel>
+        <ngb-carousel *ngIf="post.media && post.media.length > 0">
           <ng-template ngbSlide *ngFor="let media of post.media">
-            <img class="d-block w-100 post-img" [src]="media?.url" alt="Slide">
+            <ng-container *ngIf="isVideo(media)">
+              <video  class="d-block w-100 post-video" controls  >
+                <source [src]="media?.url" >
+                Your browser does not support the video tag.
+              </video>
+            </ng-container>
+            <ng-container *ngIf="!isVideo(media)">
+              <img class="d-block w-100 post-img" [src]="media?.url" alt="Slide">
+            </ng-container>
           </ng-template>
         </ngb-carousel>
       </div>
+
 
       <div class="card-footer">
         <div class="activity-icons">

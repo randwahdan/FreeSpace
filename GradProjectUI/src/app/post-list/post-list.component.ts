@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit,ViewChild } from '@angular/core';
 import { UserModel } from '../models/user-model';
 import { PostModel } from '../models/post-model';
 import { Router } from '@angular/router';
@@ -9,12 +9,10 @@ import { CommentModel } from "../models/comment-model";
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
-
-
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
-  styleUrl:'./post-list.component.scss'
+  styleUrls: ['./post-list.component.scss'] // Fixing the typo in styleUrls
 })
 export class PostListComponent implements OnInit {
   commentForm: FormGroup;
@@ -24,15 +22,22 @@ export class PostListComponent implements OnInit {
   isCurrentPostLiked = false;
   showCommentSection = false;
   @Input() userId: any;
-  constructor(private postService: PostService, private sharedService: SharedService, private fb: FormBuilder,private toastr:ToastrService) {
+
+
+
+
+  constructor(
+    private postService: PostService,
+    private sharedService: SharedService,
+    private fb: FormBuilder,
+    private toastr: ToastrService
+  ) {
     this.commentForm = this.fb.group({
       content: '',
     });
-
   }
 
   ngOnInit(): void {
-
     this.sharedService.posts$.subscribe((isPosCreated) => {
       if (isPosCreated) {
         this.getPosts();
@@ -44,66 +49,88 @@ export class PostListComponent implements OnInit {
         this.getPosts();
       }
     });
+
     if (this.userId == null) {
       this.getPosts();
-    }
-    else {
+    } else {
       this.getUserPosts(this.userId);
     }
-
   }
 
+  // getPosts() {
+  //   this.postService.getPost().subscribe(result => {
+  //     this.postModelList = result;
+  //     console.log(result);
+  //   });
+  // }
+  isVideo(media: any): boolean {
+    return media && media.isVideo; // Assuming that 'isVideo' property indicates if the media is a video
+  }
   getPosts() {
-    this.postService.getPost().subscribe(async result => {
-
+    this.postService.getPost().subscribe(result => {
+      debugger
       this.postModelList = result;
+      this.postModelList.forEach(post => {
+        post.media.forEach(media => {
+          media.isVideo = this.isVideo(media); // Set the 'isVideo' property for each media item
+        });
+      });
       console.log(result);
-
     });
-
   }
+
   getUserPosts(userId: any) {
-
-    this.postService.getPostByUser(userId).subscribe(async result => {
+    this.postService.getPostByUser(userId).subscribe(result => {
       this.postModelList = result;
+      this.postModelList.forEach(post => {
+        post.media.forEach(media => {
+          media.isVideo = this.isVideo(media); // Set the 'isVideo' property for each media item
+        });
+      });
       console.log(result);
-
     });
-
   }
-  makeLike(post: any) {
+  handleVideoError(event: Event) {
+    // Handle the video error
+    console.error('Video error occurred:', event);
+    // You can display an error message to the user or perform any other action here
+  }
 
+  // getUserPosts(userId: any) {
+  //   this.postService.getPostByUser(userId).subscribe(result => {
+  //     this.postModelList = result;
+  //     console.log(result);
+  //   });
+  // }
+
+
+
+  makeLike(post: any) {
     let likeModel = new LikeModel();
     likeModel.postId = post.postId;
-    this.postService.makeLike(likeModel).subscribe(async result => {
-
+    this.postService.makeLike(likeModel).subscribe(result => {
       if (result == true) {
-
-        post.isLiked = true
+        post.isLiked = true;
         post.likesCount += 1;
       }
-
     });
   }
 
   makeDislike(post: any) {
-
     let likeModel = new LikeModel();
     likeModel.postId = post.postId;
-    this.postService.makeDisLike(likeModel).subscribe(async result => {
-
+    this.postService.makeDisLike(likeModel).subscribe(result => {
       if (result == true) {
         this.sharedService.updateComments(true);
         post.isLiked = false;
         post.likesCount -= 1;
-
       }
-
     });
   }
+
   addComment(post: any) {
     let commentModel = new CommentModel();
-    var formValue = this.commentForm.value;
+    const formValue = this.commentForm.value;
 
     // Check if the comment content is empty
     if (!formValue.content.trim()) {
@@ -114,7 +141,7 @@ export class PostListComponent implements OnInit {
     commentModel.content = formValue.content;
     commentModel.postId = post.postId;
 
-    this.postService.makeComment(commentModel).subscribe(async result => {
+    this.postService.makeComment(commentModel).subscribe(result => {
       if (result == true) {
         this.sharedService.updateComments(true);
         formValue.content = '';
@@ -126,4 +153,7 @@ export class PostListComponent implements OnInit {
   toggleCommentSection(post: any): void {
     post.comments = !post.comments;
   }
+
+  // Helper method to determine if media is a video
+
 }
