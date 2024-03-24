@@ -75,8 +75,8 @@
                   <div class="p-3">
                     <h6>Comments</h6>
                   </div>
-                  <div class="mt-3 d-flex flex-row align-items-center p-3 form-color">
-                    <img [src]="post.profilePicture" width="50" class="rounded-circle mr-2">
+                  <div class="mt-3 d-flex flex-row align-items-center p-3 form-color" >
+                    <img [src]="user.profilePicture" width="50" class="rounded-circle mr-2">
                     <form [formGroup]="commentForm" (ngSubmit)="addComment(post)" class="d-flex flex-grow-1">
                       <div class="input-group flex-grow-1">
                         <input type="text" class="form-control" placeholder="Write a comment..." formControlName="content">

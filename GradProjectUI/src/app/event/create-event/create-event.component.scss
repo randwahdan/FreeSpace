@@ -1,0 +1,46 @@
+.hover-effect:hover {
+  background-color: #f0f0f0; /* Change to desired hover background color */
+}
+.container {
+
+  box-shadow:
+  rgb(4, 4, 4) 0px 0px 0px 3px,
+  #f4f4f4 0px 0px 0px 6px,
+  rgb(194, 54, 54) 0px 0px 0px 12px,
+  #2a782d 0px 0px 0px 18px;
+  .card {
+    background-color: white; // White background for the card
+    border-radius: 10px; // Rounded corners for the card
+    box-shadow: 0 0 20px #4caf50; // Shadow effect for the card
+
+    .card-header {
+      border-bottom: none; // Remove border for the card header
+      border-radius: 10px 10px 0 0; // Rounded corners only on top
+    }
+
+    .card-body {
+      border-top: none; // Remove border for the card body
+    }
+
+    form {
+      margin-bottom: 0; // Remove bottom margin for the form
+    }
+
+    .form-floating {
+      margin-bottom: 20px; // Add some space between form elements
+    }
+
+    .btn {
+      border-radius: 10px; // Rounded corners for buttons
+    }
+    .text-black{
+      font-family: 'hanging-letters';
+      font-size: 60px;
+      text-shadow: #4caf50;
+    }
+    
+  }
+}
+
+
+

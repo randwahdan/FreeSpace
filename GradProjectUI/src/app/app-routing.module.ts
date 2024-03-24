@@ -14,8 +14,9 @@ import {RegisterComponent} from './registration/sign-up.component';
 import {DeleteAccountComponent} from './settings-menu/delete-account/delete-account.component';
 import { UsersListComponent } from './Users/users.component';
 import { NotificationPage } from './notification/notification.component';
-
-
+import {ChatAppComponent} from './chat/chat.component';
+import{CreateEvent} from './event/create-event/create-event.component';
+import {EventDetails}from './event/event-details/event-details.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent },
@@ -31,11 +32,12 @@ const routes: Routes = [
   {
     path: 'home', component: HomeComponent,
     children: [
-      {path: 'friends', component: FriendsListComponent},
+      {path: 'friends', component:FriendsListComponent },
       {path:'users',component:UsersListComponent},
       {path: 'manage', component: MangePostComponent},
     ]
   },
+
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'friends', component:FriendsListComponent,
@@ -58,7 +60,19 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'notofication', component:NotificationPage,
-  }
+  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'Chat', component:ChatAppComponent,
+  },
+  { path: '', redirectTo: '/Event', pathMatch: 'full' },
+  {
+    path: 'create-event', component:CreateEvent,
+  },
+  { path: '', redirectTo: '/Event', pathMatch: 'full' },
+  {
+    path: 'event-details', component:EventDetails,
+  },
 
 ];
 

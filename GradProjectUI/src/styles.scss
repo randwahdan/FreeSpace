@@ -18,8 +18,56 @@
 @font-face {
   font-family: "CustomLogoFont";
   src: url("assets/font/FontsFree-Net-Billabong.ttf");
+}
 
-  }
+@font-face {
+  font-family: "serif";
+  src: url("assets/font/janda-snickerdoodle-serif/JandaSnickerdoodleSerif-TOU.txt");
+}
+
+@font-face {
+  font-family: "serifttf";
+  src: url("assets/font/janda-snickerdoodle-serif/JandaSnickerdoodleSerif.ttf");
+}
+
+@font-face {
+  font-family: "serifttfBold";
+  src: url("assets/font/janda-snickerdoodle-serif/JandaSnickerdoodleSerifBold.ttf");
+}
+
+@font-face {
+  font-family: "serifttfItalic";
+  src: url("assets/font/janda-snickerdoodle-serif/JandaSnickerdoodleSerifItalic.ttf");
+}
+
+@font-face {
+  font-family: "Shaded";
+  src: url("assets/font/sans-serif-shaded/Sans Serif Shaded.ttf");
+}
+
+@font-face {
+  font-family: "Starnight";
+  src: url("assets/font/monday-starnight/Monday Starnight.otf");
+}
+
+@font-face {
+  font-family: "good-choice";
+  src: url("assets/font/good-choice/Good Choice.ttf");
+}
+
+@font-face {
+  font-family: "good-choicettf";
+  src: url("assets/font/good-choice/Good Choice.ttf");
+}
+@font-face {
+  font-family: "GreenPiloww";
+  src: url("assets/font/green-piloww-font/GreenPiloww-0Kwr.ttf");
+}
+@font-face {
+  font-family: "hanging-letters";
+  src: url("assets/font/hanging-letters/Hanged\ Letters.ttf");
+}
+
 .dark-theme{
     --body-color:#0a0a0a;
     --nav-color: #000;

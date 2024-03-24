@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import{DeleteAccountComponent} from './settings-menu/delete-account/delete-account.component'
+import {DeleteAccountComponent} from './settings-menu/delete-account/delete-account.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { LeftSideMenuComponent } from './left-side-menu/left-side-menu.component';
@@ -20,7 +20,6 @@ import { ProfilePage } from './profile/profile-page.component';
 import { ProfileInfo } from './profile/profileInfo/profileInfo.component';
 import { ProfileDetails } from './profile/profile-details/profile-details.component';
 import { Event } from './event/event.component';
-import { RightSide } from './event/right-side/right-side.component';
 import { LeftSide } from './event/left-side/left-side.component';
 import { EventCards } from './event/event-card/event-card.component';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
@@ -30,13 +29,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RegisterComponent} from './registration/sign-up.component';
 import { ToastrModule } from 'ngx-toastr';
-import{SideBarComponent}from './side-navigation-bar/side-navigation-bar.component';
+import {SideBarComponent}from './side-navigation-bar/side-navigation-bar.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import{UsersListComponent} from './Users/users.component';
+import {UsersListComponent} from './Users/users.component';
 import {FriendsComponent} from './friend-list/friend-list/friendsList.component';
-import{PendingFriendsList} from './friend-list/pending-list/pending-list.component';
+import {PendingFriendsList} from './friend-list/pending-list/pending-list.component';
 import {NotificationPage} from './notification/notification.component';
+import {ChatAppComponent} from './chat/chat.component';
+import {ChatingComponent} from './chat/chatting/chatitng.component';
+import {CreateEvent} from './event/create-event/create-event.component';
+import {EventDetails}from'./event/event-details/event-details.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +59,6 @@ import {NotificationPage} from './notification/notification.component';
     ProfileInfo,
     ProfileDetails,
     Event,
-    RightSide,
     LeftSide,
     EventCards,
     LoginComponent,
@@ -68,6 +70,10 @@ import {NotificationPage} from './notification/notification.component';
     FriendsComponent,
     PendingFriendsList,
     NotificationPage,
+    ChatAppComponent,
+    ChatingComponent,
+    CreateEvent,
+    EventDetails
 
   ],
   imports: [

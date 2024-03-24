@@ -15,6 +15,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./post-list.component.scss'] // Fixing the typo in styleUrls
 })
 export class PostListComponent implements OnInit {
+
   commentForm: FormGroup;
   user: UserModel;
   post: PostModel;
@@ -22,6 +23,7 @@ export class PostListComponent implements OnInit {
   isCurrentPostLiked = false;
   showCommentSection = false;
   @Input() userId: any;
+
 
 
 
@@ -38,6 +40,9 @@ export class PostListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let userStorge=localStorage.getItem('user');
+    this.user  = userStorge ? JSON.parse(userStorge) : null;
+
     this.sharedService.posts$.subscribe((isPosCreated) => {
       if (isPosCreated) {
         this.getPosts();
@@ -153,6 +158,7 @@ export class PostListComponent implements OnInit {
   toggleCommentSection(post: any): void {
     post.comments = !post.comments;
   }
+
 
   // Helper method to determine if media is a video
 

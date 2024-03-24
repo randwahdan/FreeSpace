@@ -1,0 +1,101 @@
+<app-header></app-header>
+<div class="container">
+<div class="card shadow border-0 mt-4">
+  <div class="card-header bg-white bg-gradient m-lg-0 py-3">
+    <div class="row">
+      <div class="col-10 mx-auto text-center">
+        <h2 class="text-black" ><img src="assets/image/logo/watermelon.png" height="40"alt=""loading="lazy"> Create Event <img src="assets/image/logo/watermelon.png" height="40"alt=""loading="lazy"></h2>
+      </div>
+    </div>
+  </div>
+  <div class="card-body p-4">
+    <form [formGroup]="eventForm" (ngSubmit)="EventCreation()" class="row">
+      <div class="border p-3">
+        <div class="form-floating py-2 col-10 mx-auto">
+          <input name="title" class="form-control border-0 shadow" />
+          <label for="Title" class="ms-2">Title</label>
+          <span class="text-danger"></span>
+        </div>
+        <div class="form-floating py-2 col-10 mx-auto">
+          <textarea  name="discription" class="form-control border-0 shadow" style="height: 100px;" ></textarea>
+          <label for="DisplayOrder" class="ms-2">Discription</label>
+          <span class="text-danger"></span>
+        </div>
+        <div class="form-floating row justify-content-center">
+          <div class="col-5">
+              <label for="Start-Date" class="ms-2">Start Date</label>
+              <input  type="date" name="start-date" id="start-date" required>
+              <span class="text-danger"></span>
+          </div>
+          <div class="col-5">
+              <label for="end-Date" class="ms-2 ">End Date</label>
+              <input  type="date" name="end-date" id="end-date" required>
+              <span class="text-danger"></span>
+          </div>
+      </div>
+      <div class="form-floating row justify-content-center">
+        <div class="col-5">
+            <label for="Start-time" class="ms-2">Start Time</label>
+            <input  type="time" name="start-time" id="start-date" required>
+            <span class="text-danger"></span>
+        </div>
+        <div class="col-5">
+          <label for="End-time" class="ms-2">End Time</label>
+          <input  type="time" name="end-time" id="end-date" required>
+          <span class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-floating py-2 col-10 mx-auto">
+      <select  style="cursor: pointer;" id="Categories" class="form-select border-0 shadow">
+        <option value="">--Please choose event categories--</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Sport">Sport</option>
+        <option value="Music and audio">Music and audio</option>
+        <option value="Demonstration">Demonstration</option>
+        <option value="Tv and films">Tv and films</option>
+        <option value="Games">Games</option>
+      </select>
+      <label for="Categories" class="ms-2">Category</label>
+      <span class="text-danger"></span>
+    </div>
+    <div class="form-floating row justify-content-center">
+      <div class="col-5">
+        <div class="form-floating py-2">
+          <input formControlName="county" class="form-control border-0 shadow" />
+          <label for="County" class="ms-2">County</label>
+          <span class="text-danger"></span>
+        </div>
+      </div>
+      <div class="col-5 ">
+        <div class="form-floating py-2">
+          <input formControlName="city" class="form-control border-0 shadow" />
+          <label for="City" class="ms-2">City</label>
+          <span class="text-danger"></span>
+        </div>
+      </div>
+    </div>
+    <div class="form-floating py-2 col-10 mx-auto">
+      <input type="url" name="url" class="form-control border-0 shadow" />
+      <label for="EventUrl" class="ms-2">URL for Your Event</label>
+      <span class="text-danger"></span>
+    </div>
+    <div class="form-floating py-2 col-10 mx-auto">
+      <input type="file" name="file" class="form-control border-0 shadow" />
+      <label for="EventImage" class="ms-2">Upload Image For Your Event</label>
+    </div>
+        <div class="row pt-2 justify-content-center">
+          <div class="col-5 ">
+            <button type="submit" class="btn btn-success form-control">Create</button>
+          </div>
+          <div class="col-5 ">
+            <a routerLink="/Event"  class="hover-effect btn btn-outline-primary border form-control" style="color: black; ">
+              Back
+            </a>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+

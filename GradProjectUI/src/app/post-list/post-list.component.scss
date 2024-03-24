@@ -99,7 +99,10 @@ form {
     border: none;
     outline: none;
     padding: 16px 50px;
-    background: #080707;
+    background: -webkit-linear-gradient(to right, #4caf50, #d32f2f);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #4caf50, #d32f2f);
     color: #fff;
     font-size: 14px;
     font-weight: 600;
@@ -111,9 +114,8 @@ form {
 
   button:hover {
     background-color: #ffffff;
-    color: #080707;
-    border: 1px solid #000; /* Add border */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add box shadow */
+    border: 1px solid #ffffff; /* Add border */
+    box-shadow: 0px 0px 10px #4caf50 /* Add box shadow */
   }
 
   .input-group {
