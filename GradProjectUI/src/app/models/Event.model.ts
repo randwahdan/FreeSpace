@@ -1,15 +1,15 @@
 import { Time } from "@angular/common";
 
 export class EventModel {
-    title!: String;
+    title!: string;
     description!: string;
-    place!:string;
-    category!:string;
-    startDate!:Date;
-    startTime!:TimeRanges;
-    endDate!:Date;
-    endTime:TimeRanges;
-    file:string;
-    
-
-  }
+    country!: string;
+    city!: string;
+    category!: string;
+    startDate!: Date;
+    startTime!: Date; // Changed back to Date type
+    endDate!: Date;
+    endTime!: Date; // Changed back to Date type
+    file!: File;
+    link!: string;
+}

@@ -4,7 +4,7 @@
   <div class="card-header bg-white bg-gradient m-lg-0 py-3">
     <div class="row">
       <div class="col-10 mx-auto text-center">
-        <h2 class="text-black" ><img src="assets/image/logo/watermelon.png" height="40"alt=""loading="lazy"> Create Event <img src="assets/image/logo/watermelon.png" height="40"alt=""loading="lazy"></h2>
+        <h2 class="text-black" > Create Event </h2>
       </div>
     </div>
   </div>
@@ -12,77 +12,89 @@
     <form [formGroup]="eventForm" (ngSubmit)="EventCreation()" class="row">
       <div class="border p-3">
         <div class="form-floating py-2 col-10 mx-auto">
-          <input name="title" class="form-control border-0 shadow" />
+          <input formControlName="title" class="form-control border-0 shadow" required/>
           <label for="Title" class="ms-2">Title</label>
-          <span class="text-danger"></span>
+          <span *ngIf="eventForm.get('title')?.invalid && eventForm.get('title')?.touched" class="text-danger">Title is required</span>
         </div>
         <div class="form-floating py-2 col-10 mx-auto">
-          <textarea  name="discription" class="form-control border-0 shadow" style="height: 100px;" ></textarea>
-          <label for="DisplayOrder" class="ms-2">Discription</label>
-          <span class="text-danger"></span>
+          <textarea formControlName="description" class="form-control border-0 shadow" style="height: 100px;"></textarea>
+          <label for="description" class="ms-2">Description</label>
+          <span *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched" class="text-danger">Description is required</span>
         </div>
+
+
         <div class="form-floating row justify-content-center">
           <div class="col-5">
-              <label for="Start-Date" class="ms-2">Start Date</label>
-              <input  type="date" name="start-date" id="start-date" required>
-              <span class="text-danger"></span>
+            <label for="start-date" class="ms-2">Start Date</label>
+            <input type="date" formControlName="startDate" id="start-date" (blur)="eventForm.get('startDate')?.markAsTouched()" required>
+            <span *ngIf="eventForm.get('startDate')?.errors?.['required'] && eventForm.get('startDate')?.touched" class="text-danger">Start Date is required</span>
           </div>
           <div class="col-5">
-              <label for="end-Date" class="ms-2 ">End Date</label>
-              <input  type="date" name="end-date" id="end-date" required>
-              <span class="text-danger"></span>
+            <label for="end-date" class="ms-2">End Date</label>
+            <input type="date" formControlName="endDate" id="end-date" (blur)="eventForm.get('endDate')?.markAsTouched()" required>
+            <span *ngIf="eventForm.get('endDate')?.errors?.['required'] && eventForm.get('endDate')?.touched" class="text-danger">End Date is required</span>
           </div>
-      </div>
-      <div class="form-floating row justify-content-center">
-        <div class="col-5">
+        </div>
+
+
+        <div class="form-floating row justify-content-center">
+          <div class="col-5">
             <label for="Start-time" class="ms-2">Start Time</label>
-            <input  type="time" name="start-time" id="start-date" required>
-            <span class="text-danger"></span>
+            <input type="time" formControlName="startTime" id="start-date" (blur)="eventForm.get('startTime')?.markAsTouched()">
+            <span *ngIf="eventForm.get('startTime')?.errors?.['required'] && eventForm.get('startTime')?.touched" class="text-danger">Start Time is required</span>
+          </div>
+          <div class="col-5">
+            <label for="End-time" class="ms-2">End Time</label>
+            <input type="time" formControlName="endTime" id="end-date" (blur)="eventForm.get('endTime')?.markAsTouched()">
+            <span *ngIf="eventForm.get('endTime')?.errors?.['required'] && eventForm.get('endTime')?.touched" class="text-danger">End Time is required</span>
+          </div>
         </div>
-        <div class="col-5">
-          <label for="End-time" class="ms-2">End Time</label>
-          <input  type="time" name="end-time" id="end-date" required>
-          <span class="text-danger"></span>
+
+
+
+        <div class="form-floating py-2 col-10 mx-auto">
+          <select style="cursor: pointer;" formControlName="category" class="form-select border-0 shadow">
+            <option value="">--Please choose event categories--</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Sport">Sport</option>
+            <option value="Music and audio">Music and audio</option>
+            <option value="Demonstration">Demonstration</option>
+            <option value="Tv and films">Tv and films</option>
+            <option value="Games">Games</option>
+          </select>
+          <label for="Categories" class="ms-2">Category</label>
+          <span *ngIf="eventForm.get('category')?.invalid && eventForm.get('category')?.touched" class="text-danger">Category is required</span>
         </div>
-    </div>
-    <div class="form-floating py-2 col-10 mx-auto">
-      <select  style="cursor: pointer;" id="Categories" class="form-select border-0 shadow">
-        <option value="">--Please choose event categories--</option>
-        <option value="Comedy">Comedy</option>
-        <option value="Sport">Sport</option>
-        <option value="Music and audio">Music and audio</option>
-        <option value="Demonstration">Demonstration</option>
-        <option value="Tv and films">Tv and films</option>
-        <option value="Games">Games</option>
-      </select>
-      <label for="Categories" class="ms-2">Category</label>
-      <span class="text-danger"></span>
-    </div>
+
     <div class="form-floating row justify-content-center">
       <div class="col-5">
         <div class="form-floating py-2">
-          <input formControlName="county" class="form-control border-0 shadow" />
-          <label for="County" class="ms-2">County</label>
-          <span class="text-danger"></span>
+          <input formControlName="country" class="form-control border-0 shadow" (blur)="eventForm.get('country')?.markAsTouched()" required/>
+          <label for="Country" class="ms-2">Country</label>
+          <span *ngIf="eventForm.get('country')?.errors?.['required'] && eventForm.get('country')?.touched" class="text-danger">Country is required</span>
         </div>
       </div>
       <div class="col-5 ">
         <div class="form-floating py-2">
-          <input formControlName="city" class="form-control border-0 shadow" />
+          <input formControlName="city" class="form-control border-0 shadow" (blur)="eventForm.get('city')?.markAsTouched()" required/>
           <label for="City" class="ms-2">City</label>
-          <span class="text-danger"></span>
+          <span *ngIf="eventForm.get('city')?.errors?.['required'] && eventForm.get('city')?.touched" class="text-danger">City is required</span>
         </div>
       </div>
     </div>
-    <div class="form-floating py-2 col-10 mx-auto">
-      <input type="url" name="url" class="form-control border-0 shadow" />
+
+    <div class="form-floating py-2 col-10 mx-auto" [ngClass]="{'has-error': eventForm.get('link')?.errors && eventForm.get('link')?.touched}">
+      <input type="url" formControlName="link" class="form-control border-0 shadow" />
       <label for="EventUrl" class="ms-2">URL for Your Event</label>
-      <span class="text-danger"></span>
+      <span *ngIf="eventForm.get('link')?.errors?.['required'] && eventForm.get('link')?.touched" class="text-danger">URL is required</span>
+      <span *ngIf="eventForm.get('link')?.errors?.['pattern'] && eventForm.get('link')?.touched" class="text-danger">Invalid URL format</span>
     </div>
     <div class="form-floating py-2 col-10 mx-auto">
-      <input type="file" name="file" class="form-control border-0 shadow" />
+      <input type="file" formControlName="file" class="form-control border-0 shadow" (change)="onFileChanged($event)" required/>
       <label for="EventImage" class="ms-2">Upload Image For Your Event</label>
+      <span *ngIf="eventForm.get('file')?.invalid && eventForm.get('file')?.touched" class="text-danger">Image is required</span>
     </div>
+
         <div class="row pt-2 justify-content-center">
           <div class="col-5 ">
             <button type="submit" class="btn btn-success form-control">Create</button>

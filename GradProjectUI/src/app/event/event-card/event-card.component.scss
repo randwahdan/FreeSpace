@@ -305,5 +305,14 @@ text-align: center;
 .widget-49 .widget-49-meeting-action a {
 text-transform: uppercase;
 }
+.btn-light{
+  background: -webkit-linear-gradient(to right, #4caf50, #d32f2f);
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #4caf50, #d32f2f);
+  color: white;
+  font-weight: 550;
+  font-size: 18px;
+}
 
 

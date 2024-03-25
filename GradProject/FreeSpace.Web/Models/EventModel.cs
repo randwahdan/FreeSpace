@@ -1,4 +1,6 @@
-﻿namespace FreeSpace.Web.Models
+﻿using Microsoft.AspNetCore.Http;
+
+namespace FreeSpace.Web.Models
 {
     public class EventModel
     {
@@ -12,8 +14,7 @@
         public string Category { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public string Url { get; set; }
-        public List<MediaModel>? Media { get; set; }
-
+        public string Link { get; set; }
+        public IFormFile File { get; set; }
     }
 }

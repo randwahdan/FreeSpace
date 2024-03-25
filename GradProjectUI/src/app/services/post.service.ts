@@ -11,7 +11,7 @@ export class PostService   {
   constructor(private httpClient: HttpClient) {
   }
   getPost():  Observable<any> {
-  
+
     return this.httpClient.get('/post/get-posts');
   }
 
