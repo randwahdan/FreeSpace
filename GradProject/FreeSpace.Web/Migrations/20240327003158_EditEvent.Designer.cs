@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FreeSpace.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240324022519_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240327003158_EditEvent")]
+    partial class EditEvent
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -163,14 +163,6 @@ namespace FreeSpace.Web.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<byte[]>("File")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("LastModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -188,10 +180,6 @@ namespace FreeSpace.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
@@ -200,6 +188,49 @@ namespace FreeSpace.Web.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Events");
+                });
+
+            modelBuilder.Entity("FreeSpace.Web.Entities.EventMedia", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("CreatedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<byte[]>("File")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsVideo")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("LastModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTimeOffset>("LastModifiedDate")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("EventMedias");
                 });
 
             modelBuilder.Entity("FreeSpace.Web.Entities.EventResponse", b =>
@@ -537,6 +568,17 @@ namespace FreeSpace.Web.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("FreeSpace.Web.Entities.EventMedia", b =>
+                {
+                    b.HasOne("FreeSpace.Web.Entities.Event", "Event")
+                        .WithMany("Medias")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+                });
+
             modelBuilder.Entity("FreeSpace.Web.Entities.EventResponse", b =>
                 {
                     b.HasOne("FreeSpace.Web.Entities.Event", "Event")
@@ -622,6 +664,8 @@ namespace FreeSpace.Web.Migrations
             modelBuilder.Entity("FreeSpace.Web.Entities.Event", b =>
                 {
                     b.Navigation("EventResponses");
+
+                    b.Navigation("Medias");
                 });
 
             modelBuilder.Entity("FreeSpace.Web.Entities.Post", b =>

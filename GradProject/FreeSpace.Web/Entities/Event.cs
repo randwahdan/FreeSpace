@@ -9,23 +9,20 @@ namespace FreeSpace.Web.Entities;
         public string Description { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
         public string Country { get; set; }
         public string City { get; set; }    
-        
         public string Category { get; set; }
         public string Link { get; set; }
-        public string FileName { get; set; }
-        public byte[] File { get; set; }
-        public string Url { get; set; }
-
-
 
     #region Releations
     public User User { get; set; }
         public ICollection<EventResponse> EventResponses { get; set; }
-        
-        #endregion
+        public ICollection<EventMedia> Medias { get; set; }
+    public object Include(Func<object, object> value)
+    {
+        throw new NotImplementedException();
     }
+
+    #endregion
+}
  

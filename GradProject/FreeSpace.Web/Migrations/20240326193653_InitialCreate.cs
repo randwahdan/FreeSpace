@@ -88,13 +88,12 @@ namespace FreeSpace.Web.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     City = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Link = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    File = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     LastModifiedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
@@ -130,6 +129,32 @@ namespace FreeSpace.Web.Migrations
                         name: "FK_Posts_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "EventMedias",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    File = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Url = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsVideo = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    LastModifiedDate = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    LastModifiedBy = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventMedias", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EventMedias_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -335,6 +360,11 @@ namespace FreeSpace.Web.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EventMedias_EventId",
+                table: "EventMedias",
+                column: "EventId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EventResponse_EventId",
                 table: "EventResponse",
                 column: "EventId");
@@ -388,6 +418,9 @@ namespace FreeSpace.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "CommentLikes");
+
+            migrationBuilder.DropTable(
+                name: "EventMedias");
 
             migrationBuilder.DropTable(
                 name: "EventResponse");

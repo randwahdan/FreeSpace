@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,OnInit,ViewChild } from '@angular/core';
 import {Router} from "@angular/router";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { EventService } from '../../services/event.service';
@@ -17,10 +17,12 @@ import { throwError } from 'rxjs';
   templateUrl: './create-event.component.html',
   styleUrl: './create-event.component.scss'
 })
-export class CreateEvent {
+export class CreateEvent implements OnInit{
   eventForm: FormGroup;
-  selectedFile: File;
+  selectedFiles: File[] | null = null;
   user:UserModel;
+  @ViewChild('fileInput') fileInputImage: any;
+
   constructor(
     private router: Router,
     private eventService: EventService,
@@ -33,36 +35,56 @@ export class CreateEvent {
       description: ['', Validators.required],
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
-      startTime: ['', Validators.required],
-      endTime: ['', Validators.required],
       category: ['', Validators.required],
       country: ['', Validators.required],
       city: ['', Validators.required],
       link: ['', [Validators.required, Validators.pattern('https?://.+')]],
-      file: [null, Validators.required]
     });
   }
-
-  onFileChanged(event: any) {
-    this.selectedFile = event.target.files[0];
+  ngOnInit(): void {
+    let userStorage = localStorage.getItem('user');
+    this.user = userStorage ? JSON.parse(userStorage) : null;
   }
-  EventCreation() {
-    // Extract form values
-    const formValue = this.eventForm.value;
+  onFileSelected(event: any): void {
+    this.selectedFiles = event.target.files;
+  }
+  onFileClick(event: Event): void {
+    if (this.fileInputImage) {
+      this.fileInputImage.click();
+    }
+  }
 
+  EventCreation() {
+    if (this.eventForm.invalid) {
+      // If the form is invalid, mark all fields as touched to display validation errors
+      this.eventForm.markAllAsTouched();
+      return; // Exit the function if the form is invalid
+    }
+    // Extract form values
+    let formValue = this.eventForm.value;
     // Create a new EventModel instance
-    const eventModel = new EventModel();
+    const startDate = new Date(formValue.startDate);
+    if (startDate <= new Date()) {
+      this.toastr.error('Event Date must be in the future.');
+      return;
+    }
+    // Check if endDate is after startDate
+    const endDate = new Date(formValue.endDate);
+    if (endDate <= startDate) {
+      this.toastr.error('Event End Date Must Be After Start Date.');
+      return;
+    }
+
+    let eventModel = new EventModel();
+
     eventModel.title = formValue.title;
     eventModel.description = formValue.description;
-    eventModel.startDate = formValue.startDate;
-    eventModel.endDate = formValue.endDate;
-    eventModel.startTime = formValue.startTime;
-    eventModel.endTime = formValue.endTime;
+    eventModel.startDate = startDate;
+    eventModel.endDate = endDate;
     eventModel.category = formValue.category;
     eventModel.country = formValue.country;
     eventModel.city = formValue.city;
     eventModel.link = formValue.link;
-
     // Create a new FormData object
     const formData: FormData = new FormData();
 
@@ -70,8 +92,11 @@ export class CreateEvent {
     formData.append('eventModel', JSON.stringify(eventModel));
 
     // Append selected file to FormData
-    formData.append('file', this.selectedFile, this.selectedFile.name); // Append file with its name
-
+    if (this.selectedFiles != null) {
+      for (let index = 0; index < this.selectedFiles.length; index++) {
+        formData.append('files', this.selectedFiles[index], this.selectedFiles[index].name);
+      }
+    }
     // Send POST request to server
     this.http.post(`/Event/create-event`, formData)
       .pipe(
@@ -87,17 +112,12 @@ export class CreateEvent {
       .subscribe(async result => {
         // Reset form values
         this.eventForm.reset();
-
-        // Show success toastr message
+        // Show success toastr messag
+        this.selectedFiles = null;
+        if (this.fileInputImage) {
+          this.fileInputImage.nativeElement.value = '';
+        }
         this.toastr.success('Your Event was created successfully.');
-
-        // Navigate to the Event page
-        this.router.navigateByUrl('Event');
       });
   }
-
-
-
-
-
 }

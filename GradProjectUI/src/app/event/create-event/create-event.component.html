@@ -21,37 +21,18 @@
           <label for="description" class="ms-2">Description</label>
           <span *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched" class="text-danger">Description is required</span>
         </div>
-
-
         <div class="form-floating row justify-content-center">
           <div class="col-5">
-            <label for="start-date" class="ms-2">Start Date</label>
-            <input type="date" formControlName="startDate" id="start-date" (blur)="eventForm.get('startDate')?.markAsTouched()" required>
+            <label for="start-date" class="ms-2">Start Date and Time</label>
+            <input type="datetime-local" formControlName="startDate" id="start-date" (blur)="eventForm.get('startDate')?.markAsTouched()" required>
             <span *ngIf="eventForm.get('startDate')?.errors?.['required'] && eventForm.get('startDate')?.touched" class="text-danger">Start Date is required</span>
           </div>
           <div class="col-5">
-            <label for="end-date" class="ms-2">End Date</label>
-            <input type="date" formControlName="endDate" id="end-date" (blur)="eventForm.get('endDate')?.markAsTouched()" required>
+            <label for="end-date" class="ms-2">End Date and Time</label>
+            <input type="datetime-local" formControlName="endDate" id="end-date" (blur)="eventForm.get('endDate')?.markAsTouched()" required>
             <span *ngIf="eventForm.get('endDate')?.errors?.['required'] && eventForm.get('endDate')?.touched" class="text-danger">End Date is required</span>
           </div>
         </div>
-
-
-        <div class="form-floating row justify-content-center">
-          <div class="col-5">
-            <label for="Start-time" class="ms-2">Start Time</label>
-            <input type="time" formControlName="startTime" id="start-date" (blur)="eventForm.get('startTime')?.markAsTouched()">
-            <span *ngIf="eventForm.get('startTime')?.errors?.['required'] && eventForm.get('startTime')?.touched" class="text-danger">Start Time is required</span>
-          </div>
-          <div class="col-5">
-            <label for="End-time" class="ms-2">End Time</label>
-            <input type="time" formControlName="endTime" id="end-date" (blur)="eventForm.get('endTime')?.markAsTouched()">
-            <span *ngIf="eventForm.get('endTime')?.errors?.['required'] && eventForm.get('endTime')?.touched" class="text-danger">End Time is required</span>
-          </div>
-        </div>
-
-
-
         <div class="form-floating py-2 col-10 mx-auto">
           <select style="cursor: pointer;" formControlName="category" class="form-select border-0 shadow">
             <option value="">--Please choose event categories--</option>
@@ -61,28 +42,167 @@
             <option value="Demonstration">Demonstration</option>
             <option value="Tv and films">Tv and films</option>
             <option value="Games">Games</option>
+            <option value="Conference">Conference</option>
+            <option value="Exhibition">Exhibition</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Party">Party</option>
+            <option value="Networking">Networking</option>
+            <option value="Art and culture">Art and culture</option>
+            <option value="Education">Education</option>
+            <option value="Charity">Charity</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Health and wellness">Health and wellness</option>
+            <option value="Food and drink">Food and drink</option>
+            <option value="Technology">Technology</option>
           </select>
           <label for="Categories" class="ms-2">Category</label>
           <span *ngIf="eventForm.get('category')?.invalid && eventForm.get('category')?.touched" class="text-danger">Category is required</span>
         </div>
-
     <div class="form-floating row justify-content-center">
       <div class="col-5">
         <div class="form-floating py-2">
-          <input formControlName="country" class="form-control border-0 shadow" (blur)="eventForm.get('country')?.markAsTouched()" required/>
+          <select style="cursor: pointer;" formControlName="country" class="form-select border-0 shadow" (blur)="eventForm.get('country')?.markAsTouched()" required>
+            <option value="">-- Select Country --</option>
+            <option value="Afghanistan">Afghanistan</option>
+            <option value="Algeria">Algeria</option>
+            <option value="Bahrain">Bahrain</option>
+            <option value="Egypt">Egypt</option>
+            <option value="Iraq">Iraq</option>
+            <option value="Jordan">Jordan</option>
+            <option value="Kuwait">Kuwait</option>
+            <option value="Lebanon">Lebanon</option>
+            <option value="Libya">Libya</option>
+            <option value="Morocco">Morocco</option>
+            <option value="Oman">Oman</option>
+            <option value="Palestine">Palestine</option>
+            <option value="Qatar">Qatar</option>
+            <option value="Saudi Arabia">Saudi Arabia</option>
+            <option value="Somalia">Somalia</option>
+            <option value="Sudan">Sudan</option>
+            <option value="Syria">Syria</option>
+            <option value="Tunisia">Tunisia</option>
+            <option value="United Arab Emirates">United Arab Emirates</option>
+            <option value="Yemen">Yemen</option>
+          </select>
           <label for="Country" class="ms-2">Country</label>
           <span *ngIf="eventForm.get('country')?.errors?.['required'] && eventForm.get('country')?.touched" class="text-danger">Country is required</span>
         </div>
       </div>
-      <div class="col-5 ">
+
+      <div class="col-5">
         <div class="form-floating py-2">
-          <input formControlName="city" class="form-control border-0 shadow" (blur)="eventForm.get('city')?.markAsTouched()" required/>
+          <select style="cursor: pointer;" formControlName="city" class="form-select border-0 shadow" (blur)="eventForm.get('city')?.markAsTouched()" required>
+            <option value="">-- Select City --</option>
+            <optgroup label="Egypt">
+      <option value="Cairo">Cairo</option>
+      <option value="Alexandria">Alexandria</option>
+      <option value="Giza">Giza</option>
+      <option value="Shubra El Kheima">Shubra El Kheima</option>
+      <option value="Port Said">Port Said</option>
+            </optgroup>
+            <optgroup label="Saudi Arabia">
+      <option value="Riyadh">Riyadh</option>
+      <option value="Jeddah">Jeddah</option>
+      <option value="Mecca">Mecca</option>
+      <option value="Medina">Medina</option>
+      <option value="Dammam">Dammam</option>
+            </optgroup>
+            <optgroup label="Iraq">
+              <option value="Baghdad">Baghdad</option>
+              <option value="Basra">Basra</option>
+              <option value="Mosul">Mosul</option>
+              <option value="Erbil">Erbil</option>
+              <option value="Karbala">Karbala</option>
+            </optgroup>
+      <!-- Syria -->
+      <optgroup label="Syria">
+      <option value="Damascus">Damascus</option>
+      <option value="Aleppo">Aleppo</option>
+      <option value="Homs">Homs</option>
+      <option value="Hama">Hama</option>
+      <option value="Latakia">Latakia</option>
+      </optgroup>
+      <!-- Jordan -->
+      <optgroup label="Jordan">
+        <option value="Amman">Amman</option>
+        <option value="Zarqa">Zarqa</option>
+        <option value="Irbid">Irbid</option>
+        <option value="Aqaba">Aqaba</option>
+        <option value="Madaba">Madaba</option>
+      </optgroup>
+      <optgroup label="Lebanon">
+        <option value="Beirut">Beirut</option>
+        <option value="Tripoli">Tripoli</option>
+        <option value="Sidon">Sidon</option>
+        <option value="Tyre">Tyre</option>
+        <option value="Jounieh">Jounieh</option>
+      </optgroup>
+      <optgroup label="Tunisia">
+        <option value="Tunis">Tunis</option>
+        <option value="Sfax">Sfax</option>
+        <option value="Sousse">Sousse</option>
+        <option value="Kairouan">Kairouan</option>
+        <option value="Bizerte">Bizerte</option>
+      </optgroup>
+      <optgroup label="Algeria">
+        <option value="Algiers">Algiers</option>
+        <option value="Oran">Oran</option>
+        <option value="Constantine">Constantine</option>
+        <option value="Annaba">Annaba</option>
+        <option value="Blida">Blida</option>
+      </optgroup>
+      <optgroup label="Sudan">
+        <option value="Khartoum">Khartoum</option>
+        <option value="Omdurman">Omdurman</option>
+        <option value="Port Sudan">Port Sudan</option>
+        <option value="Kassala">Kassala</option>
+        <option value="Al-Ubayyid">Al-Ubayyid</option>
+      </optgroup>
+      <optgroup label="Morocco">
+        <option value="Casablanca">Casablanca</option>
+        <option value="Rabat">Rabat</option>
+        <option value="Fes">Fes</option>
+        <option value="Marrakech">Marrakech</option>
+        <option value="Agadir">Agadir</option>
+      </optgroup>
+      <optgroup label="Oman">
+        <option value="Muscat">Muscat</option>
+        <option value="Salalah">Salalah</option>
+        <option value="Sohar">Sohar</option>
+        <option value="Nizwa">Nizwa</option>
+        <option value="Sur">Sur</option>
+      </optgroup>
+
+
+      <optgroup label="Kuwait"></optgroup>
+      <option value="Kuwait City">Kuwait City</option>
+      <option value="Hawalli">Hawalli</option>
+      <option value="Salmiya">Salmiya</option>
+      <option value="Al Jahra">Al Jahra</option>
+      <option value="Al Farwaniyah">Al Farwaniyah</option>
+
+      <!-- Qatar -->
+      <optgroup label="Qatar">
+        <option value="Doha">Doha</option>
+        <option value="Al Wakrah">Al Wakrah</option>
+        <option value="Al Rayyan">Al Rayyan</option>
+        <!-- Add more cities here -->
+      </optgroup>
+
+      <!-- Yemen -->
+      <optgroup label="Yemen">
+        <option value="Sana'a">Sana'a</option>
+        <option value="Aden">Aden</option>
+        <option value="Taiz">Taiz</option>
+        <!-- Add more cities here -->
+      </optgroup>
+            <!-- You can add more cities here -->
+          </select>
           <label for="City" class="ms-2">City</label>
           <span *ngIf="eventForm.get('city')?.errors?.['required'] && eventForm.get('city')?.touched" class="text-danger">City is required</span>
         </div>
       </div>
     </div>
-
     <div class="form-floating py-2 col-10 mx-auto" [ngClass]="{'has-error': eventForm.get('link')?.errors && eventForm.get('link')?.touched}">
       <input type="url" formControlName="link" class="form-control border-0 shadow" />
       <label for="EventUrl" class="ms-2">URL for Your Event</label>
@@ -90,14 +210,13 @@
       <span *ngIf="eventForm.get('link')?.errors?.['pattern'] && eventForm.get('link')?.touched" class="text-danger">Invalid URL format</span>
     </div>
     <div class="form-floating py-2 col-10 mx-auto">
-      <input type="file" formControlName="file" class="form-control border-0 shadow" (change)="onFileChanged($event)" required/>
+      <input type="file"  class="form-control border-0 shadow"  #fileInput multiple (change)="onFileSelected($event)" required/>
       <label for="EventImage" class="ms-2">Upload Image For Your Event</label>
       <span *ngIf="eventForm.get('file')?.invalid && eventForm.get('file')?.touched" class="text-danger">Image is required</span>
     </div>
-
         <div class="row pt-2 justify-content-center">
           <div class="col-5 ">
-            <button type="submit" class="btn btn-success form-control">Create</button>
+            <button type="submit" [disabled]="eventForm.invalid || !selectedFiles"  class="btn btn-success form-control">Create</button>
           </div>
           <div class="col-5 ">
             <a routerLink="/Event"  class="hover-effect btn btn-outline-primary border form-control" style="color: black; ">
