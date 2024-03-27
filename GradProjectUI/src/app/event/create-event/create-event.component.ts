@@ -70,7 +70,7 @@ export class CreateEvent implements OnInit{
     }
     // Check if endDate is after startDate
     const endDate = new Date(formValue.endDate);
-    if (endDate <= startDate) {
+    if (endDate < startDate) {
       this.toastr.error('Event End Date Must Be After Start Date.');
       return;
     }
@@ -94,7 +94,14 @@ export class CreateEvent implements OnInit{
     // Append selected file to FormData
     if (this.selectedFiles != null) {
       for (let index = 0; index < this.selectedFiles.length; index++) {
-        formData.append('files', this.selectedFiles[index], this.selectedFiles[index].name);
+        const file = this.selectedFiles[index];
+        if (file.type.startsWith('image')) {
+          formData.append('files', file, file.name);
+        } else {
+          // Show error if the file is not an image
+          this.toastr.error('Only image files are allowed.');
+          return;
+        }
       }
     }
     // Send POST request to server

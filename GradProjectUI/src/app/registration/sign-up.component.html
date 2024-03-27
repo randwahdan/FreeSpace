@@ -11,26 +11,37 @@
                   <div class="logo"><img src="assets\image\logo\watermelon.png"><span >FreeSpace</span></div>
                 </div>
 
-                <form [formGroup]="registerationForm" (ngSubmit)="Register()">
+                <form [formGroup]="registerationForm" (ngSubmit)="Register()" autocomplete="off">
                   <div class="row">
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="firstName">First Name</label>
-                        <input type="text" id="firstName" class="form-control form-control-lg" name="firstName" formControlName="firstname" />
+                        <input type="text" id="firstName" class="form-control form-control-lg" name="firstName" formControlName="firstname" placeholder="First Name" autocomplete="new-firstName"/>
+                        <div *ngIf="registerationForm.get('firstname')?.invalid && (registerationForm.get('firstname')?.dirty || registerationForm.get('firstname')?.touched)" class="text-danger">
+                          <div *ngIf="registerationForm.get('firstname')?.errors?.['required']">First Name is required</div>
+                        </div>
                       </div>
                     </div>
                     <div class="col-md-6 mb-4">
                       <div class="form-outline">
                         <label class="form-label" for="lastName">Last Name</label>
-                        <input type="text" id="lastName" class="form-control form-control-lg"  name="lastName" formControlName="lastname" />
+                        <input type="text" id="lastName" class="form-control form-control-lg" name="lastName" formControlName="lastname" placeholder="Last Name" autocomplete="new-lastName"/>
+                        <div *ngIf="registerationForm.get('lastname')?.invalid && (registerationForm.get('lastname')?.dirty || registerationForm.get('lastname')?.touched)" class="text-danger">
+                          <div *ngIf="registerationForm.get('lastname')?.errors?.['required']">Last Name is required</div>
+                        </div>
                       </div>
                     </div>
                   </div>
+
                   <div class="row">
                     <div class="col-md-12 mb-4 pb-2">
                       <div class="form-outline">
                         <label class="form-label" for="emailAddress">Email</label>
-                        <input type="email" id="emailAddress" class="form-control form-control-lg" formControlName="email"   name="email" placeholder="Enter your Email..." />
+                        <input type="email" id="emailAddress" class="form-control form-control-lg" formControlName="email"   name="email" placeholder="Enter your Email..." autocomplete="new-email"/>
+                        <div *ngIf="registerationForm.get('email')?.invalid && (registerationForm.get('email')?.dirty || registerationForm.get('email')?.touched)" class="text-danger">
+                          <div *ngIf="registerationForm.get('email')?.errors?.['required']">Email is required</div>
+                          <div *ngIf="registerationForm.get('email')?.errors?.['email']">Invalid email format</div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -38,18 +49,32 @@
                     <div class="col-md-12 mb-4 pb-2">
                       <div class="form-outline">
                         <label class="form-label" for="password">Password</label>
-                        <input type="password" name="password"formControlName="password"   class="form-control form-control-lg" placeholder="Password" />
+                        <div class="input-group">
+                          <input type="{{ passwordFieldType }}" name="password" formControlName="password" class="form-control form-control-lg" placeholder="Password" autocomplete="new-password" />
+                          <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                            <i class="fa" [ngClass]="{'fa-eye': passwordFieldType === 'password', 'fa-eye-slash': passwordFieldType === 'text'}"></i>
+                          </button>
+                        </div>
+                        <div *ngIf="registerationForm.get('password')?.invalid && (registerationForm.get('password')?.dirty || registerationForm.get('password')?.touched)" class="text-danger">
+                          <div *ngIf="registerationForm.get('password')?.errors?.['required']">Password is required</div>
+                        </div>
                       </div>
                     </div>
                   </div>
+
+
                   <div class="row">
                     <div class="col-md-12 mb-4 d-flex align-items-center">
                       <div class="form-outline datepicker w-100">
                         <label for="birthdayDate" class="form-label">Birthday</label>
-                        <input type="date" formControlName="dateOfBirth"  class="form-control form-control-lg"  />
+                        <input type="date" formControlName="dateOfBirth" class="form-control form-control-lg" />
+                        <div *ngIf="registerationForm.get('dateOfBirth')?.invalid && (registerationForm.get('dateOfBirth')?.dirty || registerationForm.get('dateOfBirth')?.touched)" class="text-danger">
+                          <div *ngIf="registerationForm.get('dateOfBirth')?.errors?.['required']">Birthday is required</div>
+                        </div>
                       </div>
                     </div>
                   </div>
+
                   <div class="row">
                     <div class="col-md-12 mb-4">
                       <h6 class="mb-2 pb-1 d-inline-block ml-3">Gender: </h6>
@@ -61,6 +86,9 @@
                         <input class="form-check-input" type="radio" name="gender" id="male" value="male" formControlName="gender" />
                         <label class="form-check-label" for="maleGender">Male</label>
                       </div>
+                      <div *ngIf="registerationForm.get('gender')?.invalid && (registerationForm.get('gender')?.dirty || registerationForm.get('gender')?.touched)" class="text-danger ml-3">
+                        <div *ngIf="registerationForm.get('gender')?.errors?.['required']">Gender is required</div>
+                      </div>
                     </div>
                   </div>
 
@@ -68,6 +96,7 @@
                     <input class="btn btn-primary btn-lg col-md-12 rounded-5" type="submit" value="Sign Up" style="background-color: #1E5128;" />
                   </div>
                 </form>
+
               </div>
             </div>
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">

@@ -9,28 +9,43 @@
                 <div class="text-center">
                   <div class="logo"><img src="assets\image\logo\watermelon.png"><span >FreeSpace</span></div>
                 </div>
-                <form  [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
+                <form [formGroup]="loginForm" (ngSubmit)="login()" autocomplete="off">
                   <p style="font-weight: 550">Please login to your account</p>
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example11">Email</label>
-                    <input type="email" id="form2Example11" name="in-email" formControlName="email"  class="form-control"  placeholder="Email address">
+                    <input type="email" id="form2Example11" name="in-email" formControlName="email" class="form-control" placeholder="Email address"autocomplete="new-email">
+                    <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)" class="text-danger">
+                      <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</div>
+                      <div *ngIf="loginForm.get('email')?.errors?.['email']">Invalid email format</div>
+                    </div>
                   </div>
                   <div class="form-outline mb-4">
                     <label class="form-label" for="form2Example22">Password</label>
-                    <input type="password" name="in-pass" formControlName="password" id="form2Example22" class="form-control" placeholder="Password">
+                    <div class="input-group">
+                      <input type="{{ passwordFieldType }}" name="in-pass" formControlName="password" id="form2Example22" class="form-control" placeholder="Password" autocomplete="new-password">
+                      <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()">
+                        <i class="fa" [ngClass]="{'fa-eye': passwordFieldType === 'password', 'fa-eye-slash': passwordFieldType === 'text'}"></i>
+                      </button>
+                    </div>
+                    <div *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)" class="text-danger">
+                      <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
+                    </div>
                   </div>
+
+
+
                   <div class="text-center pt-1 mb-5 pb-1">
-                    <button class="btn btn-light btn-block   mb-3 col-md-6 rounded-5" type="submit"style="background-color: #1E5128; color:white">Log
-                      in</button>
+                    <button class="btn btn-light btn-block mb-3 col-md-6 rounded-5" type="submit" style="background-color: #1E5128; color:white">Login</button>
                   </div>
                   <div class="d-flex align-items-center justify-content-center pb-4">
                     <p class="mb-0 me-2">Don't have an account?</p>
-                    <a routerLink="/register" routerLinkActive="active" class="btn btn-light" style="font-weight: 550;"
-                    (mouseenter)="hovered = true" (mouseleave)="hovered = false">
-                    Create <img [src]="hovered ? 'assets/image/logo/watermelon.png' : 'assets/image/logo/watermelon (9).png'" style="max-width: 20px;">
+                    <a routerLink="/register" routerLinkActive="active" class="btn btn-light" style="font-weight: 550;" (mouseenter)="hovered = true" (mouseleave)="hovered = false">
+                      Create <img [src]="hovered ? 'assets/image/logo/watermelon.png' : 'assets/image/logo/watermelon (9).png'" style="max-width: 20px;">
                     </a>
                   </div>
                 </form>
+
+
               </div>
             </div>
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">

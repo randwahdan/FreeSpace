@@ -40,4 +40,9 @@
   border-top-right-radius: .3rem;
   border-bottom-right-radius: .3rem;
   }
+  .btn:hover {
+    background: -webkit-linear-gradient(to right, #4caf50, #d32f2f);
+    background: linear-gradient(to right, #4caf50, #d32f2f);
+    color: white;
+  }
   }

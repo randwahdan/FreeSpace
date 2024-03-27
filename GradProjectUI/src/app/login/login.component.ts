@@ -17,6 +17,8 @@ export class LoginComponent {
 loginForm:FormGroup;
 hovered: boolean = false;
 loginModel:LoginModel=new LoginModel();
+passwordFieldType: string = 'password';
+showPasswordText: string = 'Show';
 
 constructor( private router: Router, private authService: AuthService, private fb: FormBuilder, private postService: PostService,private toastr: ToastrService ) {
     this.loginForm=this.fb.group({
@@ -24,7 +26,10 @@ constructor( private router: Router, private authService: AuthService, private f
       password:['', [Validators.required]],
     });
   }
-
+  togglePasswordVisibility(): void {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+    this.showPasswordText = this.showPasswordText === 'Show' ? 'Hide' : 'Show';
+  }
   login(){
     // Get the form values from the login form
     var formValue = this.loginForm.value;

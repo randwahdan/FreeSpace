@@ -16,20 +16,41 @@ export class RegisterComponent {
 
 registerationForm: FormGroup;
 RegisterModel:RegisterModel=new RegisterModel();
+passwordFieldType: string = 'password';
+showPasswordText: string = 'Show';
   constructor( private router: Router, private authService: AuthService, private fb: FormBuilder, private postService: PostService,private toastr: ToastrService) {
      // Initialize the form in the constructor
       this.registerationForm = this.fb.group({
-      firstname: '',
-      lastname:'',
-      email: ['', [Validators.required, Validators.email]],
-      password:['', [Validators.required]],
-      dateOfBirth:'',
-      gender:''
+        firstname: ['', Validators.required],
+        lastname: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        password: ['', [Validators.required, Validators.minLength(6)]], // Example: Minimum length of 6 characters
+        dateOfBirth: ['', Validators.required],
+        gender: ['', Validators.required]
     });
   }
+  togglePasswordVisibility(): void {
+    this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+    this.showPasswordText = this.showPasswordText === 'Show' ? 'Hide' : 'Show';
+  }
   Register(){
+    if (this.registerationForm.invalid) {
+      // If the form is invalid, mark all fields as touched to display validation errors
+      this.registerationForm.markAllAsTouched();
+      return; // Exit the function if the form is invalid
+    }
+
     // Get the form values from the registration form
     var formValue = this.registerationForm.value;
+    const dateOfBirth = new Date(formValue.dateOfBirth);
+  const currentDate = new Date();
+
+  // Check if the date of birth is in the future
+  if (dateOfBirth > currentDate) {
+    // Show toastr notification for invalid date of birth
+    this.toastr.error('Birth date cannot be in the future.');
+    return; // Exit the function if date of birth is in the future
+  }
     // Assign form values to the properties of the Registeration model
     this.RegisterModel.FirstName=formValue.firstname;
     this.RegisterModel.LastName=formValue.lastname;
