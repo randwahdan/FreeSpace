@@ -5,31 +5,28 @@
     </a>
 </div>
   <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-4"*ngFor="let event of eventModelList">
           <div class="card card-margin">
-              <div class="card-header no-border">
-                  <h5 class="card-title">MOM</h5>
-              </div>
               <div class="card-body pt-0">
                 <div class="card-img">
-                  <img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="...">
+                  <img *ngIf="event.media && event.media.length > 0" [src]="event.media[0].url" class="card-img-top" alt="...">
+                  <img *ngIf="!(event.media && event.media.length > 0)" src="placeholder_image_url" class="card-img-top" alt="...">
                 </div>
-                  <div class="widget-49 mt-3">
+                  <div class="widget-49 mt-3 justify-content-between">
                       <div class="widget-49-title-wrapper">
-                          <div class="widget-49-date-success">
-                              <span class="widget-49-date-day">09</span>
-                              <span class="widget-49-date-month">apr</span>
+                          <div class="widget-49-date-success ">
+                              <span class="widget-49-date-day">{{ event.startDate | date: 'dd' }}</span>
+                              <span class="widget-49-date-month">{{ event.startDate | date: 'MMM' | lowercase }}</span>
                           </div>
                           <div class="widget-49-meeting-info">
-                              <span class="widget-49-pro-title">PRO-08235 DeskOpe. Website</span>
-                              <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
+                              <span class="widget-49-pro-title" >{{event.title}}</span>
+                              <span class="widget-49-meeting-time">{{ event.startDate | date: 'shortTime' }} to {{ event.endDate | date: 'shortTime' }}</span>
                           </div>
                       </div>
-                      <ol class="widget-49-meeting-points">
-                          <li class="widget-49-meeting-item"><span>Expand module is removed</span></li>
-                          <li class="widget-49-meeting-item"><span>Data migration is in scope</span></li>
-                          <li class="widget-49-meeting-item"><span>Session timeout increase to 30 minutes</span></li>
-                      </ol>
+                      <div class="widget-49-meeting-points  py-3">
+                        <h6 class="ml-2">Event Category: <span>{{ event.category }}</span></h6>
+                        <span><i class="fa-solid fa-location-dot location"></i> {{ event.country }}, {{ event.city }}</span>
+                      </div>
                       <div class="widget-49-meeting-action">
                         <a routerLink="/event-details" class="btn mr-2"><i class="fas fa-link"></i> Details</a>
                         <a href="#" class="btn"> Intrest</a>
@@ -38,108 +35,6 @@
                   </div>
               </div>
           </div>
-      </div>
-      <div class="col-lg-4">
-          <div class="card card-margin">
-              <div class="card-header no-border">
-                  <h5 class="card-title">MOM</h5>
-              </div>
-              <div class="card-body pt-0">
-                <div class="card-img">
-                  <img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="...">
-                </div>
-                  <div class="widget-49 mt-3">
-                      <div class="widget-49-title-wrapper">
-                          <div class="widget-49-date-success">
-                              <span class="widget-49-date-day">13</span>
-                              <span class="widget-49-date-month">apr</span>
-                          </div>
-                          <div class="widget-49-meeting-info">
-                              <span class="widget-49-pro-title">PRO-08235 Lexa Corp.</span>
-                              <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
-                          </div>
-                      </div>
-                      <ol class="widget-49-meeting-points">
-                          <li class="widget-49-meeting-item"><span>Scheming module is removed</span></li>
-                          <li class="widget-49-meeting-item"><span>App design contract confirmed</span></li>
-                          <li class="widget-49-meeting-item"><span>Client request to send invoice</span></li>
-                      </ol>
-                      <div class="widget-49-meeting-action">
-                        <a href="#" class="btn mr-2"><i class="fas fa-link"></i> Details</a>
-                        <a href="#" class="btn"> Intrest</a>
-                          <!-- <a href="#" class="btn btn-sm btn-flash-border-primary">View All</a> -->
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="col-lg-4 ">
-          <div class="card card-margin">
-              <div class="card-header no-border">
-                  <h5 class="card-title">MOM</h5>
-              </div>
-              <div class="card-body pt-0">
-                <div class="card-img">
-                  <img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="...">
-                </div>
-                  <div class="widget-49 mt-3">
-                      <div class="widget-49-title-wrapper">
-                          <div class="widget-49-date-success">
-                              <span class="widget-49-date-day">22</span>
-                              <span class="widget-49-date-month">apr</span>
-                          </div>
-                          <div class="widget-49-meeting-info">
-                              <span class="widget-49-pro-title">PRO-027865 Opera module</span>
-                              <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
-                          </div>
-                      </div>
-                      <ol class="widget-49-meeting-points">
-                          <li class="widget-49-meeting-item"><span>Scope is revised and updated</span></li>
-                          <li class="widget-49-meeting-item"><span>Time-line has been changed</span></li>
-                          <li class="widget-49-meeting-item"><span>Received approval to start wire-frame</span></li>
-                      </ol>
-                      <div class="widget-49-meeting-action">
-                        <a href="#" class="btn mr-2"><i class="fas fa-link"></i> Details</a>
-                        <a href="#" class="btn"> Intrest</a>
-                          <!-- <a href="#" class="btn btn-sm btn-flash-border-primary">View All</a> -->
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-          <div class="col-lg-4 ">
-            <div class="card card-margin">
-                <div class="card-header no-border">
-                    <h5 class="card-title">MOM</h5>
-                </div>
-                <div class="card-body pt-0">
-                  <div class="card-img">
-                    <img src="https://i.imgur.com/ZTkt4I5.jpg" class="card-img-top" alt="...">
-                  </div>
-                    <div class="widget-49 mt-3">
-                        <div class="widget-49-title-wrapper">
-                            <div class="widget-49-date-success">
-                                <span class="widget-49-date-day">22</span>
-                                <span class="widget-49-date-month">apr</span>
-                            </div>
-                            <div class="widget-49-meeting-info">
-                                <span class="widget-49-pro-title">PRO-027865 Opera module</span>
-                                <span class="widget-49-meeting-time">12:00 to 13.30 Hrs</span>
-                            </div>
-                        </div>
-                        <ol class="widget-49-meeting-points">
-                            <li class="widget-49-meeting-item"><span>Scope is revised and updated</span></li>
-                            <li class="widget-49-meeting-item"><span>Time-line has been changed</span></li>
-                            <li class="widget-49-meeting-item"><span>Received approval to start wire-frame</span></li>
-                        </ol>
-                        <div class="widget-49-meeting-action">
-                          <a href="#" class="btn mr-2"><i class="fas fa-link"></i> Details</a>
-                          <a href="#" class="btn"> Intrest</a>
-                            <!-- <a href="#" class="btn btn-sm btn-flash-border-primary">View All</a> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
       </div>
   </div>
   </div>

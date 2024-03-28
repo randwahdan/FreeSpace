@@ -3,6 +3,7 @@ using FreeSpace.Web.Entities;
 using FreeSpace.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System.ComponentModel;
 using System.Text.Json;
@@ -46,8 +47,6 @@ public class EventController : Controller
         {
             return BadRequest("Event end date must be after start date.");
         }
-
-
 
         var files = Request.Form.Files;
 
@@ -173,6 +172,98 @@ public class EventController : Controller
         }
 
         return filePath; // Return the file path where the video is saved
+    }
+
+    [HttpGet("get-events")]
+    public List<EventModel> GetEvents()
+    {
+        // Get the current user's ID
+        Guid userId = Guid.Parse(User.Identity?.Name);
+
+        // Get all users except the current user
+        var allUsers = _dbContext.Users.Where(u => u.Id != userId).Select(u => u.Id).ToList();
+
+        var events = _dbContext.Events
+        .Where(c => allUsers.Contains(c.UserId)|| c.UserId==userId)
+        .Include(e=>e.Medias).OrderByDescending(c => c.CreatedDate)
+        .ToList().OrderByDescending(c => c.CreatedDate);
+
+        List<EventModel> eventListResult = new List<EventModel>();
+        foreach (var eventEntity in events)
+        {
+           EventModel eventModel = new EventModel();
+           var userEntity = _dbContext.Users.Find(eventEntity.UserId);
+           eventModel.FullName=userEntity.FirstName+" "+userEntity.LastName;
+           eventModel.CreatedDate = eventEntity.CreatedDate;
+           eventModel.Title = eventEntity.Title;
+           eventModel.Description = eventEntity.Description;
+           eventModel.Country = eventEntity.Country;
+           eventModel.City = eventEntity.City;
+           eventModel.StartDate = eventEntity.StartDate;
+           eventModel.EndDate = eventEntity.EndDate;
+           eventModel.Link = eventEntity.Link;
+           eventModel.Category = eventEntity.Category;
+           eventModel.EventId = eventEntity.Id;
+
+           if (userEntity.ProfilePicture != null)
+            {
+                //convert pfp from Byte[] to dataUrl
+                var base64String = Convert.ToBase64String(userEntity.ProfilePicture);
+                var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                eventModel.ProfilePicture = dataUrl;
+            }
+
+            if (eventEntity.Medias != null)
+            {
+                List<EventMediaModel> mediaList = new List<EventMediaModel>();
+                foreach (var eventMedia in eventEntity.Medias)
+                {
+                    EventMediaModel mediaModel = new EventMediaModel();
+                    mediaModel.FileName = eventMedia.FileName;
+                    mediaModel.IsVideo = IsVideoFile(eventMedia.FileName); // Check if the file is a video based on its extension
+
+                    if (mediaModel.IsVideo)
+                    {
+                        // Read the video file from disk and get its content as a byte array
+                        byte[] videoData = ReadVideoFile(eventMedia.Url);
+
+                        if (videoData != null)
+                        {
+                            // Serve the video content through your ASP.NET Core application
+                            // Store the video data in the response body and set the appropriate content type
+                            mediaModel.Url = $"data:video/mp4;base64,{Convert.ToBase64String(videoData)}";
+                        }
+                        else
+                        {
+                            // Handle if video data could not be read
+                            // For example, return a placeholder URL or log an error
+                            mediaModel.Url = $"Error: Unable to read video data for {eventMedia.FileName}";
+                        }
+                    }
+                    else
+                    {
+                        mediaModel.Url = eventMedia.Url;
+                    }
+
+
+                    mediaList.Add(mediaModel);
+                }
+                eventModel.Media = mediaList;
+            }
+            eventListResult.Add(eventModel);
+        }
+        return eventListResult;
+
+    }
+    private byte[] ReadVideoFile(string filePath)
+    {
+        return System.IO.File.ReadAllBytes(filePath);
+    }
+    private bool IsVideoFile(string fileName)
+    {
+        string[] videoExtensions = { ".mp4", ".mpeg", ".mov", ".avi", ".wmv" };
+        string fileExtension = Path.GetExtension(fileName).ToLower();
+        return videoExtensions.Contains(fileExtension);
     }
 }
    

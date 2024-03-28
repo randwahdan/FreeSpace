@@ -28,7 +28,8 @@ export class CreateEvent implements OnInit{
     private eventService: EventService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private http: HttpClient
+    private http: HttpClient,
+    private sharedService:SharedService
   ) {
     this.eventForm = this.formBuilder.group({
       title: ['', Validators.required],
@@ -44,6 +45,13 @@ export class CreateEvent implements OnInit{
   ngOnInit(): void {
     let userStorage = localStorage.getItem('user');
     this.user = userStorage ? JSON.parse(userStorage) : null;
+
+    this.sharedService.events$.subscribe((isEventCreated) => {
+      if (isEventCreated) {
+        let userStorage = localStorage.getItem('user');
+        this.user = userStorage ? JSON.parse(userStorage) : null;
+      }
+    });
   }
   onFileSelected(event: any): void {
     this.selectedFiles = event.target.files;

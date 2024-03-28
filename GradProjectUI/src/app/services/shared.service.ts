@@ -13,6 +13,8 @@ export class SharedService {
     private postsSubject: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
     posts$ = this.postsSubject.asObservable();
 
+    private eventsSubject: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
+    events$ = this.eventsSubject.asObservable();
 
   private profileSubject: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
   profile$ = this.profileSubject.asObservable();
@@ -26,7 +28,9 @@ export class SharedService {
   updatePosts(isPostUpdated:boolean) {
     this.postsSubject.next(isPostUpdated);
   }
-
+  updateEvents(isEventUpdated:boolean) {
+    this.eventsSubject.next(isEventUpdated);
+  }
   updateUserInfo(isUpdateUserInfo:boolean){
     this.infoSubject.next(isUpdateUserInfo);
   }
@@ -34,7 +38,7 @@ export class SharedService {
   updateComments(iCommentUpdated:boolean) {
     this.commentSubject.next(iCommentUpdated);
   }
- 
+
   updateProfile(isProfileUpdated:boolean) {
 
     this.authService.getUser().subscribe(async res => {

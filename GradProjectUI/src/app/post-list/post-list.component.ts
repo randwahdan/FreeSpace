@@ -23,11 +23,6 @@ export class PostListComponent implements OnInit {
   isCurrentPostLiked = false;
   showCommentSection = false;
   @Input() userId: any;
-
-
-
-
-
   constructor(
     private postService: PostService,
     private sharedService: SharedService,
@@ -107,8 +102,6 @@ export class PostListComponent implements OnInit {
   //     console.log(result);
   //   });
   // }
-
-
 
   makeLike(post: any) {
     let likeModel = new LikeModel();

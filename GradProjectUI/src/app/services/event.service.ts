@@ -13,5 +13,8 @@ export class EventService {
   EventCreation(eventData: any): Observable<any> {
     return this.httpClient.post('/Event/create-event', eventData);
   }
+  getEvents(): Observable<any> {
+    return this.httpClient.get('/Event/get-events');
+  }
 
 }
