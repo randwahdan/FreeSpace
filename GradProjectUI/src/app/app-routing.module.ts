@@ -71,7 +71,7 @@ const routes: Routes = [
   },
   { path: '', redirectTo: '/Event', pathMatch: 'full' },
   {
-    path: 'event-details', component:EventDetails,
+    path: 'event-details/:eventId', component:EventDetails,
   },
 
 ];

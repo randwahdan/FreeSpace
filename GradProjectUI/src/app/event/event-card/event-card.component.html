@@ -18,17 +18,12 @@
                               <span class="widget-49-date-day">{{ event.startDate | date: 'dd' }}</span>
                               <span class="widget-49-date-month">{{ event.startDate | date: 'MMM' | lowercase }}</span>
                           </div>
-                          <div class="widget-49-meeting-info">
-                              <span class="widget-49-pro-title" >{{event.title}}</span>
-                              <span class="widget-49-meeting-time">{{ event.startDate | date: 'shortTime' }} to {{ event.endDate | date: 'shortTime' }}</span>
+                          <div class="widget-49-title-wrapper" style="height: 50px; overflow: hidden;">
+                            <h5 class="widget-49-pro-title">{{ event.title }}</h5>
                           </div>
                       </div>
-                      <div class="widget-49-meeting-points  py-3">
-                        <h6 class="ml-2">Event Category: <span>{{ event.category }}</span></h6>
-                        <span><i class="fa-solid fa-location-dot location"></i> {{ event.country }}, {{ event.city }}</span>
-                      </div>
-                      <div class="widget-49-meeting-action">
-                        <a routerLink="/event-details" class="btn mr-2"><i class="fas fa-link"></i> Details</a>
+                      <div class="widget-49-meeting-action mt-3">
+                        <a [routerLink]="['/event-details', event.eventId]" class="btn mr-2"><i class="fas fa-link"></i> Details</a>
                         <a href="#" class="btn"> Intrest</a>
                           <!-- <a href="#" class="btn btn-sm btn-flash-border-primary">View All</a> -->
                       </div>

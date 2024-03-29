@@ -4,7 +4,7 @@ import { UserModel } from '../../models/user-model';
 import { Router } from '@angular/router';
 import { EventModel } from '../../models/Event.model';
 import { SharedService } from '../../services/shared.service';
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'event-card',
   templateUrl: './event-card.component.html',
@@ -14,21 +14,17 @@ export class EventCards implements OnInit{
   user: UserModel;
   event: EventModel;
   eventModelList: EventModel[] = [];
+
   @Input() userId: any;
   constructor(
     private eventService: EventService,
     private sharedService: SharedService,
+    private route: ActivatedRoute
   ){}
   ngOnInit(): void {
     let userStorge=localStorage.getItem('user');
     this.user  = userStorge ? JSON.parse(userStorge) : null;
-    // this.sharedService.events$.subscribe((isEventCreated) => {
-    //   if (isEventCreated) {
-    //     this.getEvents();
-    //   }
-    // });
     this.getEvents();
-
   }
   isVideo(media: any): boolean {
     return media && media.isVideo; // Assuming that 'isVideo' property indicates if the media is a video

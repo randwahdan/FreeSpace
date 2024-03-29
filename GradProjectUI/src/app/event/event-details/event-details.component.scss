@@ -1,0 +1,28 @@
+.btn-outline-success :hover{
+  background: -webkit-linear-gradient(to right, #4caf50, #d32f2f);
+  background: linear-gradient(to right, #4caf50, #d32f2f);
+  color: white;
+}
+/* Add styles for app-header component */
+.text-black {
+font-family: 'serifttfBold';
+font-size: 30px;
+}
+.event-video {
+  width: 100%; /* Adjust as needed */
+  height: 500px; /* Adjust as needed */
+}
+
+.event-img {
+  width: 100%; /* Adjust as needed */
+  height: 400px; /* Adjust as needed */
+  object-fit: cover;
+  border-radius: 10px;
+}
+.card{
+  box-shadow: #4caf50 3px 3px 6px 0px inset, #d32f2f -3px -3px 6px 1px inset;
+}
+
+.card-body {
+  padding: 15px;
+}

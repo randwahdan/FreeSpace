@@ -13,4 +13,8 @@ export class EventModel {
     endTime!: Date; // Changed back to Date type
     media:MediModel[];
     link!: string;
+    firstName: string;
+    lastName!: string;
+    profilePicture!: string;
+    fullName!: string;
 }

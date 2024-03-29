@@ -5,6 +5,7 @@ import {SharedService} from "../services/shared.service";
 import {PostService} from "../services/post.service";
 import {NotificationModel} from "../models/Notification-model";
 import { AuthService } from '../services/auth.service';
+import { EventModel } from '../models/Event.model';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html'
@@ -12,6 +13,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   @Input() userId:any;
+  @Input() eventModel: EventModel;
   hideActionMenu=false;
   hideActionMenu2: boolean = true;
   user:UserModel;

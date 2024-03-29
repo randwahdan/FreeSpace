@@ -210,7 +210,7 @@
       <span *ngIf="eventForm.get('link')?.errors?.['pattern'] && eventForm.get('link')?.touched" class="text-danger">Invalid URL format</span>
     </div>
     <div class="form-floating py-2 col-10 mx-auto">
-      <input type="file"  class="form-control border-0 shadow"  #fileInput multiple (change)="onFileSelected($event)" required/>
+      <input type="file"  class="form-control border-0 shadow"  #fileInput  (change)="onFileSelected($event)" required/>
       <label for="EventImage" class="ms-2">Upload Image For Your Event</label>
       <span *ngIf="eventForm.get('file')?.invalid && eventForm.get('file')?.touched" class="text-danger">Image is required</span>
     </div>

@@ -40,6 +40,7 @@ import {ChatAppComponent} from './chat/chat.component';
 import {ChatingComponent} from './chat/chatting/chatitng.component';
 import {CreateEvent} from './event/create-event/create-event.component';
 import {EventDetails}from'./event/event-details/event-details.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,8 +74,7 @@ import {EventDetails}from'./event/event-details/event-details.component';
     ChatAppComponent,
     ChatingComponent,
     CreateEvent,
-    EventDetails
-
+    EventDetails,
   ],
   imports: [
     BrowserModule,

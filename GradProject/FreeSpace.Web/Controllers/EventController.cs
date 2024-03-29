@@ -265,5 +265,82 @@ public class EventController : Controller
         string fileExtension = Path.GetExtension(fileName).ToLower();
         return videoExtensions.Contains(fileExtension);
     }
+
+    [HttpGet("event-details/{eventId}")]
+    public IActionResult GetEventDetails(Guid  eventId)
+    {
+        // Get the current user's ID
+        var eventEntity = _dbContext.Events
+        .Include(e => e.Medias)
+        .FirstOrDefault(e => e.Id==eventId);
+
+        if (eventEntity == null)
+        {
+            return NotFound(); // Event not found
+        }
+
+
+        EventModel eventModel = new EventModel();
+        var userEntity = _dbContext.Users.Find(eventEntity.UserId);
+        eventModel.FullName = userEntity.FirstName + " " + userEntity.LastName;
+        eventModel.CreatedDate = eventEntity.CreatedDate;
+        eventModel.Title = eventEntity.Title;
+        eventModel.Description = eventEntity.Description;
+        eventModel.Country = eventEntity.Country;
+        eventModel.City = eventEntity.City;
+        eventModel.StartDate = eventEntity.StartDate;
+        eventModel.EndDate = eventEntity.EndDate;
+        eventModel.Link = eventEntity.Link;
+        eventModel.Category = eventEntity.Category;
+        eventModel.EventId = eventEntity.Id;
+
+        if (userEntity.ProfilePicture != null)
+        {
+            // Convert profile picture from Byte[] to dataUrl
+            var base64String = Convert.ToBase64String(userEntity.ProfilePicture);
+            var dataUrl = $"data:image/jpeg;base64,{base64String}";
+            eventModel.ProfilePicture = dataUrl;
+        }
+
+        if (eventEntity.Medias != null)
+        {
+            List<EventMediaModel> mediaList = new List<EventMediaModel>();
+            foreach (var eventMedia in eventEntity.Medias)
+            {
+                EventMediaModel mediaModel = new EventMediaModel();
+                mediaModel.FileName = eventMedia.FileName;
+                mediaModel.IsVideo = IsVideoFile(eventMedia.FileName); // Check if the file is a video based on its extension
+
+                if (mediaModel.IsVideo)
+                {
+                    // Read the video file from disk and get its content as a byte array
+                    byte[] videoData = ReadVideoFile(eventMedia.Url);
+
+                    if (videoData != null)
+                    {
+                        // Serve the video content through your ASP.NET Core application
+                        // Store the video data in the response body and set the appropriate content type
+                        mediaModel.Url = $"data:video/mp4;base64,{Convert.ToBase64String(videoData)}";
+                    }
+                    else
+                    {
+                        // Handle if video data could not be read
+                        // For example, return a placeholder URL or log an error
+                        mediaModel.Url = $"Error: Unable to read video data for {eventMedia.FileName}";
+                    }
+                }
+                else
+                {
+                    mediaModel.Url = eventMedia.Url;
+                }
+
+                mediaList.Add(mediaModel);
+            }
+            eventModel.Media = mediaList;
+        }
+
+        return Ok(eventModel);
+    }
+
 }
-   
+

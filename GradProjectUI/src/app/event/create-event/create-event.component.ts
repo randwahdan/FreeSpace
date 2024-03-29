@@ -78,7 +78,7 @@ export class CreateEvent implements OnInit{
     }
     // Check if endDate is after startDate
     const endDate = new Date(formValue.endDate);
-    if (endDate < startDate) {
+    if (endDate <= startDate) {
       this.toastr.error('Event End Date Must Be After Start Date.');
       return;
     }
