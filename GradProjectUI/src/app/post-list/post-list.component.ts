@@ -22,6 +22,7 @@ export class PostListComponent implements OnInit {
   postModelList: PostModel[] = [];
   isCurrentPostLiked = false;
   showCommentSection = false;
+  lastCommentIndex: number = -1;
   @Input() userId: any;
   constructor(
     private postService: PostService,

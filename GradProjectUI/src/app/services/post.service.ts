@@ -19,6 +19,7 @@ return this.httpClient.post('/post/make-like',PostModel);
   }
 
   makeDisLike(PostModel:any):Observable<any>{
+
     return this.httpClient.post('/post/make-disLike',PostModel);
       }
 

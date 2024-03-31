@@ -332,4 +332,12 @@ text-transform: uppercase;
   object-fit: cover; /* To ensure the image covers the entire area */
 }
 
+.attend-container {
+  display: flex;
+  align-items: center;
+}
+
+.btn-attend {
+  margin-left: 10px; /* Adjust margin as needed */
+}
 

@@ -260,7 +260,7 @@ namespace FreeSpace.Web.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("EventResponse");
+                    b.ToTable("EventResponses");
                 });
 
             modelBuilder.Entity("FreeSpace.Web.Entities.FriendShip", b =>

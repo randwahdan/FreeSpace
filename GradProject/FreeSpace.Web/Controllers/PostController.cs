@@ -36,7 +36,7 @@ public class PostController : ControllerBase
 
         var posts = _dbContext.Posts.Where(c => allUsers.Contains(c.UserId) || c.UserId == userId)
              .Include(p => p.Likes)
-             .Include(p => p.Comments).OrderByDescending(c => c.CreatedDate)
+             .Include(p => p.Comments).OrderBy(c => c.CreatedDate)
              .Include(p => p.Medias).OrderByDescending(c => c.CreatedDate)
              .ToList().OrderByDescending(c => c.CreatedDate);
 

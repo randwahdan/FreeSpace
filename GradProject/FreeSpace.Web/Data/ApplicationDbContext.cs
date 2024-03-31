@@ -21,8 +21,10 @@ namespace FreeSpace.Web.Data
         public DbSet<CommentLike> CommentLikes { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<FriendShip> FriendShips { get; set; }
-        public DbSet<EventMedia>EventMedias { get; set; }   
-        
+        public DbSet<EventMedia>EventMedias { get; set; } 
+        public DbSet<EventResponse>EventResponses { get; set; }
+
+
 
         // Configures the relationships between entities in the database
         protected override void OnModelCreating(ModelBuilder modelBuilder)

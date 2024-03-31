@@ -30,7 +30,6 @@ namespace FreeSpace.Web.Entities;
         public ICollection<CommentLike> CommentLikes { get; set; }
         public ICollection<Like> Likes { get; set; }
 
-
         public ICollection<Notification> Notifications { get; set; }
 
         public ICollection<EventResponse> EventResponses { get; set; }

@@ -3,33 +3,43 @@
     <a routerLink="/create-event" class="btn btn-light">
       <i class="fa-solid fa-plus"></i> Create New Event
     </a>
-</div>
+  </div>
   <div class="row">
-      <div class="col-lg-4"*ngFor="let event of eventModelList">
-          <div class="card card-margin">
-              <div class="card-body pt-0">
-                <div class="card-img">
-                  <img *ngIf="event.media && event.media.length > 0" [src]="event.media[0].url" class="card-img-top" alt="...">
-                  <img *ngIf="!(event.media && event.media.length > 0)" src="placeholder_image_url" class="card-img-top" alt="...">
-                </div>
-                  <div class="widget-49 mt-3 justify-content-between">
-                      <div class="widget-49-title-wrapper">
-                          <div class="widget-49-date-success ">
-                              <span class="widget-49-date-day">{{ event.startDate | date: 'dd' }}</span>
-                              <span class="widget-49-date-month">{{ event.startDate | date: 'MMM' | lowercase }}</span>
-                          </div>
-                          <div class="widget-49-title-wrapper" style="height: 50px; overflow: hidden;">
-                            <h5 class="widget-49-pro-title">{{ event.title }}</h5>
-                          </div>
-                      </div>
-                      <div class="widget-49-meeting-action mt-3">
-                        <a [routerLink]="['/event-details', event.eventId]" class="btn mr-2"><i class="fas fa-link"></i> Details</a>
-                        <a href="#" class="btn"> Intrest</a>
-                          <!-- <a href="#" class="btn btn-sm btn-flash-border-primary">View All</a> -->
-                      </div>
-                  </div>
-              </div>
+    <div class="col-lg-4" *ngFor="let event of eventModelList">
+      <div class="card card-margin">
+        <div class="card-body pt-0">
+          <div class="card-img">
+            <img *ngIf="event.media && event.media.length > 0" [src]="event.media[0].url" class="card-img-top" alt="...">
+            <img *ngIf="!(event.media && event.media.length > 0)" src="placeholder_image_url" class="card-img-top" alt="...">
           </div>
+          <div class="widget-49 mt-3 justify-content-between">
+            <div class="widget-49-title-wrapper">
+              <div class="widget-49-date-success ">
+                <span class="widget-49-date-day">{{ event.startDate | date: 'dd' }}</span>
+                <span class="widget-49-date-month">{{ event.startDate | date: 'MMM' | lowercase }}</span>
+              </div>
+              <div class="widget-49-title-wrapper text-center" style="height: 50px; overflow: hidden;">
+                <h5 class="widget-49-pro-title">{{ event.title }}</h5>
+              </div>
+            </div>
+            <div class="widget-49-meeting-action mt-3">
+              <div class="btn-group" role="group">
+                <a [routerLink]="['/event-details', event.eventId]" class="btn mr-2"><i class="fas fa-link"></i> Details</a>
+                <div class="attend-container">
+                  <div *ngIf="event.isAttend" (click)="makeDisResponse(event)" class="btn btn-attend">
+                    <i class="fa fa-check"></i>
+                    ATTENDING
+                  </div>
+                  <div *ngIf="!event.isAttend" (click)="makeResponse(event)" class="btn btn-attend">
+                    <i class="fa fa-plus"></i>
+                    ATTEND
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
   </div>
-  </div>
+</div>

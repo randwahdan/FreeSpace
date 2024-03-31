@@ -20,12 +20,17 @@ namespace FreeSpace.Web.Models
         public string? FullName { get; set; }
         public string? ProfilePicture { get; set; }
         public List<EventMediaModel>? Media { get; set; }
+        public List<EventResponseModel>? Responses { get; set; }
+
         public DateTimeOffset? CreatedDate { get; set; }
+        public bool? IsAttend { get; set; }
+        public int? AttendanceNumber { get; set; }
 
     }
     
     public class EventMediasModel
     {
+        public  Guid eventId { get; set; }
         public string title { get; set; }
         public string description { get; set; }
         [JsonConverter(typeof(DateTimeOffsetConverterUsingDateTimeParse))]

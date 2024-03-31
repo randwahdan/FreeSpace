@@ -1,7 +1,7 @@
 import { Time } from "@angular/common";
 import { MediModel } from "./Media";
 export class EventModel {
-    eventId:any;
+    eventId !:any;
     title!: string;
     description!: string;
     country!: string;
@@ -17,4 +17,6 @@ export class EventModel {
     lastName!: string;
     profilePicture!: string;
     fullName!: string;
+    isAttend:boolean;
+    attendanceNumber: number;
 }

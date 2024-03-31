@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { EventModel } from '../../models/Event.model';
 import { SharedService } from '../../services/shared.service';
 import { ActivatedRoute } from '@angular/router';
+import { ResponseModel } from '../../models/Response.model';
 @Component({
   selector: 'event-card',
   templateUrl: './event-card.component.html',
@@ -12,10 +13,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EventCards implements OnInit{
   user: UserModel;
-  event: EventModel;
+  event:EventModel;
   eventModelList: EventModel[] = [];
 
   @Input() userId: any;
+  @Input() eventId: any;
+
   constructor(
     private eventService: EventService,
     private sharedService: SharedService,
@@ -26,21 +29,41 @@ export class EventCards implements OnInit{
     this.user  = userStorge ? JSON.parse(userStorge) : null;
     this.getEvents();
   }
-  isVideo(media: any): boolean {
-    return media && media.isVideo; // Assuming that 'isVideo' property indicates if the media is a video
-  }
+
   getEvents() {
     this.eventService.getEvents().subscribe(result => {
       this.eventModelList = result;
-      this.eventModelList.forEach(event => {
-        event.media.forEach(media => {
-          media.isVideo = this.isVideo(media); // Set the 'isVideo' property for each media item
-        });
-      });
       console.log(result);
     });
   }
 
+  makeResponse(event: any) {
+    if (!event || !event.eventId) {
+      console.error("Invalid event or eventId");
+      return;
+    }
+    let responseModel = new ResponseModel();
+    responseModel.eventId =event.eventId;
+    console.log(responseModel);
+    this.eventService.makeResponse(responseModel).subscribe(result => {
+      if (result == true) {
+        event.isAttend = true;
+        event.attendanceNumber  += 1;
+      }
+    });
+}
+makeDisResponse(event:any) {
+  let responseModel = new ResponseModel();
+   responseModel.eventId =event.eventId; // Assigning eventId to the ResponseModel instance
+  // Now you can use responseModel for further processing
+  console.log(responseModel);
+  this.eventService.makeDisResponse(responseModel).subscribe(result => {
+    if (result == true) {
+      event.isAttend = false;
+      event.attendanceNumber  -= 1;
+    }
+  });
+}
 }
 
 

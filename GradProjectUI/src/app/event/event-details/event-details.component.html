@@ -20,7 +20,6 @@
         </div>
       </div>
         <div class="col-12 col-lg-6 offset-lg-1 mt-3">
-
             <div class="row ps-2 mb-2">
               <h3 class="text-black ">{{ capitalizeFirstLetter(eventModel.title) }}</h3>
             </div>
@@ -29,8 +28,8 @@
             <h6 class="text-dark text-opacity-50  pb-2"><i class="fa-solid fa-user-large"></i> Event by : <span style="font-weight: bolder;cursor: pointer;">{{eventModel.fullName}}</span></h6>
           </div>
           <div class="row ps-2 mb-2">
-            <h6 class="text-dark text-opacity-50  pb-2"><i class="fa-solid fa-users"></i> People responded </h6>
-          </div>
+            <h6 class="text-dark text-opacity-50 pb-2"><i class="fa-solid fa-users"></i> {{ eventModel.attendanceNumber }} attendees</h6>
+        </div>
           <div class="row ps-2 mb-2">
             <h6 class="text-dark text-opacity-50 pb-2">
               <i class="fa-solid fa-calendar-days"></i> Date :

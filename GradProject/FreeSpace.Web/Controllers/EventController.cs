@@ -70,10 +70,10 @@ public class EventController : Controller
             foreach (var file in files)
             {
                 // Check if the uploaded file is an image or video
-                if (!IsImage(file) && !IsVideo(file))
+                if (!IsImage(file) )
                 {
                     // Return BadRequest with an error message
-                    return BadRequest("Uploaded file is neither an image nor a video.");
+                    return BadRequest("Uploaded file is an image");
                 }
 
                 using (var memoryStream = new MemoryStream())
@@ -92,15 +92,7 @@ public class EventController : Controller
                         var dataUrl = $"data:image/jpeg;base64,{base64String}";
                         mediaModel.Url = dataUrl;
                     }
-                    else if (IsVideo(file))
-                    {
-                        // Generate file path for video
-                        var videoFilePath = GenerateVideoPath(file);
-                        // Create media model for video
-                        mediaModel.FileName = file.FileName;
-                        mediaModel.Url = videoFilePath; // Store the file path where the video is saved
-                    }
-
+                    
                     mediaList.Add(mediaModel);
                 }
             }
@@ -147,32 +139,9 @@ public class EventController : Controller
     }
 
     // Helper method to check if the file is a video
-    private bool IsVideo(IFormFile file)
-    {
-        string[] videoMimeTypes = { "video/mp4", "video/mpeg", "video/quicktime", "video/x-msvideo", "video/x-ms-wmv" };
-        return videoMimeTypes.Contains(file.ContentType.ToLower());
-    }
+  
 
-    private string GenerateVideoPath(IFormFile videoFile)
-    {
-        string videoDirectory = @"C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\Videos\"; // Path to directory where videos will be saved
-        string fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(videoFile.FileName)}"; // Generate unique file name
-        string filePath = Path.Combine(videoDirectory, fileName);
 
-        // Ensure the directory exists or create it if it doesn't
-        if (!Directory.Exists(videoDirectory))
-        {
-            Directory.CreateDirectory(videoDirectory);
-        }
-
-        // Copy the video file to the specified location
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            videoFile.CopyTo(stream);
-        }
-
-        return filePath; // Return the file path where the video is saved
-    }
 
     [HttpGet("get-events")]
     public List<EventModel> GetEvents()
@@ -185,6 +154,7 @@ public class EventController : Controller
 
         var events = _dbContext.Events
         .Where(c => allUsers.Contains(c.UserId)|| c.UserId==userId)
+        .Include(e => e.EventResponses).OrderByDescending(c => c.CreatedDate)
         .Include(e=>e.Medias).OrderByDescending(c => c.CreatedDate)
         .ToList().OrderByDescending(c => c.CreatedDate);
 
@@ -220,66 +190,56 @@ public class EventController : Controller
                 {
                     EventMediaModel mediaModel = new EventMediaModel();
                     mediaModel.FileName = eventMedia.FileName;
-                    mediaModel.IsVideo = IsVideoFile(eventMedia.FileName); // Check if the file is a video based on its extension
-
-                    if (mediaModel.IsVideo)
-                    {
-                        // Read the video file from disk and get its content as a byte array
-                        byte[] videoData = ReadVideoFile(eventMedia.Url);
-
-                        if (videoData != null)
-                        {
-                            // Serve the video content through your ASP.NET Core application
-                            // Store the video data in the response body and set the appropriate content type
-                            mediaModel.Url = $"data:video/mp4;base64,{Convert.ToBase64String(videoData)}";
-                        }
-                        else
-                        {
-                            // Handle if video data could not be read
-                            // For example, return a placeholder URL or log an error
-                            mediaModel.Url = $"Error: Unable to read video data for {eventMedia.FileName}";
-                        }
-                    }
-                    else
-                    {
-                        mediaModel.Url = eventMedia.Url;
-                    }
-
-
+                    mediaModel.Url = eventMedia.Url; // Assuming this is an image URL
                     mediaList.Add(mediaModel);
                 }
                 eventModel.Media = mediaList;
+            }
+            if (eventEntity.EventResponses != null)
+            {
+                eventModel.AttendanceNumber = eventEntity.EventResponses.Count;
+                EventResponse eventResponse = eventEntity.EventResponses.FirstOrDefault(c => c.UserId == userId);
+                if (eventResponse != null)
+                {
+                    eventModel.IsAttend = true;
+                }
             }
             eventListResult.Add(eventModel);
         }
         return eventListResult;
 
     }
-    private byte[] ReadVideoFile(string filePath)
-    {
-        return System.IO.File.ReadAllBytes(filePath);
-    }
-    private bool IsVideoFile(string fileName)
-    {
-        string[] videoExtensions = { ".mp4", ".mpeg", ".mov", ".avi", ".wmv" };
-        string fileExtension = Path.GetExtension(fileName).ToLower();
-        return videoExtensions.Contains(fileExtension);
-    }
+
+
 
     [HttpGet("event-details/{eventId}")]
-    public IActionResult GetEventDetails(Guid  eventId)
+    public IActionResult GetEventDetails(Guid eventId)
     {
         // Get the current user's ID
+        Guid userId;
+        if (User.Identity.IsAuthenticated)
+        {
+            userId = Guid.Parse(User.Identity.Name);
+        }
+        else
+        {
+            // Handle the case where the user is not authenticated
+            // You may want to return an unauthorized response or handle it according to your application's requirements
+            return Unauthorized();
+        }
+
+        // Retrieve the event entity including its event responses and media
         var eventEntity = _dbContext.Events
-        .Include(e => e.Medias)
-        .FirstOrDefault(e => e.Id==eventId);
+            .Include(e => e.EventResponses)
+            .Include(e => e.Medias)
+            .FirstOrDefault(e => e.Id == eventId);
 
         if (eventEntity == null)
         {
             return NotFound(); // Event not found
         }
 
-
+        // Create an event model object to hold event details
         EventModel eventModel = new EventModel();
         var userEntity = _dbContext.Users.Find(eventEntity.UserId);
         eventModel.FullName = userEntity.FirstName + " " + userEntity.LastName;
@@ -304,42 +264,91 @@ public class EventController : Controller
 
         if (eventEntity.Medias != null)
         {
+            // Convert event media entities to EventMediaModel objects
             List<EventMediaModel> mediaList = new List<EventMediaModel>();
             foreach (var eventMedia in eventEntity.Medias)
             {
                 EventMediaModel mediaModel = new EventMediaModel();
                 mediaModel.FileName = eventMedia.FileName;
-                mediaModel.IsVideo = IsVideoFile(eventMedia.FileName); // Check if the file is a video based on its extension
-
-                if (mediaModel.IsVideo)
-                {
-                    // Read the video file from disk and get its content as a byte array
-                    byte[] videoData = ReadVideoFile(eventMedia.Url);
-
-                    if (videoData != null)
-                    {
-                        // Serve the video content through your ASP.NET Core application
-                        // Store the video data in the response body and set the appropriate content type
-                        mediaModel.Url = $"data:video/mp4;base64,{Convert.ToBase64String(videoData)}";
-                    }
-                    else
-                    {
-                        // Handle if video data could not be read
-                        // For example, return a placeholder URL or log an error
-                        mediaModel.Url = $"Error: Unable to read video data for {eventMedia.FileName}";
-                    }
-                }
-                else
-                {
-                    mediaModel.Url = eventMedia.Url;
-                }
-
+                mediaModel.Url = eventMedia.Url; // Assuming this is an image URL
                 mediaList.Add(mediaModel);
             }
+
             eventModel.Media = mediaList;
         }
 
+        // Check if the current user has responded to the event
+        if (eventEntity.EventResponses != null)
+        {
+            eventModel.AttendanceNumber = eventEntity.EventResponses.Count;
+
+            // Find if the current user has responded to the event
+            EventResponse eventResponse = eventEntity.EventResponses.FirstOrDefault(c => c.UserId == userId);
+            if (eventResponse != null)
+            {
+                eventModel.IsAttend = true;
+            }
+        }
+
         return Ok(eventModel);
+    }
+
+    [HttpPost("make-response")]
+    public bool Response([FromBody] EventResponseModel model)
+    {
+
+        Guid userId = Guid.Parse(User.Identity?.Name);
+        EventResponse eventResponse = new EventResponse
+        {
+            UserId = userId,
+            EventId = model.EventId
+            // Assuming other properties need to be set as well
+        };
+
+        _dbContext.EventResponses.Add(eventResponse);
+        var user = _dbContext.Users.Find(userId);
+        var eventNotify = _dbContext.Events.Find(model.EventId);
+
+        Notification notification = new Notification();
+        var userName = string.Concat(user.FirstName, " ", user.LastName);
+
+        notification.Content = userName + " Attends  your event";
+        notification.FullName = userName;
+        notification.UserId = eventNotify.UserId;
+        notification.UserRefrenceId = userId;
+
+        notification.EventId = model.EventId;
+        notification.CreatedDate = DateTime.Now;
+
+        _dbContext.Notifications.Add(notification);
+
+        _dbContext.SaveChanges();
+
+        return true;
+    }
+
+
+
+    [HttpPost("make-disResponse")]
+    public bool DisResponse([FromBody] EventResponseModel model)
+    {
+
+        Guid userId = Guid.Parse(User.Identity?.Name);
+        var eventResponse = _dbContext.EventResponses.FirstOrDefault(c => c.UserId == userId && c.EventId == model.EventId);
+
+        if (eventResponse != null)
+        {
+            _dbContext.EventResponses.Remove(eventResponse);
+            var notification = _dbContext.Notifications.FirstOrDefault(n => n.UserRefrenceId == userId && n.EventId == model.EventId);
+            if (notification != null)
+            {
+                _dbContext.Notifications.Remove(notification);
+            }
+            _dbContext.SaveChanges();
+            return true;
+        }
+
+        return true;
     }
 
 }
