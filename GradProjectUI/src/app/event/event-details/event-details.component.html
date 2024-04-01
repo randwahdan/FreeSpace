@@ -19,10 +19,12 @@
           <img class="d-block event-img" [src]="eventModel.media[0].url" alt="First Image">
         </div>
       </div>
-        <div class="col-12 col-lg-6 offset-lg-1 mt-3">
-            <div class="row ps-2 mb-2">
-              <h3 class="text-black ">{{ capitalizeFirstLetter(eventModel.title) }}</h3>
-            </div>
+      <div class="col-12 col-lg-6 offset-lg-1 mt-3">
+        <div class="row ps-2 mb-2">
+          <h3 class="text-black">{{ capitalizeFirstLetter(eventModel.title) }}
+            <span class="badge bg-dark">{{ eventModel.city }}, {{ eventModel.country }}</span>
+          </h3>
+        </div>
 
           <div class="row ps-2 mb-2">
             <h6 class="text-dark text-opacity-50  pb-2"><i class="fa-solid fa-user-large"></i> Event by : <span style="font-weight: bolder;cursor: pointer;">{{eventModel.fullName}}</span></h6>
@@ -33,13 +35,13 @@
           <div class="row ps-2 mb-2">
             <h6 class="text-dark text-opacity-50 pb-2">
               <i class="fa-solid fa-calendar-days"></i> Date :
-              <span style="font-weight: bolder; cursor: pointer;">{{ eventModel.startDate | date:'dd/MM/yyyy' }} - {{eventModel.endDate | date :'dd/MM/yyyy'}}</span>
+              <span style="font-weight: bolder; ">{{ eventModel.startDate | date:'dd/MM/yyyy' }} - {{eventModel.endDate | date :'dd/MM/yyyy'}}</span>
           </h6>
             </div>
             <div class="row ps-2 mb-2">
               <h6 class="text-dark text-opacity-50 pb-2">
                 <i class="fa-solid fa-clock"></i> Time :
-                <span style="font-weight: bolder; cursor: pointer;">{{ eventModel.startDate | date:'shortTime' }} - {{eventModel.endDate | date :'shortTime'}}</span>
+                <span style="font-weight: bolder; ">{{ eventModel.startDate | date:'shortTime' }} - {{eventModel.endDate | date :'shortTime'}}</span>
             </h6>
               </div>
               <div class="row ps-2 mb-2">
@@ -68,10 +70,41 @@
                   </h6>
                 </ng-container>
             </div>
-          <div class="row ps-2 mb-2">
-            <div class="col-sm-2">
-            <span class="badge bg-dark">{{ eventModel.city }}, {{ eventModel.country }}</span>
+            <div class="row ps-2 mb-2">
+              <div class="col-sm-9 col-md-11 col-lg-12 col-xl-12">
+                <div id="grid_groups_wrapper" class="">
+                  <table id="grid_groups" class="table  w-100" role="grid">
+                    <thead *ngIf="eventModel.responses && eventModel.responses.length > 0">
+                      <tr>
+                        <th colspan="3" class="text-dark">Attendees From your Friends</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr role="row group" class="odd">
+                        <td>
+                          <a class="route d-flex">
+                            <div class="avatar-stack d-flex"> <!-- Change here -->
+                              <div *ngFor="let response of eventModel.responses" class="avatar-wrapper"> <!-- Add a wrapper -->
+                                <div class="rounded-circle default-avatar member-overlap-item"
+                                     [style.background-image]="'url(' + response.profilePicture + ')'"
+                                     [style.background-size]="'cover'"
+                                     (mouseenter)="response.hover = true"
+                                     (mouseleave)="response.hover = false">
+                                  <span *ngIf="response.hover" class="profile-name hover">{{ response.fullName }}</span>
+                                  <span *ngIf="!response.hover" class="profile-name">{{ response.fullName }}</span>
+                                </div>
+                              </div>
+                            </div>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
-        </div>
-        </div>
-    </div>
+
+
+
+
+

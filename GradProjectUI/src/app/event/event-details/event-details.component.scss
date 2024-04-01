@@ -26,4 +26,76 @@ font-size: 30px;
 .card-body {
   padding: 15px;
 }
+#grid_groups_wrapper {
+  max-width: 600px;
+}
+
+.default-avatar {
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+.default-avatar,
+.member-overlap-item {
+  height: 60px;
+  width: 60px;
+}
+
+.table td,
+.table th {
+  padding: 0.75rem;
+  vertical-align: middle;
+  border-bottom: 1px solid #dee2e6;
+}
+.avatar-stack {
+  display: flex; /* Use flexbox */
+}
+
+.avatar-wrapper {
+  margin-right: 10px; /* Adjust margin between avatars */
+  position: relative; /* Ensure the container is positioned */
+
+}
+.member-overlap-item {
+  margin-right: -10px;
+  border: 2px solid #fff;
+}
+
+.group {
+  min-height: 40px;
+  height: auto;
+  line-height: 1.6rem;
+}
+
+.grid-icon {
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.group-class {
+  height: 1rem;
+  line-height: 4rem;
+  vertical-align: middle;
+}
+
+.profile-name {
+  position: absolute;
+  bottom: 0; /* Adjust the distance from the bottom as needed */
+  left: 0; /* Adjust the distance from the left as needed */
+  width: 100%; /* Ensure the profile name spans the entire width of the container */
+  text-align: center; /* Center the text horizontally */
+  font-size: 0.6rem; /* Adjust font size as needed */
+  color: #fff; /* Default text color */
+  background-color: rgba(0, 0, 0, 0.6); /* Default background color */
+  padding: 2px 0; /* Adjust padding as needed */
+  border-radius: 0 0 4px 4px; /* Apply border radius only to the bottom */
+  opacity: 0; /* Initially hidden */
+  transition: opacity 0.3s ease;
+}
+
+.profile-name.hover {
+  opacity: 1; /* Show profile name on hover */
+}
+
+
+
 

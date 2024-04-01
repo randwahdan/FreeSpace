@@ -1,5 +1,6 @@
 import { Time } from "@angular/common";
 import { MediModel } from "./Media";
+import { ResponseModel } from "./Response.model";
 export class EventModel {
     eventId !:any;
     title!: string;
@@ -19,4 +20,5 @@ export class EventModel {
     fullName!: string;
     isAttend:boolean;
     attendanceNumber: number;
+    responses:ResponseModel[];
 }

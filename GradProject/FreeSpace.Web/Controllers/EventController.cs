@@ -288,7 +288,44 @@ public class EventController : Controller
             {
                 eventModel.IsAttend = true;
             }
+
+            // Fetch approved friendships involving the current user
+            var followers = _dbContext.FriendShips
+                .Where(c => (c.SourceId == userId || c.TargetId == userId) && c.Status == "Approved")
+                .ToList();
+
+            // Extract the list of friends' IDs
+            var sourceList = followers.Select(c => c.SourceId).ToList();
+            var targetList = followers.Select(c => c.TargetId).ToList();
+            var friendsIds = followers.SelectMany(c => new[] { c.SourceId, c.TargetId }).Where(id => id != userId).ToList();
+
+            // Filter event responses based on common friends
+            List<EventResponseModel> attendingUsers = new List<EventResponseModel>();
+            foreach (var response in eventEntity.EventResponses)
+            {
+                // Check if the respondent is a common friend
+                if (friendsIds.Contains(response.UserId))
+                {
+                    EventResponseModel responseModel = new EventResponseModel();
+                    var user = _dbContext.Users.Find(response.UserId);
+
+                    responseModel.FullName = user.FirstName + " " + user.LastName;
+                    responseModel.UserId = response.UserId;
+                    responseModel.EventId = response.EventId;
+                    responseModel.CreatedDate = response.CreatedDate;
+                    if (user.ProfilePicture != null)
+                    {
+                        // Convert profile picture from Byte[] to dataUrl
+                        var base64String = Convert.ToBase64String(user.ProfilePicture);
+                        var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                        responseModel.ProfilePicture = dataUrl;
+                    }
+                    attendingUsers.Add(responseModel);
+                }
+            }
+            eventModel.Responses = attendingUsers;
         }
+
 
         return Ok(eventModel);
     }

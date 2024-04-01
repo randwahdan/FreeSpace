@@ -6,6 +6,7 @@ import { EventModel } from '../../models/Event.model';
 import { SharedService } from '../../services/shared.service';
 import { ActivatedRoute } from '@angular/router';
 import { ResponseModel } from '../../models/Response.model';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'event-card',
   templateUrl: './event-card.component.html',
@@ -22,7 +23,8 @@ export class EventCards implements OnInit{
   constructor(
     private eventService: EventService,
     private sharedService: SharedService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr:ToastrService
   ){}
   ngOnInit(): void {
     let userStorge=localStorage.getItem('user');
@@ -48,7 +50,10 @@ export class EventCards implements OnInit{
     this.eventService.makeResponse(responseModel).subscribe(result => {
       if (result == true) {
         event.isAttend = true;
-        event.attendanceNumber  += 1;
+        event.attendanceNumber += 1;
+        this.toastr.success('Attendance confirmed.');
+      } else {
+        this.toastr.error('Failed to confirm attendance.'); 
       }
     });
 }
@@ -60,7 +65,10 @@ makeDisResponse(event:any) {
   this.eventService.makeDisResponse(responseModel).subscribe(result => {
     if (result == true) {
       event.isAttend = false;
-      event.attendanceNumber  -= 1;
+      event.attendanceNumber -= 1;
+      this.toastr.success('Attendance cancelled.');
+    } else {
+      this.toastr.error('Failed to cancel attendance.');
     }
   });
 }

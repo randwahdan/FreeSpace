@@ -25,9 +25,11 @@ namespace FreeSpace.Web.Models
         public DateTimeOffset? CreatedDate { get; set; }
         public bool? IsAttend { get; set; }
         public int? AttendanceNumber { get; set; }
+        public List<UserInfoModel>? AttendingUsers { get; set; }
+
 
     }
-    
+
     public class EventMediasModel
     {
         public  Guid eventId { get; set; }
