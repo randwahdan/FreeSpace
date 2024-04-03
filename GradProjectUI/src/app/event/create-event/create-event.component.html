@@ -61,7 +61,7 @@
     <div class="form-floating row justify-content-center">
       <div class="col-5">
         <div class="form-floating py-2">
-          <select style="cursor: pointer;" formControlName="country" class="form-select border-0 shadow" (blur)="eventForm.get('country')?.markAsTouched()" required>
+          <select style="cursor: pointer;" formControlName="country" class="form-select border-0 shadow" (blur)="eventForm.get('country')?.markAsTouched()" (change)="updateCities()" required>
             <option value="">-- Select Country --</option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Algeria">Algeria</option>
@@ -93,110 +93,7 @@
         <div class="form-floating py-2">
           <select style="cursor: pointer;" formControlName="city" class="form-select border-0 shadow" (blur)="eventForm.get('city')?.markAsTouched()" required>
             <option value="">-- Select City --</option>
-            <optgroup label="Egypt">
-      <option value="Cairo">Cairo</option>
-      <option value="Alexandria">Alexandria</option>
-      <option value="Giza">Giza</option>
-      <option value="Shubra El Kheima">Shubra El Kheima</option>
-      <option value="Port Said">Port Said</option>
-            </optgroup>
-            <optgroup label="Saudi Arabia">
-      <option value="Riyadh">Riyadh</option>
-      <option value="Jeddah">Jeddah</option>
-      <option value="Mecca">Mecca</option>
-      <option value="Medina">Medina</option>
-      <option value="Dammam">Dammam</option>
-            </optgroup>
-            <optgroup label="Iraq">
-              <option value="Baghdad">Baghdad</option>
-              <option value="Basra">Basra</option>
-              <option value="Mosul">Mosul</option>
-              <option value="Erbil">Erbil</option>
-              <option value="Karbala">Karbala</option>
-            </optgroup>
-      <!-- Syria -->
-      <optgroup label="Syria">
-      <option value="Damascus">Damascus</option>
-      <option value="Aleppo">Aleppo</option>
-      <option value="Homs">Homs</option>
-      <option value="Hama">Hama</option>
-      <option value="Latakia">Latakia</option>
-      </optgroup>
-      <!-- Jordan -->
-      <optgroup label="Jordan">
-        <option value="Amman">Amman</option>
-        <option value="Zarqa">Zarqa</option>
-        <option value="Irbid">Irbid</option>
-        <option value="Aqaba">Aqaba</option>
-        <option value="Madaba">Madaba</option>
-      </optgroup>
-      <optgroup label="Lebanon">
-        <option value="Beirut">Beirut</option>
-        <option value="Tripoli">Tripoli</option>
-        <option value="Sidon">Sidon</option>
-        <option value="Tyre">Tyre</option>
-        <option value="Jounieh">Jounieh</option>
-      </optgroup>
-      <optgroup label="Tunisia">
-        <option value="Tunis">Tunis</option>
-        <option value="Sfax">Sfax</option>
-        <option value="Sousse">Sousse</option>
-        <option value="Kairouan">Kairouan</option>
-        <option value="Bizerte">Bizerte</option>
-      </optgroup>
-      <optgroup label="Algeria">
-        <option value="Algiers">Algiers</option>
-        <option value="Oran">Oran</option>
-        <option value="Constantine">Constantine</option>
-        <option value="Annaba">Annaba</option>
-        <option value="Blida">Blida</option>
-      </optgroup>
-      <optgroup label="Sudan">
-        <option value="Khartoum">Khartoum</option>
-        <option value="Omdurman">Omdurman</option>
-        <option value="Port Sudan">Port Sudan</option>
-        <option value="Kassala">Kassala</option>
-        <option value="Al-Ubayyid">Al-Ubayyid</option>
-      </optgroup>
-      <optgroup label="Morocco">
-        <option value="Casablanca">Casablanca</option>
-        <option value="Rabat">Rabat</option>
-        <option value="Fes">Fes</option>
-        <option value="Marrakech">Marrakech</option>
-        <option value="Agadir">Agadir</option>
-      </optgroup>
-      <optgroup label="Oman">
-        <option value="Muscat">Muscat</option>
-        <option value="Salalah">Salalah</option>
-        <option value="Sohar">Sohar</option>
-        <option value="Nizwa">Nizwa</option>
-        <option value="Sur">Sur</option>
-      </optgroup>
-
-
-      <optgroup label="Kuwait"></optgroup>
-      <option value="Kuwait City">Kuwait City</option>
-      <option value="Hawalli">Hawalli</option>
-      <option value="Salmiya">Salmiya</option>
-      <option value="Al Jahra">Al Jahra</option>
-      <option value="Al Farwaniyah">Al Farwaniyah</option>
-
-      <!-- Qatar -->
-      <optgroup label="Qatar">
-        <option value="Doha">Doha</option>
-        <option value="Al Wakrah">Al Wakrah</option>
-        <option value="Al Rayyan">Al Rayyan</option>
-        <!-- Add more cities here -->
-      </optgroup>
-
-      <!-- Yemen -->
-      <optgroup label="Yemen">
-        <option value="Sana'a">Sana'a</option>
-        <option value="Aden">Aden</option>
-        <option value="Taiz">Taiz</option>
-        <!-- Add more cities here -->
-      </optgroup>
-            <!-- You can add more cities here -->
+            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
           </select>
           <label for="City" class="ms-2">City</label>
           <span *ngIf="eventForm.get('city')?.errors?.['required'] && eventForm.get('city')?.touched" class="text-danger">City is required</span>

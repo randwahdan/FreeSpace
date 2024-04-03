@@ -341,3 +341,56 @@ text-transform: uppercase;
   margin-left: 10px; /* Adjust margin as needed */
 }
 
+/* Add this CSS to your component's styles or to a global stylesheet */
+
+/* Prevent blue outline on select focus */
+/* Add this CSS to your component's styles or to a global stylesheet */
+
+/* Prevent blue outline and border on select focus */
+select:focus {
+  outline: black !important; /* Remove outline */
+  border-color: black!important; /* Set border color to transparent */
+}
+
+
+
+select {
+  margin-left: -10px; /* Adjust as needed for alignment */
+  outline: 2px solid green;
+
+}
+.visually-filter{
+  outline: 2px solid green;
+}
+
+
+.hr {
+  border: 0;
+  height: 1px;
+  background: #ccc; /* Adjust as needed for color */
+  margin-top: 10px; /* Adjust as needed for spacing */
+  margin-bottom: 10px; /* Adjust as needed for spacing */
+}
+/* Style for the dropdown menu */
+.dropdown-menu {
+  background-color: #fff; /* Set background color */
+  border: 1px solid #ccc; /* Add border */
+  border-radius: 5px; /* Add border radius */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add box shadow */
+  padding: 0.5rem; /* Add padding */
+}
+
+/* Style for dropdown options */
+.dropdown-menu option {
+  background-color: #fff; /* Set background color */
+  padding: 0.5rem; /* Add padding */
+}
+
+/* Style for dropdown option when hovered */
+.dropdown-menu option:hover {
+  background-color: #f0f0f0 !important;  /* Change background color on hover */
+}
+
+.details-alone {
+  width:150px; /* Adjust the width as needed */
+}

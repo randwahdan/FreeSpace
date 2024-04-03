@@ -22,9 +22,15 @@ export class EventService {
   makeResponse(EventModel:any):Observable<any>{
     debugger
     return this.httpClient.post('/Event/make-response',EventModel);
-      }
+  }
   makeDisResponse(EventModel:any):Observable<any>{
     debugger
-        return this.httpClient.post('/Event/make-disResponse',EventModel);
-          }
+    return this.httpClient.post('/Event/make-disResponse',EventModel);
+  }
+  getEventByCategory(category: string): Observable<EventModel[]> {
+    return this.httpClient.get<EventModel[]>('/Event/get-events-by-category', { params: { category: category } });
+  }
+  getArchiveEvents(): Observable<EventModel[]> {
+    return this.httpClient.get<EventModel[]>('/Event/get-archive-events');
+  }
 }

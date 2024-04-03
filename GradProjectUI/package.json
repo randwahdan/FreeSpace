@@ -23,6 +23,7 @@
     "@fortawesome/fontawesome-free": "^6.5.1",
     "@ng-bootstrap/ng-bootstrap": "^16.0.0",
     "@popperjs/core": "^2.11.8",
+    "@types/select2": "^4.0.63",
     "bootstrap": "^5.3.3",
     "chart.js": "^3.1.1",
     "date-fns": "^3.5.0",
@@ -32,6 +33,7 @@
     "ngx-toastr": "^18.0.0",
     "popper.js": "^1.16.1",
     "rxjs": "~7.8.0",
+    "select2": "^4.1.0-rc.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
   },
@@ -41,6 +43,7 @@
     "@angular/compiler-cli": "^17.0.0",
     "@angular/localize": "^17.0.0",
     "@types/jasmine": "~5.1.0",
+    "@types/jquery": "^3.5.29",
     "jasmine-core": "~5.1.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
