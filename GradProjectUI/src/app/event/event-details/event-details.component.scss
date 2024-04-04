@@ -26,6 +26,7 @@ font-size: 30px;
 .card-body {
   padding: 15px;
 }
+
 #grid_groups_wrapper {
   max-width: 600px;
 }
@@ -94,6 +95,20 @@ font-size: 30px;
 
 .profile-name.hover {
   opacity: 1; /* Show profile name on hover */
+}
+
+.event-media-container {
+  position: relative;
+  height: 100%; /* Set the height of the container */
+}
+
+.event-media-container img {
+  position: absolute;
+  width: 100%; /* Set the width to fill the container */
+  height: 100%; /* Set the height to fill the container */
+  object-fit: contain; /* Maintain aspect ratio without distortion */
+  top: 0;
+  left: 0;
 }
 
 

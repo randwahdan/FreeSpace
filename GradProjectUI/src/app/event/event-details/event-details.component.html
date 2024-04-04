@@ -14,11 +14,14 @@
     <div class="card-body mt-3" >
     <div *ngIf="eventModel">
     <div class="row">
-      <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3 mt-3">
-        <div *ngIf="eventModel.media && eventModel.media.length > 0 && eventModel.media[0]">
-          <img class="d-block event-img" [src]="eventModel.media[0].url" alt="First Image">
-        </div>
+     <!-- Inside the card-body -->
+     <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3 mt-3">
+      <div class="event-media-container">
+        <img class="d-block event-img" [src]="eventModel.media[0].url" alt="First Image">
       </div>
+    </div>
+
+
       <div class="col-12 col-lg-6 offset-lg-1 mt-3">
         <div class="row ps-2 mb-2">
           <h3 class="text-black">{{ capitalizeFirstLetter(eventModel.title) }}
@@ -44,10 +47,11 @@
                 <span style="font-weight: bolder; ">{{ eventModel.startDate | date:'shortTime' }} - {{eventModel.endDate | date :'shortTime'}}</span>
             </h6>
               </div>
-              <div class="row ps-2 mb-2">
+              <div class="row ps-2 mb-1">
                 <h6 class="text-dark text-opacity-50 pb-2">
-                  <i class="fa-solid fa-link"></i> Event Link :
-                  <a [href]="eventModel.link" target="_blank" style="cursor: pointer;">{{ eventModel.link }}</a>
+                  <a [href]="eventModel.link" target="_blank" style="cursor:text; display: block; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; max-width: 600px; color: inherit;text-decoration: none;">
+                    <i class="fa-solid fa-link"></i> <span >Event Link : </span><span style="color: blue; cursor: pointer;">{{ eventModel.link }}</span>
+                  </a>
                 </h6>
               </div>
               <div class="row ps-2 mb-2">

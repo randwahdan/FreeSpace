@@ -286,6 +286,164 @@ public class EventController : Controller
 
         return eventListResult;
     }
+    [HttpGet("get-events-by-country")]
+    public List<EventModel> GetEventsByCountry(string country)
+    {
+        // Get the current user's ID
+        Guid userId = Guid.Parse(User.Identity?.Name);
+
+        // Get all users except the current user
+        var allUsers = _dbContext.Users.Where(u => u.Id != userId).Select(u => u.Id).ToList();
+
+        // Query events based on the country parameter
+        IQueryable<Event> eventsQuery = _dbContext.Events
+            .Where(c => allUsers.Contains(c.UserId) || c.UserId == userId)
+            .Include(e => e.EventResponses)
+            .Include(e => e.Medias);
+
+        if (!string.IsNullOrEmpty(country) && country != "all")
+        {
+            eventsQuery = eventsQuery.Where(e => e.Country == country);
+        }
+
+        var events = eventsQuery.OrderByDescending(c => c.CreatedDate).ToList();
+
+        // Convert events to EventModel and return
+        List<EventModel> eventListResult = new List<EventModel>();
+        foreach (var eventEntity in events)
+        {
+            EventModel eventModel = new EventModel();
+            var userEntity = _dbContext.Users.Find(eventEntity.UserId);
+            eventModel.FullName = userEntity.FirstName + " " + userEntity.LastName;
+            eventModel.CreatedDate = eventEntity.CreatedDate;
+            eventModel.Title = eventEntity.Title;
+            eventModel.Description = eventEntity.Description;
+            eventModel.Country = eventEntity.Country;
+            eventModel.City = eventEntity.City;
+            eventModel.StartDate = eventEntity.StartDate;
+            eventModel.EndDate = eventEntity.EndDate;
+            eventModel.Link = eventEntity.Link;
+            eventModel.Category = eventEntity.Category;
+            eventModel.EventId = eventEntity.Id;
+
+            if (userEntity.ProfilePicture != null)
+            {
+                // Convert profile picture from Byte[] to dataUrl
+                var base64String = Convert.ToBase64String(userEntity.ProfilePicture);
+                var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                eventModel.ProfilePicture = dataUrl;
+            }
+
+            if (eventEntity.Medias != null)
+            {
+                List<EventMediaModel> mediaList = new List<EventMediaModel>();
+                foreach (var eventMedia in eventEntity.Medias)
+                {
+                    EventMediaModel mediaModel = new EventMediaModel();
+                    mediaModel.FileName = eventMedia.FileName;
+                    mediaModel.Url = eventMedia.Url; // Assuming this is an image URL
+                    mediaList.Add(mediaModel);
+                }
+                eventModel.Media = mediaList;
+            }
+
+            if (eventEntity.EventResponses != null)
+            {
+                eventModel.AttendanceNumber = eventEntity.EventResponses.Count;
+                EventResponse eventResponse = eventEntity.EventResponses.FirstOrDefault(c => c.UserId == userId);
+                if (eventResponse != null)
+                {
+                    eventModel.IsAttend = true;
+                }
+            }
+
+            eventListResult.Add(eventModel);
+        }
+
+        return eventListResult;
+    }
+    [HttpGet("get-events-by-category-and-country")]
+    public List<EventModel> GetEventsByCategoryAndCountry(string category, string country)
+    {
+        // Get the current user's ID
+        Guid userId = Guid.Parse(User.Identity?.Name);
+
+        // Get all users except the current user
+        var allUsers = _dbContext.Users.Where(u => u.Id != userId).Select(u => u.Id).ToList();
+
+        // Query events based on the category and country parameters
+        IQueryable<Event> eventsQuery = _dbContext.Events
+            .Where(c => allUsers.Contains(c.UserId) || c.UserId == userId)
+            .Include(e => e.EventResponses)
+            .Include(e => e.Medias);
+
+        if (!string.IsNullOrEmpty(category) && category != "all")
+        {
+            eventsQuery = eventsQuery.Where(e => e.Category == category);
+        }
+
+        if (!string.IsNullOrEmpty(country) && country != "all")
+        {
+            eventsQuery = eventsQuery.Where(e => e.Country == country);
+        }
+
+        var events = eventsQuery.OrderByDescending(c => c.CreatedDate).ToList();
+
+        // Convert events to EventModel and return
+        List<EventModel> eventListResult = new List<EventModel>();
+        foreach (var eventEntity in events)
+        {
+            EventModel eventModel = new EventModel();
+            var userEntity = _dbContext.Users.Find(eventEntity.UserId);
+            eventModel.FullName = userEntity.FirstName + " " + userEntity.LastName;
+            eventModel.CreatedDate = eventEntity.CreatedDate;
+            eventModel.Title = eventEntity.Title;
+            eventModel.Description = eventEntity.Description;
+            eventModel.Country = eventEntity.Country;
+            eventModel.City = eventEntity.City;
+            eventModel.StartDate = eventEntity.StartDate;
+            eventModel.EndDate = eventEntity.EndDate;
+            eventModel.Link = eventEntity.Link;
+            eventModel.Category = eventEntity.Category;
+            eventModel.EventId = eventEntity.Id;
+
+            if (userEntity.ProfilePicture != null)
+            {
+                // Convert profile picture from Byte[] to dataUrl
+                var base64String = Convert.ToBase64String(userEntity.ProfilePicture);
+                var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                eventModel.ProfilePicture = dataUrl;
+            }
+
+            if (eventEntity.Medias != null)
+            {
+                List<EventMediaModel> mediaList = new List<EventMediaModel>();
+                foreach (var eventMedia in eventEntity.Medias)
+                {
+                    EventMediaModel mediaModel = new EventMediaModel();
+                    mediaModel.FileName = eventMedia.FileName;
+                    mediaModel.Url = eventMedia.Url; // Assuming this is an image URL
+                    mediaList.Add(mediaModel);
+                }
+                eventModel.Media = mediaList;
+            }
+
+            if (eventEntity.EventResponses != null)
+            {
+                eventModel.AttendanceNumber = eventEntity.EventResponses.Count;
+                EventResponse eventResponse = eventEntity.EventResponses.FirstOrDefault(c => c.UserId == userId);
+                if (eventResponse != null)
+                {
+                    eventModel.IsAttend = true;
+                }
+            }
+
+            eventListResult.Add(eventModel);
+        }
+
+        return eventListResult;
+    }
+
 
     [HttpGet("get-archive-events")]
     public List<EventModel> GetArchiveEvents()

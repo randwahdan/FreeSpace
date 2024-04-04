@@ -100,7 +100,6 @@ import {
   ɵɵtextInterpolate1,
   ɵɵviewQuery
 } from "./chunk-XNH7GWCF.js";
-import "./chunk-BQTYKBYB.js";
 import {
   animationFrameScheduler,
   asapScheduler,
@@ -108,6 +107,7 @@ import {
   isObservable,
   merge
 } from "./chunk-WI6LBH4V.js";
+import "./chunk-BQTYKBYB.js";
 import {
   ConnectableObservable,
   Observable,

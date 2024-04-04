@@ -1,80 +1,138 @@
-import { Component,Input, OnInit,ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { EventService } from '../../services/event.service';
 import { UserModel } from '../../models/user-model';
-import { Router } from '@angular/router';
 import { EventModel } from '../../models/Event.model';
-import { SharedService } from '../../services/shared.service';
-import { ActivatedRoute } from '@angular/router';
-import { ResponseModel } from '../../models/Response.model';
 import { ToastrService } from 'ngx-toastr';
 import 'select2';
+import { ResponseModel } from '../../models/Response.model';
+
 @Component({
   selector: 'event-card',
   templateUrl: './event-card.component.html',
-  styleUrl: './event-card.component.scss'
+  styleUrls: ['./event-card.component.scss']
 })
-export class EventCards implements OnInit{
+export class EventCards implements OnInit, AfterViewInit {
   user: UserModel;
-  event:EventModel;
   eventModelList: EventModel[] = [];
-  @Input() userId: any;
-  @Input() eventId: any;
   selectedCategory: string = 'all'; // Default selected category
+  selectedCountry: string = 'all'; // Default selected country
+  uniqueCountries: string[];
   uniqueCategories: string[]; // Array to hold unique categories
-  filteredEvents: any[]; // Array to hold filtered events
-  ongoingEvents: EventModel[] = [];
   endedEvents: EventModel[] = [];
-  hoverOption: string | null = null;
   @ViewChild('categoryDropdown') categoryDropdown: ElementRef;
+  @ViewChild('countryDropdown') countryDropdown: ElementRef;
+
   constructor(
     private eventService: EventService,
-    private sharedService: SharedService,
-    private route: ActivatedRoute,
-    private toastr:ToastrService
-  ){}
+    private toastr: ToastrService
+  ) {}
+
   ngOnInit(): void {
-    let userStorge=localStorage.getItem('user');
-    this.user  = userStorge ? JSON.parse(userStorge) : null;
+    let userStorage = localStorage.getItem('user');
+    this.user = userStorage ? JSON.parse(userStorage) : null;
     this.getEvents();
-    $(this.categoryDropdown.nativeElement).select2();
   }
+
   ngAfterViewInit(): void {
-    // Reinitialize Select2 after the view is initialized
+    // Initialize Select2 after the view is initialized
     $(this.categoryDropdown.nativeElement).select2();
+    $(this.countryDropdown.nativeElement).select2();
   }
-  getEvents() {
+
+  getEvents(): void {
     this.eventService.getEvents().subscribe((result: EventModel[]) => {
       const currentDate = new Date();
-      this.eventModelList = result.filter((event: EventModel) => new Date(event.endDate) >= currentDate);
+      const filteredEvents = result.filter((event: EventModel) => new Date(event.endDate) >= currentDate);
+
+      this.eventModelList = filteredEvents;
       this.endedEvents = result.filter((event: EventModel) => new Date(event.endDate) < currentDate);
 
       // Get unique categories from ongoing/upcoming events
       const activeCategories: string[] = [];
-      this.eventModelList.forEach(event => {
+      filteredEvents.forEach(event => {
         if (!activeCategories.includes(event.category)) {
           activeCategories.push(event.category);
         }
       });
       this.uniqueCategories = activeCategories;
 
+      // Get unique countries from ongoing/upcoming events
+      const activeCountries: string[] = [];
+      filteredEvents.forEach(event => {
+        if (!activeCountries.includes(event.country)) {
+          activeCountries.push(event.country);
+        }
+      });
+      this.uniqueCountries = activeCountries;
+
       console.log('Ongoing/Upcoming Events:', this.eventModelList);
       console.log('Ended Events:', this.endedEvents);
     });
   }
-
-
-
-  getUniqueCategories(events: EventModel[]): string[] {
-    const activeCategories: string[] = [];
-    events.forEach(event => {
-      if (!activeCategories.includes(event.category)) {
-        activeCategories.push(event.category);
+  filterByCategory() {
+    if (this.selectedCategory === 'all') {
+      // Handle filtering by all categories excluding archive events
+      if (this.selectedCountry === 'all') {
+        this.getEvents();
+      } else {
+        this.eventService.getEventsByCountry(this.selectedCountry).subscribe(result => {
+          // Exclude archive events from the result
+          this.eventModelList = result.filter(event => !this.isArchiveEvent(event));
+        });
       }
-    });
-    return activeCategories;
+    } else if (this.selectedCategory === 'archive') {
+      // Handle filtering by archive events
+      this.getArchiveEvents();
+    } else {
+      // Handle filtering by other categories and country
+      if (this.selectedCountry === 'all') {
+        // Filter by category only
+        this.eventService.getEventByCategory(this.selectedCategory).subscribe(result => {
+          // Exclude archive events from the result
+          this.eventModelList = result.filter(event => !this.isArchiveEvent(event));
+        });
+      } else {
+        // Filter by both category and country
+        this.eventService.getEventsByCategoryAndCountry(this.selectedCategory, this.selectedCountry).subscribe(result => {
+          // Exclude archive events from the result
+          this.eventModelList = result.filter(event => !this.isArchiveEvent(event));
+        });
+      }
+    }
   }
 
 
+  filterByCountry() {
+    if (this.selectedCountry === 'all') {
+      // Handle filtering by all countries for the selected category
+      if (this.selectedCategory === 'all') {
+        this.getEvents();
+      } else {
+        // Filter by category only
+        this.eventService.getEventByCategory(this.selectedCategory).subscribe(result => {
+          // Exclude archive events from the result
+          this.eventModelList = result.filter(event => !this.isArchiveEvent(event));
+        });
+      }
+    } else {
+      // Handle filtering by both category and country
+      this.eventService.getEventsByCategoryAndCountry(this.selectedCategory, this.selectedCountry).subscribe(result => {
+        // Exclude archive events from the result
+        this.eventModelList = result.filter(event => !this.isArchiveEvent(event));
+      });
+    }
+  }
+
+
+  getArchiveEvents() {
+    this.eventService.getArchiveEvents().subscribe(result => {
+      this.eventModelList = result;
+    });
+  }
+
+  isArchiveEvent(event: EventModel): boolean {
+    return new Date(event.endDate) < new Date();
+  }
 
   makeResponse(event: any) {
     if (!event || !event.eventId) {
@@ -82,7 +140,7 @@ export class EventCards implements OnInit{
       return;
     }
     let responseModel = new ResponseModel();
-    responseModel.eventId =event.eventId;
+    responseModel.eventId = event.eventId;
     console.log(responseModel);
     this.eventService.makeResponse(responseModel).subscribe(result => {
       if (result == true) {
@@ -93,44 +151,21 @@ export class EventCards implements OnInit{
         this.toastr.error('Failed to confirm attendance.');
       }
     });
-}
-makeDisResponse(event:any) {
-  let responseModel = new ResponseModel();
-   responseModel.eventId =event.eventId; // Assigning eventId to the ResponseModel instance
-  // Now you can use responseModel for further processing
-  console.log(responseModel);
-  this.eventService.makeDisResponse(responseModel).subscribe(result => {
-    if (result == true) {
-      event.isAttend = false;
-      event.attendanceNumber -= 1;
-      this.toastr.success('Attendance cancelled.');
-    } else {
-      this.toastr.error('Failed to cancel attendance.');
-    }
-  });
-}
-filterByCategory() {
-  if (this.selectedCategory === 'archive') {
-    // Handle archive events
-    this.getArchiveEvents();
-  } else {
-    // Handle filtering by other categories
-    this.eventService.getEventByCategory(this.selectedCategory).subscribe(result => {
-      this.eventModelList = result;
-      // Reset other necessary variables or perform additional logic
+  }
+
+  makeDisResponse(event: any) {
+    let responseModel = new ResponseModel();
+    responseModel.eventId = event.eventId; // Assigning eventId to the ResponseModel instance
+    // Now you can use responseModel for further processing
+    console.log(responseModel);
+    this.eventService.makeDisResponse(responseModel).subscribe(result => {
+      if (result == true) {
+        event.isAttend = false;
+        event.attendanceNumber -= 1;
+        this.toastr.success('Attendance cancelled.');
+      } else {
+        this.toastr.error('Failed to cancel attendance.');
+      }
     });
   }
 }
-
-getArchiveEvents() {
-  this.eventService.getArchiveEvents().subscribe(result => {
-    this.eventModelList = result;
-  });
-}
-isArchiveEvent(event: EventModel): boolean {
-  return new Date(event.endDate) < new Date();
-}
-}
-
-
-

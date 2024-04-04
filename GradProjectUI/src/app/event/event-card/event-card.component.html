@@ -1,20 +1,26 @@
 <div class="container mt-5">
-  <div class="row">
-    <div class="col-md-4"> <!-- Left column -->
+  <div class="row mb-4">
+    <div class="col-md-4 mt-3"> <!-- Left column -->
       <!-- Dropdown menu for selecting category -->
       <div class="input-group mb-3">
-        <span class="input-group-text visually visually-filter" id="filterIcon"><i class="fa fa-filter"></i>&nbsp; Filter By</span> <!-- Combined filter icon and label with space -->
-        <select [(ngModel)]="selectedCategory" (change)="filterByCategory()" id="categoryDropdown" class="form-select ">
-          <optgroup label="Categories"> <!-- Option group for categories -->
-            <option value="all">All Categories</option>
-            <option *ngFor="let category of uniqueCategories" [value]="category">{{ category }}</option>
-          </optgroup>
-          <hr> <!-- Line to visually separate the options -->
-          <option value="archive">Archive</option> <!-- Add this option for viewing archived events -->
-        </select>
+          <span class="input-group-text visually visually-filter" id="filterIcon"><i class="fa fa-filter"></i>&nbsp; Filter By</span> <!-- Combined filter icon and label with space -->
+          <select [(ngModel)]="selectedCategory" (change)="filterByCategory()" id="categoryDropdown" class="form-select">
+              <optgroup label="Categories"> <!-- Option group for categories -->
+                  <option value="all">All Categories</option>
+                  <option *ngFor="let category of uniqueCategories" [value]="category">{{ category }}</option>
+              </optgroup>
+              <hr> <!-- Line to visually separate the options -->
+              <option value="archive">Archive</option> <!-- Add this option for viewing archived events -->
+          </select>
+
+          <!-- Add another select for Country here -->
+          <select *ngIf="selectedCategory !== 'archive'" [(ngModel)]="selectedCountry" (change)="filterByCountry()" id="countryDropdown" class="form-select">
+              <option value="all">All Countries</option>
+              <option *ngFor="let country of uniqueCountries" [value]="country">{{ country }}</option>
+          </select>
       </div>
-    </div>
-    <div class="col-md-8 text-end"> <!-- Right column -->
+  </div>
+    <div class="col-md-8 text-end mt-3"> <!-- Right column -->
       <a routerLink="/create-event" class="btn btn-light">
         <i class="fa-solid fa-plus"></i> Create New Event
       </a>
@@ -24,7 +30,7 @@
     <div class="col-lg-4" *ngFor="let event of eventModelList">
       <div class="card card-margin">
         <div class="card-body pt-0">
-          <div class="card-img">
+          <div class="card-img mt-4">
             <img *ngIf="event.media && event.media.length > 0" [src]="event.media[0].url" class="card-img-top" alt="...">
             <img *ngIf="!(event.media && event.media.length > 0)" src="placeholder_image_url" class="card-img-top" alt="...">
           </div>
@@ -34,8 +40,8 @@
                 <span class="widget-49-date-day">{{ event.startDate | date: 'dd' }}</span>
                 <span class="widget-49-date-month">{{ event.startDate | date: 'MMM' | lowercase }}</span>
               </div>
-              <div class="widget-49-title-wrapper text-center" style="height: 50px; overflow: hidden;">
-                <h5 class="widget-49-pro-title">{{ event.title }}</h5>
+              <div class="widget-49-title-wrapper text-center " style="height: 50px; overflow: hidden; margin-left: 10px ;font-family: 'serifttfBold';cursor:default;">
+                <h5 class="widget-49-pro-title ">{{ event.title }}</h5>
               </div>
             </div>
             <div class="widget-49-meeting-action mt-3">
