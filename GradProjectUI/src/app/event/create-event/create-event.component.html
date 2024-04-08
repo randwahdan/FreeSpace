@@ -34,7 +34,7 @@
           </div>
         </div>
         <div class="form-floating py-2 col-10 mx-auto">
-          <select style="cursor: pointer;" formControlName="category" class="form-select border-0 shadow">
+          <select style="cursor: pointer;" formControlName="category" class="form-select border-0 shadow" required>
             <option value="">--Please choose event categories--</option>
             <option value="Comedy">Comedy</option>
             <option value="Sport">Sport</option>
@@ -54,14 +54,103 @@
             <option value="Health and wellness">Health and wellness</option>
             <option value="Food and drink">Food and drink</option>
             <option value="Technology">Technology</option>
+            <option value="Outdoor">Outdoor</option>
+            <option value="Adventure">Adventure</option>
+            <option value="Photography">Photography</option>
+            <option value="Gardening">Gardening</option>
+            <option value="Science">Science</option>
+            <option value="Literature">Literature</option>
+            <option value="Business">Business</option>
+            <option value="Finance">Finance</option>
+            <option value="Politics">Politics</option>
+            <option value="History">History</option>
+            <option value="Philosophy">Philosophy</option>
+            <option value="Religion">Religion</option>
+            <option value="Technology">Technology</option>
+            <option value="Environment">Environment</option>
+            <option value="Crafts">Crafts</option>
+            <option value="DIY">DIY</option>
+            <option value="Travel">Travel</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Fitness">Fitness</option>
+            <option value="Parenting">Parenting</option>
+            <option value="Pets">Pets</option>
+            <option value="Celebration">Celebration</option>
+            <option value="Community">Community</option>
+            <option value="Volunteering">Volunteering</option>
+            <option value="Science Fiction">Science Fiction</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Horror">Horror</option>
+            <option value="Mystery">Mystery</option>
+            <option value="Thriller">Thriller</option>
+            <option value="Romance">Romance</option>
+            <option value="Action">Action</option>
+            <option value="Documentary">Documentary</option>
+            <option value="Animation">Animation</option>
+            <option value="Musical">Musical</option>
+            <option value="Cooking">Cooking</option>
+            <option value="Baking">Baking</option>
+            <option value="Coding">Coding</option>
+            <option value="Design">Design</option>
+            <option value="Art">Art</option>
+            <option value="Writing">Writing</option>
+            <option value="Reading">Reading</option>
+            <option value="Drawing">Drawing</option>
+            <option value="Painting">Painting</option>
+            <option value="Sculpture">Sculpture</option>
+            <option value="Music">Music</option>
+            <option value="Dance">Dance</option>
+            <option value="Theater">Theater</option>
+            <option value="Opera">Opera</option>
+            <option value="Cinema">Cinema</option>
+            <option value="Photography">Photography</option>
+            <option value="Video Games">Video Games</option>
+            <option value="Board Games">Board Games</option>
+            <option value="Chess">Chess</option>
+            <option value="Fashion Design">Fashion Design</option>
+            <option value="Interior Design">Interior Design</option>
+            <option value="Architecture">Architecture</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Astronomy">Astronomy</option>
+            <option value="Astrophysics">Astrophysics</option>
+            <option value="Biology">Biology</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Physics">Physics</option>
+            <option value="Mathematics">Mathematics</option>
+            <option value="Geology">Geology</option>
+            <option value="Meteorology">Meteorology</option>
+            <option value="Environmental Science">Environmental Science</option>
+            <option value="Medicine">Medicine</option>
+            <option value="Psychology">Psychology</option>
+            <option value="Sociology">Sociology</option>
+            <option value="Anthropology">Anthropology</option>
+            <option value="Economics">Economics</option>
+            <option value="Political Science">Political Science</option>
+            <option value="Philosophy">Philosophy</option>
+            <option value="Religious Studies">Religious Studies</option>
+            <option value="Languages">Languages</option>
+            <option value="Literature">Literature</option>
+            <option value="History">History</option>
+            <option value="Archaeology">Archaeology</option>
+            <option value="Geography">Geography</option>
+            <option value="Tourism">Tourism</option>
+            <option value="Culinary Arts">Culinary Arts</option>
+            <option value="Wine Tasting">Wine Tasting</option>
+            <option value="Mixology">Mixology</option>
+            <option value="Craft Beer">Craft Beer</option>
+            <option value="Coffee">Coffee</option>
+            <option value="Tea">Tea</option>
+            <option value="Juicing">Juicing</option>
+            <option value="Yoga">Yoga</option>
           </select>
           <label for="Categories" class="ms-2">Category</label>
           <span *ngIf="eventForm.get('category')?.invalid && eventForm.get('category')?.touched" class="text-danger">Category is required</span>
         </div>
+
     <div class="form-floating row justify-content-center">
       <div class="col-5">
         <div class="form-floating py-2">
-          <select style="cursor: pointer;" formControlName="country" class="form-select border-0 shadow" (blur)="eventForm.get('country')?.markAsTouched()" (change)="updateCities()" required>
+          <select style="cursor: pointer;" formControlName="country" class="form-select border-0 shadow" (blur)="eventForm.get('country')?.markAsTouched()"  required>
             <option value="">-- Select Country --</option>
             <option value="Afghanistan">Afghanistan</option>
             <option value="Algeria">Algeria</option>
@@ -91,19 +180,14 @@
 
       <div class="col-5">
         <div class="form-floating py-2">
-          <select style="cursor: pointer;" formControlName="city" class="form-select border-0 shadow" (blur)="eventForm.get('city')?.markAsTouched()" required>
-            <option value="">-- Select City --</option>
-            <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-          </select>
+          <input formControlName="city" class="form-control border-0 shadow" required/>
           <label for="City" class="ms-2">City</label>
-          <span *ngIf="eventForm.get('city')?.errors?.['required'] && eventForm.get('city')?.touched" class="text-danger">City is required</span>
+          <span *ngIf="eventForm.get('city')?.invalid && eventForm.get('city')?.touched" class="text-danger">City is required</span>
         </div>
       </div>
-    </div>
     <div class="form-floating py-2 col-10 mx-auto" [ngClass]="{'has-error': eventForm.get('link')?.errors && eventForm.get('link')?.touched}">
       <input type="url" formControlName="link" class="form-control border-0 shadow" />
       <label for="EventUrl" class="ms-2">URL for Your Event</label>
-      <span *ngIf="eventForm.get('link')?.errors?.['required'] && eventForm.get('link')?.touched" class="text-danger">URL is required</span>
       <span *ngIf="eventForm.get('link')?.errors?.['pattern'] && eventForm.get('link')?.touched" class="text-danger">Invalid URL format</span>
     </div>
     <div class="form-floating py-2 col-10 mx-auto">
@@ -121,6 +205,7 @@
             </a>
           </div>
         </div>
+    </div>
       </div>
     </form>
   </div>

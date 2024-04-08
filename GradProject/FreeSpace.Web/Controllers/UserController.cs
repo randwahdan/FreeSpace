@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 using System.Text.RegularExpressions;
 namespace FreeSpace.Web.Controllers
 
@@ -77,10 +78,7 @@ namespace FreeSpace.Web.Controllers
             }
         }
 
-
-
-
-
+     
         [HttpGet("getFriends")]
         public List<UserInfoModel> GetFriends()
         {

@@ -300,14 +300,6 @@ D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\refint\FreeSpac
 D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.pdb
 D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.genruntimeconfig.cache
 D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\ref\FreeSpace.Web.dll
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.AssemblyReference.cache
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.AssemblyInfoInputs.cache
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.AssemblyInfo.cs
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.CoreCompileInputs.cache
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.sourcelink.json
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\bin\Debug\net8.0\appsettings.json
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.staticwebassets.runtime.json
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\bin\Debug\net8.0\FreeSpace.Web.exe
@@ -438,6 +430,14 @@ C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\bi
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.AssemblyReference.cache
+C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.AssemblyInfoInputs.cache
+C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.AssemblyInfo.cs
+C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.csproj.CoreCompileInputs.cache
+C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.sourcelink.json
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\staticwebassets\msbuild.FreeSpace.Web.Microsoft.AspNetCore.StaticWebAssets.props

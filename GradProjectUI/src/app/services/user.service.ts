@@ -20,7 +20,7 @@ export class UserService  {
   }
 
   getPendingFriends():  Observable<any> {
-    
+
     return this.httpClient.get('/user/getPendingFriends');
   }
 

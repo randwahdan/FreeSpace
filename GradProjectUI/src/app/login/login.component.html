@@ -31,11 +31,8 @@
                       <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required</div>
                     </div>
                   </div>
-
-
-
                   <div class="text-center pt-1 mb-5 pb-1">
-                    <button class="btn btn-light btn-block mb-3 col-md-6 rounded-5" type="submit" style="background-color: #1E5128; color:white">Login</button>
+                    <button class="btn btn-light btn-block mb-3 col-md-6 rounded-5 loginbtn" type="submit" style="background-color: #1E5128; color:white">Login</button>
                   </div>
                   <div class="d-flex align-items-center justify-content-center pb-4">
                     <p class="mb-0 me-2">Don't have an account?</p>
@@ -44,8 +41,6 @@
                     </a>
                   </div>
                 </form>
-
-
               </div>
             </div>
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
@@ -54,9 +49,8 @@
                   <p class="small mb-4">FreeSpace: Where every voice is heard and respected. Join us to freely express your opinions without fear of censorship or reach limitations.</p>
                   <h5>Why Choose FreeSpace?</h5>
                   <p class="small mb-4">Empowering voices, celebrating diversity, and ensuring seamless support. Join FreeSpace for a valued and protected experience.</p>
-                  <p class="mb-0">Join the FreeSpace Community Today</p>
-                  <a routerLink="/register" routerLinkActive="active" class="btn btn-outline-light mt-2 align-items-center">Sign up now</a>
-              </div>
+                  <p class="mb-0">Join the FreeSpace Community Today  <a routerLink="/register" routerLinkActive="active" class="text-white"> Sign up now</a></p>
+                </div>
           </div>
           </div>
         </div>

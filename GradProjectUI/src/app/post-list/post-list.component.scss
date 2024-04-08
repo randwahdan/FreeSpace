@@ -30,6 +30,8 @@ body {
 .carousel-container {
   width: 100%; /* Adjust the maximum width as needed */
   margin: 0 auto;   /* Center the carousel horizontally */
+  background: -webkit-linear-gradient(to right, #4caf50,  #d32f2f);
+  background: linear-gradient(to right, #4caf50, #d32f2f);
 }
 .post-video{
   max-height: 450px; /* Adjust the maximum height as needed */
@@ -134,4 +136,14 @@ form {
   .input-group .btn {
     border-radius: 0 40px 40px 0; // Adjust the border radius for the button
   }
+  .carousel-control-prev,
+.carousel-control-next {
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  color: white; /* White text color */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: white; /* White color for the arrow icon */
+}
 }

@@ -67,13 +67,14 @@ public class EventController : Controller
         if (files != null && files.Count > 0)
         {
             List<EventMedia> mediaList = new List<EventMedia>();
+
             foreach (var file in files)
             {
-                // Check if the uploaded file is an image or video
-                if (!IsImage(file) )
+                // Check if the uploaded file is an image
+                if (!IsImage(file.FileName))
                 {
                     // Return BadRequest with an error message
-                    return BadRequest("Uploaded file is an image");
+                    return BadRequest("Uploaded file is not an image (only .jpg, .jpeg, .png, .gif are allowed).");
                 }
 
                 using (var memoryStream = new MemoryStream())
@@ -81,18 +82,16 @@ public class EventController : Controller
                     // Copy the content of the file to the memory stream asynchronously
                     file.CopyToAsync(memoryStream);
 
-                    EventMedia mediaModel = new EventMedia();
-                    mediaModel.File = memoryStream.ToArray();
-                    mediaModel.FileName = file.FileName;
-
-                    // Set the URL based on the type of media
-                    if (IsImage(file))
+                    EventMedia mediaModel = new EventMedia
                     {
-                        var base64String = Convert.ToBase64String(memoryStream.ToArray());
-                        var dataUrl = $"data:image/jpeg;base64,{base64String}";
-                        mediaModel.Url = dataUrl;
-                    }
-                    
+                        File = memoryStream.ToArray(),
+                        FileName = file.FileName
+                    };
+
+                    // Save the file and set the URL based on the type of media
+                    var imageFilePath = SaveImageFile(file); // Assuming this method saves the image and returns the file path
+                    mediaModel.Url = imageFilePath;
+
                     mediaList.Add(mediaModel);
                 }
             }
@@ -139,7 +138,27 @@ public class EventController : Controller
     }
 
     // Helper method to check if the file is a video
-  
+    private string SaveImageFile(IFormFile file)
+    {
+        string imageDirectory = @"C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\EventImages\";  // Path to directory where images will be saved
+        string fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(file.FileName)}"; // Generate unique file name
+        string filePath = Path.Combine(imageDirectory, fileName);
+
+        // Ensure the directory exists or create it if it doesn't
+        if (!Directory.Exists(imageDirectory))
+        {
+            Directory.CreateDirectory(imageDirectory);
+        }
+
+        // Copy the image file to the specified location
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+            file.CopyTo(stream);
+        }
+
+        return filePath; // Return the file path where the image is saved
+    }
+
 
 
 
@@ -153,31 +172,33 @@ public class EventController : Controller
         var allUsers = _dbContext.Users.Where(u => u.Id != userId).Select(u => u.Id).ToList();
 
         var events = _dbContext.Events
-        .Where(c => allUsers.Contains(c.UserId)|| c.UserId==userId)
-        .Include(e => e.EventResponses).OrderByDescending(c => c.CreatedDate)
-        .Include(e=>e.Medias).OrderByDescending(c => c.CreatedDate)
-        .ToList().OrderByDescending(c => c.CreatedDate);
+            .Where(c => allUsers.Contains(c.UserId) || c.UserId == userId)
+            .Include(e => e.EventResponses)
+            .Include(e => e.Medias)
+            .OrderByDescending(c => c.CreatedDate)
+            .ToList();
 
         List<EventModel> eventListResult = new List<EventModel>();
+
         foreach (var eventEntity in events)
         {
-           EventModel eventModel = new EventModel();
-           var userEntity = _dbContext.Users.Find(eventEntity.UserId);
-           eventModel.FullName=userEntity.FirstName+" "+userEntity.LastName;
-           eventModel.CreatedDate = eventEntity.CreatedDate;
-           eventModel.Title = eventEntity.Title;
-           eventModel.Description = eventEntity.Description;
-           eventModel.Country = eventEntity.Country;
-           eventModel.City = eventEntity.City;
-           eventModel.StartDate = eventEntity.StartDate;
-           eventModel.EndDate = eventEntity.EndDate;
-           eventModel.Link = eventEntity.Link;
-           eventModel.Category = eventEntity.Category;
-           eventModel.EventId = eventEntity.Id;
+            EventModel eventModel = new EventModel();
+            var userEntity = _dbContext.Users.Find(eventEntity.UserId);
+            eventModel.FullName = userEntity.FirstName + " " + userEntity.LastName;
+            eventModel.CreatedDate = eventEntity.CreatedDate;
+            eventModel.Title = eventEntity.Title;
+            eventModel.Description = eventEntity.Description;
+            eventModel.Country = eventEntity.Country;
+            eventModel.City = eventEntity.City;
+            eventModel.StartDate = eventEntity.StartDate;
+            eventModel.EndDate = eventEntity.EndDate;
+            eventModel.Link = eventEntity.Link;
+            eventModel.Category = eventEntity.Category;
+            eventModel.EventId = eventEntity.Id;
 
-           if (userEntity.ProfilePicture != null)
+            if (userEntity.ProfilePicture != null)
             {
-                //convert pfp from Byte[] to dataUrl
+                // Convert profile picture from Byte[] to dataUrl
                 var base64String = Convert.ToBase64String(userEntity.ProfilePicture);
                 var dataUrl = $"data:image/jpeg;base64,{base64String}";
                 eventModel.ProfilePicture = dataUrl;
@@ -186,15 +207,38 @@ public class EventController : Controller
             if (eventEntity.Medias != null)
             {
                 List<EventMediaModel> mediaList = new List<EventMediaModel>();
+
                 foreach (var eventMedia in eventEntity.Medias)
                 {
-                    EventMediaModel mediaModel = new EventMediaModel();
-                    mediaModel.FileName = eventMedia.FileName;
-                    mediaModel.Url = eventMedia.Url; // Assuming this is an image URL
+                    EventMediaModel mediaModel = new EventMediaModel
+                    {
+                        FileName = eventMedia.FileName
+                    };
+
+                    // Convert image URL to base64 data URL if it's an image
+                    if (IsImage(eventMedia.FileName))
+                    {
+                        byte[] imageData = ReadImageFile(eventMedia.Url);
+
+                        if (imageData != null)
+                        {
+                            string base64String = Convert.ToBase64String(imageData);
+                            string dataUrl = $"data:{GetMimeType(eventMedia.FileName)};base64,{base64String}";
+                            mediaModel.Url = dataUrl;
+                        }
+                    }
+                    else
+                    {
+                        // For non-image media, use the original URL
+                        mediaModel.Url = eventMedia.Url;
+                    }
+
                     mediaList.Add(mediaModel);
                 }
+
                 eventModel.Media = mediaList;
             }
+
             if (eventEntity.EventResponses != null)
             {
                 eventModel.AttendanceNumber = eventEntity.EventResponses.Count;
@@ -204,12 +248,42 @@ public class EventController : Controller
                     eventModel.IsAttend = true;
                 }
             }
+
             eventListResult.Add(eventModel);
         }
-        return eventListResult;
 
+        // Return the list of event models after processing all events
+        return eventListResult;
     }
 
+    private bool IsImage(string fileName)
+    {
+        string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+        string fileExtension = Path.GetExtension(fileName)?.ToLower();
+        return !string.IsNullOrEmpty(fileExtension) && allowedExtensions.Contains(fileExtension);
+    }
+
+    private string GetMimeType(string fileName)
+        {
+            string fileExtension = Path.GetExtension(fileName)?.ToLower();
+
+            switch (fileExtension)
+            {
+                case ".jpg":
+                case ".jpeg":
+                    return "image/jpeg";
+                case ".png":
+                    return "image/png";
+                case ".gif":
+                    return "image/gif";
+                default:
+                    return "application/octet-stream"; // Default MIME type if extension is unknown
+            }
+        }
+    private byte[] ReadImageFile(string filePath)
+    {
+        return System.IO.File.ReadAllBytes(filePath);
+    }
     [HttpGet("get-events-by-category")]
     public List<EventModel> GetEvents(string category)
     {
@@ -257,21 +331,42 @@ public class EventController : Controller
                 var dataUrl = $"data:image/jpeg;base64,{base64String}";
                 eventModel.ProfilePicture = dataUrl;
             }
-
             if (eventEntity.Medias != null)
             {
                 List<EventMediaModel> mediaList = new List<EventMediaModel>();
+
                 foreach (var eventMedia in eventEntity.Medias)
                 {
-                    EventMediaModel mediaModel = new EventMediaModel();
-                    mediaModel.FileName = eventMedia.FileName;
-                    mediaModel.Url = eventMedia.Url; // Assuming this is an image URL
+                    EventMediaModel mediaModel = new EventMediaModel
+                    {
+                        FileName = eventMedia.FileName
+                    };
+
+                    // Convert image URL to base64 data URL if it's an image
+                    if (IsImage(eventMedia.FileName))
+                    {
+                        byte[] imageData = ReadImageFile(eventMedia.Url);
+
+                        if (imageData != null)
+                        {
+                            string base64String = Convert.ToBase64String(imageData);
+                            string dataUrl = $"data:{GetMimeType(eventMedia.FileName)};base64,{base64String}";
+                            mediaModel.Url = dataUrl;
+                        }
+                    }
+                    else
+                    {
+                        // For non-image media, use the original URL
+                        mediaModel.Url = eventMedia.Url;
+                    }
+
                     mediaList.Add(mediaModel);
                 }
+
                 eventModel.Media = mediaList;
             }
 
-            if (eventEntity.EventResponses != null)
+                if (eventEntity.EventResponses != null)
             {
                 eventModel.AttendanceNumber = eventEntity.EventResponses.Count;
                 EventResponse eventResponse = eventEntity.EventResponses.FirstOrDefault(c => c.UserId == userId);
@@ -418,13 +513,35 @@ public class EventController : Controller
             if (eventEntity.Medias != null)
             {
                 List<EventMediaModel> mediaList = new List<EventMediaModel>();
+
                 foreach (var eventMedia in eventEntity.Medias)
                 {
-                    EventMediaModel mediaModel = new EventMediaModel();
-                    mediaModel.FileName = eventMedia.FileName;
-                    mediaModel.Url = eventMedia.Url; // Assuming this is an image URL
+                    EventMediaModel mediaModel = new EventMediaModel
+                    {
+                        FileName = eventMedia.FileName
+                    };
+
+                    // Convert image URL to base64 data URL if it's an image
+                    if (IsImage(eventMedia.FileName))
+                    {
+                        byte[] imageData = ReadImageFile(eventMedia.Url);
+
+                        if (imageData != null)
+                        {
+                            string base64String = Convert.ToBase64String(imageData);
+                            string dataUrl = $"data:{GetMimeType(eventMedia.FileName)};base64,{base64String}";
+                            mediaModel.Url = dataUrl;
+                        }
+                    }
+                    else
+                    {
+                        // For non-image media, use the original URL
+                        mediaModel.Url = eventMedia.Url;
+                    }
+
                     mediaList.Add(mediaModel);
                 }
+
                 eventModel.Media = mediaList;
             }
 
@@ -492,13 +609,35 @@ public class EventController : Controller
             if (eventEntity.Medias != null)
             {
                 List<EventMediaModel> mediaList = new List<EventMediaModel>();
+
                 foreach (var eventMedia in eventEntity.Medias)
                 {
-                    EventMediaModel mediaModel = new EventMediaModel();
-                    mediaModel.FileName = eventMedia.FileName;
-                    mediaModel.Url = eventMedia.Url; // Assuming this is an image URL
+                    EventMediaModel mediaModel = new EventMediaModel
+                    {
+                        FileName = eventMedia.FileName
+                    };
+
+                    // Convert image URL to base64 data URL if it's an image
+                    if (IsImage(eventMedia.FileName))
+                    {
+                        byte[] imageData = ReadImageFile(eventMedia.Url);
+
+                        if (imageData != null)
+                        {
+                            string base64String = Convert.ToBase64String(imageData);
+                            string dataUrl = $"data:{GetMimeType(eventMedia.FileName)};base64,{base64String}";
+                            mediaModel.Url = dataUrl;
+                        }
+                    }
+                    else
+                    {
+                        // For non-image media, use the original URL
+                        mediaModel.Url = eventMedia.Url;
+                    }
+
                     mediaList.Add(mediaModel);
                 }
+
                 eventModel.Media = mediaList;
             }
 
@@ -572,13 +711,33 @@ public class EventController : Controller
 
         if (eventEntity.Medias != null)
         {
-            // Convert event media entities to EventMediaModel objects
             List<EventMediaModel> mediaList = new List<EventMediaModel>();
+
             foreach (var eventMedia in eventEntity.Medias)
             {
-                EventMediaModel mediaModel = new EventMediaModel();
-                mediaModel.FileName = eventMedia.FileName;
-                mediaModel.Url = eventMedia.Url; // Assuming this is an image URL
+                EventMediaModel mediaModel = new EventMediaModel
+                {
+                    FileName = eventMedia.FileName
+                };
+
+                // Convert image URL to base64 data URL if it's an image
+                if (IsImage(eventMedia.FileName))
+                {
+                    byte[] imageData = ReadImageFile(eventMedia.Url);
+
+                    if (imageData != null)
+                    {
+                        string base64String = Convert.ToBase64String(imageData);
+                        string dataUrl = $"data:{GetMimeType(eventMedia.FileName)};base64,{base64String}";
+                        mediaModel.Url = dataUrl;
+                    }
+                }
+                else
+                {
+                    // For non-image media, use the original URL
+                    mediaModel.Url = eventMedia.Url;
+                }
+
                 mediaList.Add(mediaModel);
             }
 
