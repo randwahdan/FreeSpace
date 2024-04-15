@@ -337,6 +337,10 @@ namespace FreeSpace.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FileType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsVideo")
                         .HasColumnType("bit");
 
@@ -345,6 +349,9 @@ namespace FreeSpace.Web.Migrations
 
                     b.Property<DateTimeOffset>("LastModifiedDate")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<int>("MediaType")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("PostId")
                         .HasColumnType("uniqueidentifier");

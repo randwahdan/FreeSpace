@@ -21,7 +21,11 @@ export class MangePostComponent implements OnInit {
   @ViewChild('fileUploadImage') fileInputImage: any;
   @ViewChild('fileUploadVideo') fileInputVideo: any;
   postForm: FormGroup;
-  selectedFiles: File[] | null = null;
+  selectedImages: File[] | null = null;
+  selectedVideos: File[] | null = null;
+  // Allowed file extensions
+  allowedImageExtensions = ['.jpg', '.jpeg', '.png'];
+  allowedVideoExtensions = ['.mp4', '.avi', '.mov', '.wmv'];
 
   constructor(
     private router: Router,
@@ -37,47 +41,52 @@ export class MangePostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let userStorage = localStorage.getItem('user');
-    this.user = userStorage ? JSON.parse(userStorage) : null;
+    // Load user details from local storage
+    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+  }
 
-    this.sharedService.profile$.subscribe((isPostCreated) => {
-      if (isPostCreated) {
-        let userStorage = localStorage.getItem('user');
-        this.user = userStorage ? JSON.parse(userStorage) : null;
+  onImageSelected(event: any): void {
+    this.selectedImages = this.filterFilesByExtension(event.target.files, this.allowedImageExtensions);
+  }
+
+  onVideoSelected(event: any): void {
+    this.selectedVideos = this.filterFilesByExtension(event.target.files, this.allowedVideoExtensions);
+  }
+
+  filterFilesByExtension(files: FileList, allowedExtensions: string[]): File[] {
+    const filteredFiles: File[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const extension = file.name ? '.' + file.name.split('.').pop()?.toLowerCase() : '';
+      if (allowedExtensions.includes(extension)) {
+        filteredFiles.push(file);
       }
-    });
-  }
-
-  onFileSelected(event: any): void {
-    this.selectedFiles = event.target.files;
-  }
-
-  onImageClick(event: Event): void {
-    if (this.fileInputImage) {
-      this.fileInputImage.click();
     }
+    return filteredFiles;
   }
 
-  onVideoClick(event: Event): void {
-    if (this.fileInputVideo) {
-      this.fileInputVideo.click();
-    }
-  }
-
-  Post() {
-    let formValue = this.postForm.value;
-    let postModel = new PostModel();
+  createPost(): void {
+    const formValue = this.postForm.value;
+    const postModel = new PostModel();
     postModel.content = formValue.content;
+
     const formData: FormData = new FormData();
     formData.append('postModel', JSON.stringify(postModel));
 
-    if (this.selectedFiles != null) {
-      for (let index = 0; index < this.selectedFiles.length; index++) {
-        formData.append('files', this.selectedFiles[index], this.selectedFiles[index].name);
+    // Append selected images and videos to FormData
+    if (this.selectedImages) {
+      for (const image of this.selectedImages) {
+        formData.append('files', image, image.name);
+      }
+    }
+    if (this.selectedVideos) {
+      for (const video of this.selectedVideos) {
+        formData.append('files', video, video.name);
       }
     }
 
-    this.http.post(`/post/create-post`, formData)
+    // Send POST request to create post
+    this.http.post<any>('/post/create-post', formData)
       .pipe(
         catchError(error => {
           console.error('Error creating post:', error);
@@ -88,12 +97,12 @@ export class MangePostComponent implements OnInit {
           return throwError(errorMessage);
         })
       )
-      .subscribe(async result => {
-        formValue.content = '';
+      .subscribe(() => {
         this.postForm.reset();
+        this.selectedImages = null;
+        this.selectedVideos = null;
         this.sharedService.updatePosts(true);
         this.toastr.success('Your post was created successfully.');
-        this.selectedFiles = null;
       });
   }
 }

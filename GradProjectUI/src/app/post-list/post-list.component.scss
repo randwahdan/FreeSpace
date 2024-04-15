@@ -30,13 +30,20 @@ body {
 .carousel-container {
   width: 100%; /* Adjust the maximum width as needed */
   margin: 0 auto;   /* Center the carousel horizontally */
-  background: -webkit-linear-gradient(to right, #4caf50,  #d32f2f);
-  background: linear-gradient(to right, #4caf50, #d32f2f);
 }
 .post-video{
   max-height: 450px; /* Adjust the maximum height as needed */
   width: 70%;
   object-fit: contain; /* Maintain the aspect ratio while covering the container */
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  color: black; /* Set the desired color for the arrows */
+}
+.carousel-control-prev-icon::before,
+.carousel-control-next-icon::before {
+  color: black !important; /* Change this to your desired color */
 }
 
 .post-img {

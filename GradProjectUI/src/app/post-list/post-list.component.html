@@ -33,11 +33,11 @@
           </p>
       </div>
       <div class="carousel-container">
-        <ngb-carousel *ngIf="post.media && post.media.length > 0">
+        <ngb-carousel  *ngIf="post.media && post.media.length > 0 " >
           <ng-template ngbSlide *ngFor="let media of post.media">
             <ng-container *ngIf="isVideo(media)">
-              <video  class="d-block w-100 post-video" controls  >
-                <source [src]="media?.url" >
+              <video class="d-block w-100 post-video" controls>
+                <source [src]="media?.url">
                 Your browser does not support the video tag.
               </video>
             </ng-container>
@@ -47,6 +47,9 @@
           </ng-template>
         </ngb-carousel>
       </div>
+
+
+
 
 
       <div class="card-footer">
