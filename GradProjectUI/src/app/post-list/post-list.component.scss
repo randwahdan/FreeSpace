@@ -36,14 +36,78 @@ body {
   width: 70%;
   object-fit: contain; /* Maintain the aspect ratio while covering the container */
 }
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-  color: black; /* Set the desired color for the arrows */
+.custom-carousel .carousel-control-prev-icon,
+.custom-carousel .carousel-control-next-icon {
+  color: black; /* Change icon color to black */
 }
-.carousel-control-prev-icon::before,
-.carousel-control-next-icon::before {
-  color: black !important; /* Change this to your desired color */
+.carousel-control-prev,
+.carousel-control-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: black;
+  color: black;
+  border: none;
+  padding: 10px 15px;
+  font-size: 20px;
+  outline: #000;
+  cursor: pointer;
+}
+
+.carousel-control-prev {
+  left: 0;
+}
+
+.carousel-control-next {
+  right: 0;
+}
+/* Custom carousel container */
+.carousel-container {
+  position: relative; /* Ensure relative positioning for absolute children */
+}
+
+/* Custom carousel controls */
+.custom-carousel-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px; /* Adjust padding as needed */
+  z-index: 1; /* Ensure controls appear above carousel content */
+}
+
+.carousel-control {
+  background: -webkit-linear-gradient(to right, #4caf50, #d32f2f);
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #4caf50, #d32f2f);
+  color: white; /* White text color */
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-control i {
+  font-size: 24px; /* Icon size */
+}
+
+.carousel-control:hover {
+  background-color: rgba(0, 0, 0, 0.7); /* Darker background on hover */
+}
+
+.prev {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.next {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 .post-img {

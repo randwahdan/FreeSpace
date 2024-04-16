@@ -1,0 +1,33 @@
+/* Styles for custom carousel controls */
+.carousel-container {
+  position: relative; /* Ensure positioning context for absolute positioning of controls */
+}
+
+.custom-carousel-controls {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px; /* Adjust padding as needed */
+  z-index: 1; /* Ensure controls appear above carousel content */
+
+  /* Styling for carousel control buttons */
+  .carousel-control {
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    color: white; /* White text color */
+    border: none;
+    padding: 10px 15px;
+    font-size: 1.2rem; /* Adjust font size as needed */
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition on hover */
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.7); /* Darker background on hover */
+    }
+  }
+}

@@ -40,6 +40,7 @@ import {ChatAppComponent} from './chat/chat.component';
 import {ChatingComponent} from './chat/chatting/chatitng.component';
 import {CreateEvent} from './event/create-event/create-event.component';
 import {EventDetails}from'./event/event-details/event-details.component';
+import { CustomCarouselControlsComponent } from './custom-carousel-controls/custom-carousel-controls.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,6 +75,7 @@ import {EventDetails}from'./event/event-details/event-details.component';
     ChatingComponent,
     CreateEvent,
     EventDetails,
+    CustomCarouselControlsComponent,
 
   ],
   imports: [

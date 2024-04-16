@@ -16,7 +16,5 @@ export class ProfilePage implements OnInit{
     let userStorge=localStorage.getItem('user');
     this.user  = userStorge ? JSON.parse(userStorge) : null;
     this.userId = this.route.snapshot.paramMap.get('id');
-   } 
-  
-
+   }
 }

@@ -300,5 +300,3 @@ D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\refint\FreeSpac
 D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.pdb
 D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.genruntimeconfig.cache
 D:\Graduation project 1\FreeSpace\FreeSpace.Web\obj\Debug\net8.0\ref\FreeSpace.Web.dll
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\bin\Debug\net8.0\runtimes\unix\lib\net6.0\Microsoft.Data.SqlClient.dll
-C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\obj\Debug\net8.0\FreeSpace.Web.AssemblyInfo.cs
