@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {PostModel} from "../models/post-model";
 import { Observable } from 'rxjs';
+import { CommentModel } from '../models/comment-model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,19 @@ return this.httpClient.post('/post/make-like',PostModel);
     return this.httpClient.post('/post/make-disLike',PostModel);
       }
 
+      makeCommentLike(CommentModel:any):Observable<any>{
+        return this.httpClient.post('/post/like-comment',CommentModel);
+          }
 
-  makeComment(comment:any):Observable<any>{
-    debugger
-    return this.httpClient.post('/post/make-comment',comment);
-  }
+          makeCommentDisLike(CommentModel:any):Observable<any>{
+
+            return this.httpClient.post('/post/make-comment-dislike',CommentModel);
+              }
+
+              makeComment(comment:any):Observable<any>{
+                debugger
+                return this.httpClient.post('/post/make-comment',comment);
+              }
 
       getPostByUser(userId:any):  Observable<any> {
         debugger

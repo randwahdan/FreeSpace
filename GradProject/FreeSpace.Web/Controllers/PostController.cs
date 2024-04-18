@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using FreeSpace.Web.Enums;
 using System.Text.Json;
+using Microsoft.Extensions.Hosting;
 
 namespace FreeSpace.Web.Controllers;
 
@@ -39,6 +40,8 @@ public class PostController : ControllerBase
              .Include(p => p.Likes)
              .Include(p => p.Comments).OrderBy(c => c.CreatedDate)
              .Include(p => p.Medias).OrderByDescending(c => c.CreatedDate)
+             .Include(p => p.Comments) // Include Comments for each Post
+             .ThenInclude(c => c.CommentLikes) // Then include CommentLikes for each Comment
              .ToList().OrderByDescending(c => c.CreatedDate);
 
 
@@ -126,7 +129,7 @@ public class PostController : ControllerBase
 
                 }
             }
-
+           
 
             if (postEntity.Comments != null)
             {
@@ -139,6 +142,7 @@ public class PostController : ControllerBase
                     CommentModel.FullName = user.FirstName + " " + user.LastName;
                     CommentModel.UserId = comment.UserId;
                     CommentModel.PostId = comment.PostId;
+                    CommentModel.CommentId = comment.Id;
                     CommentModel.Content = comment.Content;
                     CommentModel.CreatedDate = comment.CreatedDate;
                     if (user.ProfilePicture != null)
@@ -147,6 +151,17 @@ public class PostController : ControllerBase
                         var base64String = Convert.ToBase64String(user.ProfilePicture);
                         var dataUrl = $"data:image/jpeg;base64,{base64String}";
                         CommentModel.ProfilePicture = dataUrl;
+                    }
+                    CommentModel.LikesCount = comment.CommentLikes.Count; // Set comment likes count
+
+                    // Check if current user has liked the comment
+                    if (comment.CommentLikes != null)
+                    {
+                        CommentLike commentLike = comment.CommentLikes.FirstOrDefault(c => c.UserId == userId);
+                        if (commentLike != null)
+                        {
+                            CommentModel.IsLiked = true;
+                        }
                     }
                     commentList.Add(CommentModel);
                 }
@@ -188,7 +203,8 @@ public class PostController : ControllerBase
     {
         var data = _dbContext.Posts.Where(c => c.UserId == Guid.Parse(userId))
               .Include(p => p.Likes)
-              .Include(p => p.Comments)
+              .Include(p => p.Comments) // Include Comments for each Post
+              .ThenInclude(c => c.CommentLikes) // Then include CommentLikes for each Comment
               .Include(p => p.Medias)
               .ToList().OrderByDescending(c => c.CreatedDate);
 
@@ -287,15 +303,26 @@ public class PostController : ControllerBase
                     CommentModel.FullName = user.FirstName + " " + user.LastName;
                     CommentModel.UserId = comment.UserId;
                     CommentModel.PostId = comment.PostId;
+                    CommentModel.CommentId = comment.Id;
                     CommentModel.Content = comment.Content;
                     CommentModel.CreatedDate = comment.CreatedDate;
-
                     if (user.ProfilePicture != null)
                     {
                         //convert pfp from Byte[] to dataUrl
                         var base64String = Convert.ToBase64String(user.ProfilePicture);
                         var dataUrl = $"data:image/jpeg;base64,{base64String}";
                         CommentModel.ProfilePicture = dataUrl;
+                    }
+                    CommentModel.LikesCount = comment.CommentLikes.Count; // Set comment likes count
+
+                    // Check if current user has liked the comment
+                    if (comment.CommentLikes != null)
+                    {
+                        CommentLike commentLike = comment.CommentLikes.FirstOrDefault(c => c.UserId == Guid.Parse(userId));
+                        if (commentLike != null)
+                        {
+                            CommentModel.IsLiked = true;
+                        }
                     }
                     commentList.Add(CommentModel);
                 }
@@ -399,7 +426,59 @@ public class PostController : ControllerBase
         return true;
     }
 
+    [HttpPost("like-comment")]
+    public bool LikeComment( CommentLikeModel model)
+    {
+        Guid userId = Guid.Parse(User.Identity?.Name);
+        CommentLike commentLike = new CommentLike
+        {
+            UserId = userId,
+            CommentId = model.CommentId
+            // Assuming other properties need to be set as well
+        };
 
+        _dbContext.CommentLikes.Add(commentLike);
+        var user = _dbContext.Users.Find(userId);
+        var commentLikeNotify = _dbContext.Comments.Find(model.CommentId);
+
+        Notification notification = new Notification();
+        var userName = string.Concat(user.FirstName, " ", user.LastName);
+
+        notification.Content = userName + " Love your comment";
+        notification.FullName = userName;
+        notification.UserId = commentLikeNotify.UserId;
+        notification.UserRefrenceId = userId;
+
+        notification.CommentId = model.CommentId;
+        notification.CreatedDate = DateTime.Now;
+
+        _dbContext.Notifications.Add(notification);
+
+        _dbContext.SaveChanges();
+
+        return true;
+    }
+    [HttpPost("make-comment-dislike")]
+    public bool DislikeComment(CommentLikeModel model) 
+    {
+        Guid userId = Guid.Parse(User.Identity?.Name);
+        var commentLike = _dbContext.CommentLikes.FirstOrDefault(c => c.UserId == userId && c.CommentId == model.CommentId);
+
+        if (commentLike != null)
+        {
+            _dbContext.CommentLikes.Remove(commentLike);
+            var notification = _dbContext.Notifications.FirstOrDefault(n => n.UserRefrenceId == userId && n.CommentId == model.CommentId);
+            if (notification != null)
+            {
+                _dbContext.Notifications.Remove(notification);
+            }
+            _dbContext.SaveChanges();
+            return true;
+        }
+
+        return true;
+
+    }
 
     [HttpPost("make-comment")]
     public IActionResult AddComment(CommentModel model)

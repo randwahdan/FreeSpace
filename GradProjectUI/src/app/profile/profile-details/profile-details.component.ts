@@ -8,7 +8,7 @@ import {SharedService} from "../../services/shared.service";
 })
 export class ProfileDetails implements OnInit{
   user:UserModel;
-
+  
   constructor(private sharedService: SharedService) {
   }
   ngOnInit(): void {

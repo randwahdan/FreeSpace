@@ -9,7 +9,9 @@ namespace FreeSpace.Web.Entities;
         public string Content { get; set; }
         public string FullName { get; set; }
         public Guid? PostId { get; set; }
-     public Guid? EventId { get; set; }
+        public Guid? CommentId { get; set; }
+
+    public Guid? EventId { get; set; }
 
 
 
@@ -18,6 +20,8 @@ namespace FreeSpace.Web.Entities;
     public User User { get; set; }
     public Post Post { get; set; }
     public Event Event { get; set; }
+    public Comment Comment { get; set; }
+
 
 
     #endregion

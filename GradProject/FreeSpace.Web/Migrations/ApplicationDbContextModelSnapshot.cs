@@ -373,6 +373,9 @@ namespace FreeSpace.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CommentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -406,6 +409,8 @@ namespace FreeSpace.Web.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
 
                     b.HasIndex("EventId");
 
@@ -639,6 +644,10 @@ namespace FreeSpace.Web.Migrations
 
             modelBuilder.Entity("FreeSpace.Web.Entities.Notification", b =>
                 {
+                    b.HasOne("FreeSpace.Web.Entities.Comment", "Comment")
+                        .WithMany()
+                        .HasForeignKey("CommentId");
+
                     b.HasOne("FreeSpace.Web.Entities.Event", "Event")
                         .WithMany()
                         .HasForeignKey("EventId");
@@ -652,6 +661,8 @@ namespace FreeSpace.Web.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Comment");
 
                     b.Navigation("Event");
 

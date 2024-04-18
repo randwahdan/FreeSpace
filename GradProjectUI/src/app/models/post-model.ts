@@ -12,7 +12,7 @@ export class PostModel {
   isLiked: boolean;
   comments: any[]; // Array of comment objects
   showCommentSection: boolean; // New property to track comment section visibility
-
+  commentId: any;
   constructor() {
     this.profilePicture = '';
     this.fullName = '';

@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import {UserService} from "../services/user.service";
 import {UserModel} from "../models/user-model";
 import {FriendRequestModel} from "../models/friend-request";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +11,7 @@ import {FriendRequestModel} from "../models/friend-request";
 })
 export class UsersListComponent implements OnInit {
   users:UserModel[]=[];
-  constructor(private  userService: UserService) {
+  constructor(private  userService: UserService, private router: Router) {
   }
   ngOnInit(): void {
     this.getSuggestedFriends();
@@ -33,6 +34,9 @@ export class UsersListComponent implements OnInit {
       }
 
     });
+  }
+  navigateToUserProfile(userId: string): void {
+    this.router.navigate(['/UserProfile', userId]);
   }
 
 }

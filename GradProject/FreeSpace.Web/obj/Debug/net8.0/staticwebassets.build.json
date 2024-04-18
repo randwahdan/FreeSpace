@@ -1,0 +1,19 @@
+{
+  "Version": 1,
+  "Hash": "HL/48fLQeoM93iXa1XFdzatTBImSM7jyaYDVrYkD0Uc=",
+  "Source": "FreeSpace.Web",
+  "BasePath": "_content/FreeSpace.Web",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "FreeSpace.Web\\wwwroot",
+      "Source": "FreeSpace.Web",
+      "ContentRoot": "C:\\Users\\rand_\\OneDrive\\Desktop\\FreeSpace\\FreeSpace\\GradProject\\FreeSpace.Web\\wwwroot\\",
+      "BasePath": "_content/FreeSpace.Web",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": []
+}

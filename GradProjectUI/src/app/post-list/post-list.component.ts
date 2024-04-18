@@ -9,7 +9,7 @@ import { CommentModel } from "../models/comment-model";
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
-
+import { CommentLikeModel } from '../models/commentLike-model';
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
@@ -23,6 +23,7 @@ export class PostListComponent implements OnInit {
   postModelList: PostModel[] = [];
   isCurrentPostLiked = false;
   showCommentSection = false;
+
   lastCommentIndex: number = -1;
   @Input() userId: any;
   constructor(
@@ -37,60 +38,53 @@ export class PostListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let userStorge=localStorage.getItem('user');
-    this.user  = userStorge ? JSON.parse(userStorge) : null;
+    let userStorage = localStorage.getItem('user');
+    this.user = userStorage ? JSON.parse(userStorage) : null;
 
+    this.fetchPosts(); // Load posts initially
+
+    // Subscribe to shared service to listen for post and comment updates
     this.sharedService.posts$.subscribe((isPosCreated) => {
       if (isPosCreated) {
-        this.getPosts();
+        this.fetchPosts(); // Refresh posts when new post is created
       }
     });
 
     this.sharedService.comment$.subscribe((isCommentCreated) => {
       if (isCommentCreated) {
-        this.getPosts();
+        this.fetchPosts(); // Refresh posts when new comment is created
       }
     });
 
-    if (this.userId == null) {
-      this.getPosts();
-    } else {
-      this.getUserPosts(this.userId);
-    }
+    this.sharedService.commentLikes$.subscribe((isCommentLikes) => {
+      // Check if any comment likes are updated
+      if ((isCommentLikes)) {
+        this.fetchPosts(); // Refresh posts when comment likes are updated
+      }
+    });
+
+
   }
 
+  fetchPosts(): void {
+    this.postService.getPost().subscribe((result: PostModel[]) => {
+      this.postModelList = result || []; // Ensure postModelList is not null or undefined
+      this.postModelList.forEach(post => {
+        if (post.media && Array.isArray(post.media)) {
+          post.media.forEach(media => {
+            media.isVideo = this.isVideo(media); // Set 'isVideo' property for each media item
+          });
+        }
+      });
+    }, error => {
+      console.error('Error fetching posts:', error);
+      // Handle error here (e.g., show error message to user)
+      this.toastr.error('Failed to fetch posts. Please try again.');
+    });
+  }
 
   isVideo(media: any): boolean {
-    return media && media.isVideo; // Assuming that 'isVideo' property indicates if the media is a video
-  }
-  getPosts() {
-    this.postService.getPost().subscribe(result => {
-      debugger
-      this.postModelList = result;
-      this.postModelList.forEach(post => {
-        post.media.forEach(media => {
-          media.isVideo = this.isVideo(media); // Set the 'isVideo' property for each media item
-        });
-      });
-      console.log(result);
-    });
-  }
-
-  getUserPosts(userId: any) {
-    this.postService.getPostByUser(userId).subscribe(result => {
-      this.postModelList = result;
-      this.postModelList.forEach(post => {
-        post.media.forEach(media => {
-          media.isVideo = this.isVideo(media); // Set the 'isVideo' property for each media item
-        });
-      });
-      console.log(result);
-    });
-  }
-  handleVideoError(event: Event) {
-    // Handle the video error
-    console.error('Video error occurred:', event);
-    // You can display an error message to the user or perform any other action here
+    return media && media.isVideo; // Assuming 'isVideo' property indicates if the media is a video
   }
 
 
@@ -105,7 +99,64 @@ export class PostListComponent implements OnInit {
       }
     });
   }
+  makeLikeComment(comment: any): void {
+    debugger
+    if (!comment || !comment.commentId) {
+      console.error("Invalid comment or commentId");
+      return;
+    }
+    const commentId = comment.commentId;
+    let commentLikeModel = new CommentLikeModel();
+    commentLikeModel.commentId = commentId;
+    this.postService.makeCommentLike(commentLikeModel).subscribe(
+      (result) => {
+        if (result === true) {
+          this.sharedService.updateCommentLikes(true);
+          comment.isLiked = true; // Update the 'isLiked' property of the comment object
+          comment.likesCount += 1;
+        } else {
+          this.toastr.error('Failed to like this comment.');
+        }
+      },
+      (error) => {
+        console.error('Error liking comment:', error);
+        this.toastr.error('Failed to like this comment.');
+      }
+    );
 
+  }
+
+  makeCommentDislike(comment: any): void {
+    debugger
+    if (!comment || !comment.commentId) {
+      console.error("Invalid comment or commentId");
+      return;
+    }
+
+    const commentId = comment.commentId;
+
+    let commentLikeModel = new CommentLikeModel();
+    commentLikeModel.commentId = commentId;
+
+    this.postService.makeCommentDisLike(commentLikeModel).subscribe(
+      (result) => {
+        if (result === true) {
+          // Update the 'isLiked' property of the comment object to false
+          comment.isLiked = false;
+          // Decrease the likes count
+          comment.likesCount -= 1;
+          // Notify subscribers of the updated likes
+          this.sharedService.updateCommentLikes(false);
+        } else {
+          this.toastr.error('Failed to dislike this comment.');
+        }
+      },
+      (error) => {
+        console.error('Error disliking comment:', error);
+        this.toastr.error('Failed to dislike this comment.');
+      }
+    );
+  }
   makeDislike(post: any) {
     let likeModel = new LikeModel();
     likeModel.postId = post.postId;
@@ -118,7 +169,9 @@ export class PostListComponent implements OnInit {
     });
   }
 
+
   addComment(post: any) {
+    debugger
     const formValue = this.commentForm.value;
 
     if (!formValue.content.trim()) {
@@ -152,6 +205,8 @@ export class PostListComponent implements OnInit {
     });
   }
 
+
+
   toggleCommentSection(postId: number): void {
     this.commentVisibilityMap[postId] = !this.commentVisibilityMap[postId];
   }
@@ -160,4 +215,13 @@ export class PostListComponent implements OnInit {
   isCommentSectionVisible(postId: number): boolean {
     return this.commentVisibilityMap[postId] || false; // Return false if undefined
   }
+
+  getMaxCommentLikes(post: PostModel): number {
+    // Find the maximum likesCount in post.comments
+    if (!post || !post.comments || post.comments.length === 0) {
+      return 0; // Return 0 if no comments or post is invalid
+    }
+    return Math.max(...post.comments.map(comment => comment.likesCount));
+  }
+
 }

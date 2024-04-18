@@ -12,7 +12,9 @@
                             <img [src]="user.profilePicture" alt="user" class="profile-photo-lg">
                         </div>
                         <div class="col-md-7 col-sm-7 align-items-center d-flex">
-                            <h5><a routerLink="/ProfilePage{{user.id}}" class="profile-link "style="color:#DF2E38 ; text-decoration: none;" >{{user.fullName}}</a></h5>
+                            <h5><a (click)="navigateToUserProfile(user.id)" style="color:#DF2E38; text-decoration: none; cursor: pointer;">
+                              {{user.fullName}}
+                            </a></h5>
                         </div>
                         <div class="col-md-3 col-sm-3 d-flex justify-content-end align-items-center"> <!-- Align button to the end of the row -->
                           <button class="btn btn-light btn-sm" (click)="addFriend(user)" style="background-color:#82CD47;">

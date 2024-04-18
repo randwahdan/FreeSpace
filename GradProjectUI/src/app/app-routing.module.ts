@@ -17,6 +17,7 @@ import { NotificationPage } from './notification/notification.component';
 import {ChatAppComponent} from './chat/chat.component';
 import{CreateEvent} from './event/create-event/create-event.component';
 import {EventDetails}from './event/event-details/event-details.component';
+import { ProfilePageNavigator } from './profile-navigator/profile-page-navigator.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
       {path: 'changePassword', component: ChangePasswordComponent},
       {path: 'changeProfile', component: ChangeProfileComponent},
       {path:'deleteAccount',component:DeleteAccountComponent}
+
     ]
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -52,6 +54,8 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
 
   { path: 'ProfilePage/:id', component: ProfilePage },
+  { path: 'UserProfile/:id', component: ProfilePageNavigator },
+
 
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {

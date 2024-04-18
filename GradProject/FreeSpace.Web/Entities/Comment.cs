@@ -5,7 +5,7 @@ namespace FreeSpace.Web.Entities;
     public class Comment : BaseEntity
     {
         public Guid UserId { get; set; }
-    public Guid PostId { get; set; }
+        public Guid PostId { get; set; }
         public string Content { get; set; }
 
 

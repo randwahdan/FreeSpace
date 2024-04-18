@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject ,Observable } from 'rxjs';
 import { PostModel } from '../models/post-model';
 import {AuthService} from "./auth.service";
 import { CommentModel } from '../models/comment-model';
@@ -22,6 +22,10 @@ export class SharedService {
   private commentSubject: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
   comment$ = this.commentSubject.asObservable();
 
+  private commentLikesSubject: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
+  commentLikes$ = this.commentLikesSubject.asObservable();
+
+
   private infoSubject: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
   info$ = this.infoSubject.asObservable();
 
@@ -37,6 +41,9 @@ export class SharedService {
 
   updateComments(iCommentUpdated:boolean) {
     this.commentSubject.next(iCommentUpdated);
+  }
+  updateCommentLikes( isCommentLiked: boolean) {
+    this.commentLikesSubject.next(isCommentLiked);
   }
 
   updateProfile(isProfileUpdated:boolean) {
@@ -57,4 +64,5 @@ export class SharedService {
 
     this.profileSubject.next(isProfileUpdated);
   }
+
 }

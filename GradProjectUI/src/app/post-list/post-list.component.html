@@ -83,19 +83,33 @@
             </div>
             <div class="mt-2">
               <!-- Loop through comments -->
-              <div *ngFor="let comment of post.comments.slice().reverse(); let i = index" class="d-flex flex-row p-3 comment-item">
+              <div *ngFor="let comment of post.comments.slice().reverse(); let i = index ; " class="d-flex flex-row p-3 comment-item">
+                <ng-container *ngIf="comment">
                 <img src="{{ comment.profilePicture }}" width="40" height="40" class="rounded-circle mr-3">
                 <div class="w-100">
                   <div class="d-flex justify-content-between align-items-center">
-                    <div class="d-flex flex-row align-items-center">
+                    <div class="d-flex flex-row align-items-center mr-2">
                       <span class="mr-2">{{ comment.fullName }}</span>
-                      <small class="c-badge" *ngIf="i === 0">Last Comment</small>
-                    </div>
-                    <small>{{ comment.createdDate | date:'dd/MM/yyyy HH:mm' }}</small>
+                      <small class="c-badge mr-3" *ngIf="comment.likesCount === getMaxCommentLikes(post)">
+                        <span class="badge-icon">🔥</span> Top Comment!
+                      </small>                    </div>
+                    <small ml-2 style="font-size: 10px;">{{ comment.createdDate | date:'dd/MM/yyyy HH:mm' }}</small>
                   </div>
                   <p class="text-justify comment-text mb-0">{{ comment.content }}</p>
+
+                  <!-- Love Button for Comment -->
+                  <div class="d-flex justify-content-end" style="margin-top: -20px; cursor: pointer;">
+                    <div *ngIf="comment.isLiked" (click)="makeCommentDislike(comment)" class="card-link ml-4">
+                      <img src="assets/image/icons/lovefill.png" alt="">
+                      {{ comment.likesCount }}
+                    </div>
+                    <div *ngIf="!comment.isLiked" (click)="makeLikeComment(comment)" class="card-link">
+                      <img src="assets/image/icons/icons8-love-24.png" alt="">
+                      {{ comment.likesCount }}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              </ng-container>
               <!-- COMMENT - END -->
             </div>
           </div>
