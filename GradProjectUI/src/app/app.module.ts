@@ -40,7 +40,6 @@ import {ChatAppComponent} from './chat/chat.component';
 import {ChatingComponent} from './chat/chatting/chatitng.component';
 import {CreateEvent} from './event/create-event/create-event.component';
 import {EventDetails}from'./event/event-details/event-details.component';
-import{ProfileInfoNavigator}from './profile-navigator/profileInfo-navigator/profileInfo-navigator.component';
 import{ProfilePageNavigator}from './profile-navigator/profile-page-navigator.component';
 import{ProfileNavigatorDetails}from'./profile-navigator/profile-navigator-details/profile-navigator-details.component';
 import { CustomCarouselControlsComponent } from './custom-carousel-controls/custom-carousel-controls.component';
@@ -81,7 +80,6 @@ import { CustomCarouselControlsComponent } from './custom-carousel-controls/cust
     CustomCarouselControlsComponent,
     ProfileNavigatorDetails,
     ProfilePageNavigator,
-    ProfileInfoNavigator,
 
 
   ],

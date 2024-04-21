@@ -30,64 +30,72 @@ export class PostListComponent implements OnInit {
     private postService: PostService,
     private sharedService: SharedService,
     private fb: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router:Router
   ) {
     this.commentForm = this.fb.group({
       content: '',
     });
   }
-
   ngOnInit(): void {
     let userStorage = localStorage.getItem('user');
     this.user = userStorage ? JSON.parse(userStorage) : null;
-
     this.fetchPosts(); // Load posts initially
-
     // Subscribe to shared service to listen for post and comment updates
     this.sharedService.posts$.subscribe((isPosCreated) => {
       if (isPosCreated) {
         this.fetchPosts(); // Refresh posts when new post is created
       }
     });
-
     this.sharedService.comment$.subscribe((isCommentCreated) => {
       if (isCommentCreated) {
         this.fetchPosts(); // Refresh posts when new comment is created
       }
     });
-
     this.sharedService.commentLikes$.subscribe((isCommentLikes) => {
       // Check if any comment likes are updated
       if ((isCommentLikes)) {
         this.fetchPosts(); // Refresh posts when comment likes are updated
       }
     });
-
-
   }
-
   fetchPosts(): void {
-    this.postService.getPost().subscribe((result: PostModel[]) => {
-      this.postModelList = result || []; // Ensure postModelList is not null or undefined
-      this.postModelList.forEach(post => {
-        if (post.media && Array.isArray(post.media)) {
-          post.media.forEach(media => {
-            media.isVideo = this.isVideo(media); // Set 'isVideo' property for each media item
-          });
-        }
+    if (this.userId==null){
+      this.postService.getPost().subscribe((result: PostModel[]) => {
+        this.postModelList = result || []; // Ensure postModelList is not null or undefined
+        this.postModelList.forEach(post => {
+          if (post.media && Array.isArray(post.media)) {
+            post.media.forEach(media => {
+              media.isVideo = this.isVideo(media); // Set 'isVideo' property for each media item
+            });
+          }
+        });
+      }, error => {
+        console.error('Error fetching posts:', error);
+        this.toastr.error('Failed to fetch posts. Please try again.');
       });
+    }
+    else{
+      this.postService.getPostByUser(this.userId).subscribe((result: PostModel[]) => {
+          this.postModelList = result || []; // Ensure postModelList is not null or undefined
+          this.postModelList.forEach(post => {
+            if (post.media && Array.isArray(post.media)) {
+              post.media.forEach(media => {
+                media.isVideo = this.isVideo(media); // Set 'isVideo' property for each media item
+              });
+            }
+          });
     }, error => {
       console.error('Error fetching posts:', error);
       // Handle error here (e.g., show error message to user)
       this.toastr.error('Failed to fetch posts. Please try again.');
     });
+    }
   }
 
   isVideo(media: any): boolean {
     return media && media.isVideo; // Assuming 'isVideo' property indicates if the media is a video
   }
-
-
 
   makeLike(post: any) {
     let likeModel = new LikeModel();
@@ -123,8 +131,8 @@ export class PostListComponent implements OnInit {
         this.toastr.error('Failed to like this comment.');
       }
     );
-
   }
+
 
   makeCommentDislike(comment: any): void {
     debugger
@@ -205,23 +213,29 @@ export class PostListComponent implements OnInit {
     });
   }
 
-
-
   toggleCommentSection(postId: number): void {
     this.commentVisibilityMap[postId] = !this.commentVisibilityMap[postId];
   }
 
-
   isCommentSectionVisible(postId: number): boolean {
-    return this.commentVisibilityMap[postId] || false; // Return false if undefined
+    return this.commentVisibilityMap[postId] || false;
   }
 
-  getMaxCommentLikes(post: PostModel): number {
-    // Find the maximum likesCount in post.comments
-    if (!post || !post.comments || post.comments.length === 0) {
-      return 0; // Return 0 if no comments or post is invalid
-    }
-    return Math.max(...post.comments.map(comment => comment.likesCount));
+getMaxCommentLikes(post: PostModel): number {
+  if (!post || !post.comments || post.comments.length === 0) {
+    return 0;
   }
+
+  const likesCounts = post.comments.map(comment => comment.likesCount);
+
+  const allSameLikesCount = likesCounts.every(likes => likes === likesCounts[0]);
+  const allZeroLikesCount = likesCounts.every(likes => likes === 0);
+
+  if (allSameLikesCount || allZeroLikesCount) {
+    return -1;
+  }
+
+  return Math.max(...likesCounts);
+}
 
 }

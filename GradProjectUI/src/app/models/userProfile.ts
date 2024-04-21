@@ -1,5 +1,5 @@
 export class UserProfileModel {
-  id: any;
+  Id: any;
   firstName: string;
   lastName!: string;
   email!: string;
@@ -12,5 +12,6 @@ export class UserProfileModel {
   isAdded: boolean
   nickName!: string;
   mobileNumber!: number;
+  createdDate: Date;
 
 }

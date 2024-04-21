@@ -133,6 +133,56 @@ namespace FreeSpace.Web.Controllers
             }
         }
 
+        [HttpGet("getFriends/{userId}")]
+        public ActionResult<List<UserInfoModel>> GetFriendsByUserId(string userId)
+        {
+
+            try
+            {
+                if (!Guid.TryParse(userId, out Guid userIdGuid))
+                {
+                    return BadRequest("Invalid userId format"); // Return bad request if userId is not a valid Guid
+                }
+                List<UserInfoModel> userInfoModels = new List<UserInfoModel>();
+
+                // Query the database to get a list of friend relationships involving the authenticated user
+                var friendIds = _dbContext.FriendShips
+                 .Where(f => (f.SourceId == userIdGuid || f.TargetId == userIdGuid) && f.Status == "Approved")
+                 .ToList();
+
+                // Extract the IDs of the source and target users from the friend relationships
+                var sourceList = friendIds.Select(c => c.SourceId).ToList();
+                var targetList = friendIds.Select(c => c.TargetId).ToList();
+                var allUsers = targetList.Concat(sourceList);
+
+                // Retrieve users who are friends with the specified user
+                List<User> friends = _dbContext.Users
+                    .Where(u => allUsers.Contains(u.Id) && u.Id != userIdGuid)
+                    .ToList();
+
+                // Map User entities to UserInfoModel DTOs
+                userInfoModels = friends.Select(friend => new UserInfoModel
+                {
+                    Id = friend.Id,
+                    FirstName = friend.FirstName,
+                    LastName = friend.LastName,
+                    ProfilePicture = friend.ProfilePicture != null ?
+                        $"data:image/jpeg;base64,{Convert.ToBase64String(friend.ProfilePicture)}" :
+                        null // Handle profile picture conversion to data URL
+                }).ToList();
+
+                // Return the list of UserInfoModel representing friends
+                return Ok(userInfoModels);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it appropriately
+                return StatusCode(500, "An error occurred while fetching friends"); // Return 500 Internal Server Error
+            }
+        
+
+    }
+
 
         [HttpGet("getPendingFriends")]
         public List<UserInfoModel> GetPendingFriends()
@@ -445,9 +495,57 @@ namespace FreeSpace.Web.Controllers
 
             return BadRequest(new { message = "User not found" });
         }
-    }
+
+
+        [HttpGet("get-user/{userId}")]
+        public ActionResult<UserInfoModel> GetUserById(string userId)
+        {
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == Guid.Parse(userId));
+
+            if (user == null)
+            {
+                return NotFound(); // Return 404 Not Found if user not found
+            }
+
+            // Map user data to UserInfoModel
+            var userInfo = new UserInfoModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Bio = user.Bio,
+                NickName = user.NickName,
+                DateOfBirth = user.DateOfBirth,
+                Gender = user.Gender,
+                MobileNumber = user.MobileNumber,
+                CreatedDate=user.CreatedDate
+                
+                // You can include more properties as needed
+            };
+
+            // Handle profile and cover pictures if available
+            if (user.ProfilePicture != null)
+            {
+                var base64String = Convert.ToBase64String(user.ProfilePicture);
+                var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                userInfo.ProfilePicture = dataUrl;
+            }
+
+            if (user.CoverPicture != null)
+            {
+                var base64String = Convert.ToBase64String(user.CoverPicture);
+                var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                userInfo.CoverPicture = dataUrl;
+            }
+
+            return Ok(userInfo); // Return user info with 200 OK status
+        }
 
     }
+}
+
+    
 
 
 

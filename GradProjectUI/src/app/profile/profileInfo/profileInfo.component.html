@@ -1,15 +1,27 @@
 <div class="row profile-info">
         <div class="info-col col-md-5">
             <div class="profile-intro bg-light">
-                <h3>Intro</h3>
+                <h3 style="font-family: serifttf;">About</h3>
                 <p style="font-size: 17px;" class="intro-text">{{user.bio}}
                 </p>
                 <hr>
                 <ul>
-                    <li><img src="assets/image/icons/icons8-gender-100.png" alt="" style="width: 20px; ">
-                        <span class="gender" *ngIf="user && user.gender === 2" >Female</span>
-                        <span class="gender"  *ngIf="user && user.gender === 1">Male</span></li>
-                    <li><img src="assets/image/icons/birthdate2.png" alt="">{{user.dateOfBirth | date:'dd/MM/yyyy'}}
+                  <li>
+                    <div>
+                      <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;
+                    <a  href="mailto:{{ user.email }}" style="cursor: pointer; text-decoration: none; color: black;">{{ user.email }}</a>
+                    </div>
+                    </li>
+                  <li>
+                    <i [class]="user && user.gender === 2 ? 'fa fa-venus' : 'fa fa-mars'" aria-hidden="true"></i>&nbsp;
+                    <span class="gender" *ngIf="user && user.gender === 2"> Female</span>
+                    <span class="gender" *ngIf="user && user.gender === 1"> Male</span>
+                  </li>
+                    <li><i class="fa fa-birthday-cake" aria-hidden="true"></i>&nbsp;{{ user.dateOfBirth | date:'dd/MM/yyyy'}}
+                      <li *ngIf="user.createdDate !== null && user.createdDate !== undefined">
+                        <i class="fa-solid fa-clock"></i> &nbsp;Joined On {{ user.createdDate | date:'dd/MM/yyyy' }}
+                      </li>
+
                 </ul>
             </div>
             <div class ="bg-light" >
@@ -20,8 +32,11 @@
                 <div class="friends-container">
                 <div class="friends-box">
                     <div *ngFor="let friend of users" class="friend-item">
-                      <img [src]="friend.profilePicture" alt="">
-                      <span style="color: black; font-family: inherit;">{{friend.fullName}}</span>
+                      <a (click)="navigateToUserProfile(friend.id)" >
+                        <img [src]="friend.profilePicture" alt="">
+                        <span style="color: black; font-family: inherit;">{{friend.fullName}}</span>
+                      </a>
+
                     </div>
                   </div>
             </div>

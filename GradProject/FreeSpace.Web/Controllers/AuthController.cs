@@ -84,6 +84,7 @@ namespace FreeSpace.Web.Controllers
             userInfo.Gender = user.Gender;
             userInfo.NickName = user.NickName;
             user.MobileNumber = user.MobileNumber;
+            user.CreatedDate = user.CreatedDate;
             if (userInfo != null)
             {
                 return Ok(userInfo);
@@ -141,6 +142,7 @@ namespace FreeSpace.Web.Controllers
             userToRegister.Password = user.Password;
             userToRegister.DateOfBirth = user.DateOfBirth;
             userToRegister.Gender = user.Gender;
+            userToRegister.CreatedDate = DateTime.UtcNow;
 
 
             User registeredUser = Register(userToRegister);
@@ -268,7 +270,7 @@ namespace FreeSpace.Web.Controllers
             userInfo.DateOfBirth = user.DateOfBirth;
             userInfo.Gender = user.Gender;
             userInfo.MobileNumber = user.MobileNumber;
-
+            userInfo.CreatedDate = user.CreatedDate;
             return userInfo;
         }
 
@@ -283,10 +285,6 @@ namespace FreeSpace.Web.Controllers
             // Set default paths for profile and cover pictures
             var imagePath = "D:\\GradBackend\\FreeSpace\\FreeSpace.Web\\Images\\defaultProfile.png";
             var imageCoverPath = "D:\\GradBackend\\FreeSpace\\FreeSpace.Web\\Images\\defaultCover.png";
-            
-
-
-
             // Specify the image file name (adjust this based on your file name)
 
             // Read the image file into a byte array
@@ -296,7 +294,6 @@ namespace FreeSpace.Web.Controllers
             user.ProfilePicture = imageBytes;
             _dbContext.Users.Add(user);
             _dbContext.SaveChanges();
-
             return user;
         }
 

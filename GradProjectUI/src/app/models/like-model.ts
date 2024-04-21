@@ -1,3 +1,4 @@
 export class LikeModel {
-   postId:any
+   postId:any;
+   userId:any;
 }

@@ -1,6 +1,6 @@
 import { MediModel } from "./Media";
 import { CommentModel } from "./comment-model";
-
+import { LikeModel } from "./like-model";
 export class PostModel {
   postId: number;
   profilePicture: string;
@@ -13,6 +13,8 @@ export class PostModel {
   comments: any[]; // Array of comment objects
   showCommentSection: boolean; // New property to track comment section visibility
   commentId: any;
+  likes: LikeModel[]; // Array of likes associated with the post
+
   constructor() {
     this.profilePicture = '';
     this.fullName = '';

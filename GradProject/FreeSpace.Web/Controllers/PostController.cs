@@ -126,7 +126,6 @@ public class PostController : ControllerBase
                 if (like != null)
                 {
                     postModel.IsLiked = true;
-
                 }
             }
            
@@ -207,6 +206,7 @@ public class PostController : ControllerBase
               .ThenInclude(c => c.CommentLikes) // Then include CommentLikes for each Comment
               .Include(p => p.Medias)
               .ToList().OrderByDescending(c => c.CreatedDate);
+        Guid currentUser= Guid.Parse(User.Identity?.Name);
 
         List<PostModel> postListResult = new List<PostModel>();
 
@@ -283,7 +283,7 @@ public class PostController : ControllerBase
             if (postEntity.Likes != null)
             {
                 postModel.LikesCount = postEntity.Likes.Count;
-                Like like = postEntity.Likes.FirstOrDefault(c => c.UserId == Guid.Parse(userId));
+                Like like = postEntity.Likes.FirstOrDefault(c => c.UserId == (currentUser));
                 if (like != null)
                 {
                     postModel.IsLiked = true;
@@ -318,7 +318,7 @@ public class PostController : ControllerBase
                     // Check if current user has liked the comment
                     if (comment.CommentLikes != null)
                     {
-                        CommentLike commentLike = comment.CommentLikes.FirstOrDefault(c => c.UserId == Guid.Parse(userId));
+                        CommentLike commentLike = comment.CommentLikes.FirstOrDefault(c => c.UserId == (currentUser));
                         if (commentLike != null)
                         {
                             CommentModel.IsLiked = true;

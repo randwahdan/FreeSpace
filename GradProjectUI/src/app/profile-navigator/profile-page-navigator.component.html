@@ -1,7 +1,35 @@
 <app-header></app-header>
 <div class="container">
-  <profile-navigator-details></profile-navigator-details>
-  <profileInfoNavigator [userId]="userId"></profileInfoNavigator>
+  <profile-navigator-details [user]="user"></profile-navigator-details>
+  <div class="row profile-info">
+    <div class="info-col col-md-5">
+        <div class="profile-intro bg-light">
+          <h3>About</h3>
+          <p style="font-size: 17px; " class="intro-text">{{user.bio}}
+          </p>
+          <hr>
+          <ul>
+            <li>
+              <div>
+                <i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;
+              <a  href="mailto:{{ user.email }}" style="cursor: pointer; text-decoration: none; color: black;">{{ user.email }}</a>
+              </div>
+              </li>
+            <li>
+              <i [class]="user && user.gender === 2 ? 'fa fa-venus' : 'fa fa-mars'" aria-hidden="true"></i>&nbsp;
+              <span class="gender" *ngIf="user && user.gender === 2"> Female</span>
+              <span class="gender" *ngIf="user && user.gender === 1"> Male</span>
+            </li>
+              <li><i class="fa fa-birthday-cake" aria-hidden="true"></i>&nbsp;{{ user.dateOfBirth | date:'dd/MM/yyyy'}}
+                <li>
+                  <i class="fa-solid fa-clock"></i> &nbsp;Joined On {{ user.createdDate | date:'dd/MM/yyyy' }}
+                </li>
+          </ul>
+      </div>
+    </div>
+  <div class="col-md-7">
+        <app-post-list *ngIf="userId !== null" [userId]="userId"></app-post-list>
+  </div>
 </div>
 
 

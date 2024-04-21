@@ -10,31 +10,27 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService  {
-  private apiUrl = 'https://localhost:7086/api';
   constructor(private httpClient: HttpClient) {
   }
-  getUserProfile(userId: string): Observable<any> {
-    const url = `${this.apiUrl}/UserProfile/${userId}`;
-    return this.httpClient.get<any>(url).pipe(
-      catchError((error: HttpErrorResponse) => {
-        console.error('Error fetching user profile:', error);
-        return throwError('Something went wrong; please try again later.');
-      })
-    );
-  }
-  getUserById(userId: string): Observable<UserModel> {
-    const url = `${this.apiUrl}/users/${userId}`;
-    return this.httpClient.get<UserModel>(url);
-  }
+
+
 
   getSuggestedFriends():  Observable<any> {
     return this.httpClient.get('/user/getNonFriends');
   }
+  getUserById(userId:any):  Observable<any> {
+    return this.httpClient.get(`/user/get-user/${userId}`);
+  }
+
+
 
   getFriends():  Observable<any> {
     return this.httpClient.get('/user/getFriends');
   }
-
+  
+  getFriendsById(userId:any):  Observable<any> {
+    return this.httpClient.get(`/user/getFriends/${userId}`);
+  }
   getPendingFriends():  Observable<any> {
 
     return this.httpClient.get('/user/getPendingFriends');

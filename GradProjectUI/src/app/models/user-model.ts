@@ -12,5 +12,6 @@ export class UserModel {
   isAdded: boolean
   nickName!: string;
   mobileNumber!: number;
+  createdDate: Date;
 
 }

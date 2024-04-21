@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserModel} from "../../models/user-model";
 import {UserService} from "../../services/user.service";
 import {FriendRequestModel} from "../../models/friend-request";
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'pending-list',
   templateUrl: './pending-list.component.html',
@@ -10,7 +10,7 @@ import {FriendRequestModel} from "../../models/friend-request";
 })
 export class PendingFriendsList implements OnInit {
   users:UserModel[]=[];
-  constructor(private  userService: UserService) {
+  constructor(private  userService: UserService,private router: Router) {
   }
   ngOnInit(): void {
     this.getPendingFriends();
@@ -36,5 +36,8 @@ export class PendingFriendsList implements OnInit {
       }
 
     });
+  }
+  navigateToUserProfile(userId: string): void {
+    this.router.navigate(['/UserProfile', userId]);
   }
 }
