@@ -17,9 +17,15 @@ export class UsersListComponent implements OnInit {
     this.getSuggestedFriends();
   }
   getSuggestedFriends() {
-
-    this.userService.getSuggestedFriends().subscribe(async result => {
-      this.users = result
+    this.userService.getSuggestedFriends().subscribe(result => {
+      if (result && result.length > 0) {
+        this.users = result;
+      } else {
+        // If result is null or empty, call the GetNonFriends endpoint
+        this.userService.getNonFriends().subscribe(nonFriendsResult => {
+          this.users = nonFriendsResult;
+        });
+      }
     });
   }
 

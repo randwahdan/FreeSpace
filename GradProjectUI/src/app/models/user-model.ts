@@ -13,5 +13,6 @@ export class UserModel {
   nickName!: string;
   mobileNumber!: number;
   createdDate: Date;
+  mutualFriendsCount: number;
 
 }

@@ -9,16 +9,15 @@ import {UserService} from "../services/user.service";
 })
 export class ProfilePageNavigator implements OnInit{
   user:UserProfileModel;
-  users: UserProfileModel[] = [];
+  mutualFriends: UserProfileModel[] = []; // Array to hold mutual friends
   userId: any;
   constructor(private route: ActivatedRoute,private  userService: UserService, private router:Router) {}
   ngOnInit(): void {
     let userStorge=localStorage.getItem('user');
     this.user  = userStorge ? JSON.parse(userStorge) : null;
     this.userId = this.route.snapshot.paramMap.get('id');
-
     this.getUserById();
-    this.getFriendsById();
+    this.getMutualFriends();
     }
     getUserById() {
       this.userService.getUserById(this.userId).subscribe(
@@ -30,24 +29,19 @@ export class ProfilePageNavigator implements OnInit{
         }
       );
     }
-    getFriendsById() {
+    getMutualFriends() {
       debugger
-      if (!this.userId) {
-        console.error('Invalid userId provided.');
-        return;
-      }
-      this.userService.getFriendsById(this.userId).subscribe(
+      this.userService.getMutualFriends(this.userId).subscribe(
         (result: UserProfileModel[]) => {
-          this.users = result;
+          this.mutualFriends = result;
         },
         (error) => {
-          console.error('Error fetching friends:', error);
+          console.error('Error fetching mutual friends:', error);
         }
       );
     }
-    navigateToUserProfile(userId: string): void {
-      this.router.navigate(['/UserProfile', userId]);
-    }
+
+   
 
 
 }

@@ -11,20 +11,29 @@
                         <div class="col-md-2 col-sm-2">
                             <img [src]="user.profilePicture" alt="user" class="profile-photo-lg">
                         </div>
-                        <div class="col-md-7 col-sm-7 align-items-center d-flex">
-                            <h5><a (click)="navigateToUserProfile(user.id)" style="color:#DF2E38; text-decoration: none; cursor: pointer;">
-                              {{user.fullName}}
-                            </a></h5>
-                        </div>
+                        <div class="col-md-10 col-sm-10">
+                          <div class="row align-items-center">
+                              <div class="col-md-7 col-sm-7">
+                                  <h5>
+                                      <!-- Display user's full name as a clickable link -->
+                                      <a (click)="navigateToUserProfile(user.id)" style="font-weight: 650; text-decoration: none; cursor: pointer;">
+                                          {{ user.fullName }}
+                                      </a>
+                                  </h5>
+                                  <!-- Display mutual friends count if available -->
+                                  <p *ngIf="user.mutualFriendsCount > 0" class="text-muted">
+                                      {{ user.mutualFriendsCount }} mutual friend(s)
+                                  </p>
+                              </div>
                         <div class="col-md-3 col-sm-3 d-flex justify-content-end align-items-center"> <!-- Align button to the end of the row -->
-                          <button class="btn btn-light btn-sm" (click)="addFriend(user)" style="background-color:#82CD47;">
+                          <button class="btn btn-light btn-sm button-33 " (click)="addFriend(user)" style="font-weight: 600;">
                             <ng-container *ngIf="!user.isAdded; else pendingIcon">
                               <i class="fa fa-plus" aria-hidden="true"></i> Add Friend
                             </ng-container>
                             <ng-template #pendingIcon>
                                 Pending
                             </ng-template>
-                        </button>
+                          </button>
                         </div>
                     </div>
                 </div>
@@ -32,3 +41,6 @@
         </div>
     </div>
 </div>
+</div>
+</div>
+

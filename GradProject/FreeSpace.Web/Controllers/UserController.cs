@@ -24,6 +24,73 @@ namespace FreeSpace.Web.Controllers
             _dbContext = dbContext;
         }
 
+        [HttpGet("getNonFriendsWithCommonFriends")]
+        public List<UserInfoModel> GetNonFriendsWithCommonFriends()
+        {
+            try
+            {
+                List<UserInfoModel> userInfoModels = new List<UserInfoModel>();
+                Guid userId = Guid.Parse(User.Identity?.Name);
+
+                // Get IDs of all friends of the authenticated user
+                var userFriendsIds = _dbContext.FriendShips
+                    .Where(f => f.SourceId == userId || f.TargetId == userId)
+                    .Select(f => f.SourceId == userId ? f.TargetId : f.SourceId)
+                    .ToList();
+
+                // Get all non-friends of the authenticated user (users who are not friends)
+                var nonFriendIds = _dbContext.Users
+                    .Where(u => u.Id != userId && !userFriendsIds.Contains(u.Id)) // Exclude friends
+                    .Select(u => u.Id)
+                    .ToList();
+
+                foreach (var nonFriendId in nonFriendIds)
+                {
+                    // Get friends of the current non-friend user excluding the authenticated user
+                    var nonFriendFriendsIds = _dbContext.FriendShips
+                        .Where(f => (f.SourceId == nonFriendId || f.TargetId == nonFriendId) && f.SourceId != userId && f.TargetId != userId) // Exclude authenticated user
+                        .Select(f => f.SourceId == nonFriendId ? f.TargetId : f.SourceId)
+                        .ToList();
+
+                    // Calculate mutual friends count with the authenticated user
+                    int mutualFriendsCount = nonFriendFriendsIds.Intersect(userFriendsIds).Count();
+
+                    // Fetch user details including profile picture
+                    var nonFriend = _dbContext.Users.FirstOrDefault(u => u.Id == nonFriendId);
+
+                    if (nonFriend != null && mutualFriendsCount > 0)
+                    {
+                        // Create UserInfoModel for the non-friend user
+                        UserInfoModel user = new UserInfoModel
+                        {
+                            Id = nonFriend.Id,
+                            FirstName = nonFriend.FirstName,
+                            LastName = nonFriend.LastName,
+                            MutualFriendsCount = mutualFriendsCount
+                        };
+
+                        // Assign profile picture data if available
+                        if (nonFriend.ProfilePicture != null)
+                        {
+                            var base64String = Convert.ToBase64String(nonFriend.ProfilePicture);
+                            var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                            user.ProfilePicture = dataUrl;
+                        }
+
+                        // Add user to the list
+                        userInfoModels.Add(user);
+                    }
+                }
+
+                return userInfoModels;
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                throw ex;
+            }
+        }
+
         [HttpGet("getNonFriends")]
         public List<UserInfoModel> GetNonFriends()
         {
@@ -78,7 +145,7 @@ namespace FreeSpace.Web.Controllers
             }
         }
 
-     
+
         [HttpGet("getFriends")]
         public List<UserInfoModel> GetFriends()
         {
@@ -136,52 +203,53 @@ namespace FreeSpace.Web.Controllers
         [HttpGet("getFriends/{userId}")]
         public ActionResult<List<UserInfoModel>> GetFriendsByUserId(string userId)
         {
-
             try
             {
                 if (!Guid.TryParse(userId, out Guid userIdGuid))
                 {
-                    return BadRequest("Invalid userId format"); // Return bad request if userId is not a valid Guid
+                    return BadRequest("Invalid userId format");
                 }
-                List<UserInfoModel> userInfoModels = new List<UserInfoModel>();
 
-                // Query the database to get a list of friend relationships involving the authenticated user
-                var friendIds = _dbContext.FriendShips
-                 .Where(f => (f.SourceId == userIdGuid || f.TargetId == userIdGuid) && f.Status == "Approved")
-                 .ToList();
+                // Get the current user's ID from the authenticated context
+                Guid currentUserId = Guid.Parse(User.Identity?.Name);
 
-                // Extract the IDs of the source and target users from the friend relationships
-                var sourceList = friendIds.Select(c => c.SourceId).ToList();
-                var targetList = friendIds.Select(c => c.TargetId).ToList();
-                var allUsers = targetList.Concat(sourceList);
-
-                // Retrieve users who are friends with the specified user
-                List<User> friends = _dbContext.Users
-                    .Where(u => allUsers.Contains(u.Id) && u.Id != userIdGuid)
+                // Retrieve the IDs of friends for both current user and specified user
+                var currentUserFriends = _dbContext.FriendShips
+                    .Where(f => (f.SourceId == currentUserId || f.TargetId == currentUserId) && f.Status == "Approved")
+                    .Select(f => f.SourceId == currentUserId ? f.TargetId : f.SourceId)
                     .ToList();
 
-                // Map User entities to UserInfoModel DTOs
-                userInfoModels = friends.Select(friend => new UserInfoModel
-                {
-                    Id = friend.Id,
-                    FirstName = friend.FirstName,
-                    LastName = friend.LastName,
-                    ProfilePicture = friend.ProfilePicture != null ?
-                        $"data:image/jpeg;base64,{Convert.ToBase64String(friend.ProfilePicture)}" :
-                        null // Handle profile picture conversion to data URL
-                }).ToList();
+                var specifiedUserFriends = _dbContext.FriendShips
+                    .Where(f => (f.SourceId == userIdGuid || f.TargetId == userIdGuid) && f.Status == "Approved")
+                    .Select(f => f.SourceId == userIdGuid ? f.TargetId : f.SourceId)
+                    .ToList();
 
-                // Return the list of UserInfoModel representing friends
-                return Ok(userInfoModels);
+                // Find mutual friends by finding the intersection of friend IDs
+                var mutualFriendIds = currentUserFriends.Intersect(specifiedUserFriends).ToList();
+
+                // Retrieve UserInfoModels for mutual friends
+                List<UserInfoModel> mutualFriends = _dbContext.Users
+                    .Where(u => mutualFriendIds.Contains(u.Id))
+                    .Select(u => new UserInfoModel
+                    {
+                        Id = u.Id,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
+                        ProfilePicture = u.ProfilePicture != null ?
+                            $"data:image/jpeg;base64,{Convert.ToBase64String(u.ProfilePicture)}" :
+                            null
+                    })
+                    .ToList();
+
+                return Ok(mutualFriends);
             }
             catch (Exception ex)
             {
                 // Log the exception or handle it appropriately
-                return StatusCode(500, "An error occurred while fetching friends"); // Return 500 Internal Server Error
+                return StatusCode(500, "An error occurred while fetching mutual friends");
             }
-        
+        }
 
-    }
 
 
         [HttpGet("getPendingFriends")]
@@ -540,6 +608,59 @@ namespace FreeSpace.Web.Controllers
             }
 
             return Ok(userInfo); // Return user info with 200 OK status
+        }
+
+        [HttpGet("search")]
+        public ActionResult<IEnumerable<UserInfoModel>> SearchUsersByName(string name)
+        {
+            // Search for users whose FirstName or LastName contains the specified name (case-insensitive)
+            var users = _dbContext.Users
+                .Where(u => EF.Functions.Like(u.FirstName, $"%{name}%") || EF.Functions.Like(u.LastName, $"%{name}%"))
+                .ToList();
+
+            if (users == null || users.Count == 0)
+            {
+                return NotFound(); // Return 404 Not Found if no users match the search criteria
+            }
+
+            // Map each user data to UserInfoModel
+            var userInfoList = new List<UserInfoModel>();
+            foreach (var user in users)
+            {
+                var userInfo = new UserInfoModel
+                {
+                    Id = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    Email = user.Email,
+                    Bio = user.Bio,
+                    NickName = user.NickName,
+                    DateOfBirth = user.DateOfBirth,
+                    Gender = user.Gender,
+                    MobileNumber = user.MobileNumber,
+                    CreatedDate = user.CreatedDate
+                    // Include more properties as needed
+                };
+
+                // Handle profile and cover pictures if available
+                if (user.ProfilePicture != null)
+                {
+                    var base64String = Convert.ToBase64String(user.ProfilePicture);
+                    var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                    userInfo.ProfilePicture = dataUrl;
+                }
+
+                if (user.CoverPicture != null)
+                {
+                    var base64String = Convert.ToBase64String(user.CoverPicture);
+                    var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                    userInfo.CoverPicture = dataUrl;
+                }
+
+                userInfoList.Add(userInfo);
+            }
+
+            return Ok(userInfoList); // Return user info list with 200 OK status
         }
 
     }

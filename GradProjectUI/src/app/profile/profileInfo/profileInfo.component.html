@@ -24,7 +24,7 @@
 
                 </ul>
             </div>
-            <div class ="bg-light" >
+            <div class ="bg-light" *ngIf="users.length > 0" >
             <div class="title-box ">
               <h3>Friends</h3>
               <a routerLink="/friends" style="color:#DF2E38 ;" >All Friends</a>
@@ -36,7 +36,6 @@
                         <img [src]="friend.profilePicture" alt="">
                         <span style="color: black; font-family: inherit;">{{friend.fullName}}</span>
                       </a>
-
                     </div>
                   </div>
             </div>

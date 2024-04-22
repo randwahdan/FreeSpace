@@ -4,7 +4,7 @@
   <div class="row profile-info">
     <div class="info-col col-md-5">
         <div class="profile-intro bg-light">
-          <h3>About</h3>
+          <h3 style="font-family: serifttf; font-weight: 600;">About</h3>
           <p style="font-size: 17px; " class="intro-text">{{user.bio}}
           </p>
           <hr>
@@ -26,7 +26,23 @@
                 </li>
           </ul>
       </div>
+      <div class="row profile-info">
+            <div class="profile-intro bg-light"*ngIf="mutualFriends.length > 0">
+        <div class="title-box">
+            <h3 style="font-family: serifttf; font-weight: 600;">Mutual Friends</h3>
+        </div>
+        <div class="friends-container">
+            <div class="friends-box">
+              <div *ngFor="let friend of mutualFriends" class="friend-item" style="cursor: default;">
+                    <img [src]="friend.profilePicture" alt="" style="cursor: default;">
+                    <span style="color: black; font-family: inherit; cursor: default;">{{ friend.fullName }}</span>
+            </div>
+            </div>
+        </div>
     </div>
+    </div>
+    </div>
+
   <div class="col-md-7">
         <app-post-list *ngIf="userId !== null" [userId]="userId"></app-post-list>
   </div>

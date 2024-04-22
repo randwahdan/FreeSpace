@@ -11,11 +11,11 @@
               <img [src]="user.profilePicture" alt="user" class="profile-photo-lg">
             </div>
             <div class="col-md-7 col-sm-7 align-items-center d-flex">
-              <h5><a (click)="navigateToUserProfile(user.id)" class="profile-link" style="color:#1E5128 ;text-decoration: none; cursor: pointer;">{{user.fullName}}</a></h5>
+              <h5><a (click)="navigateToUserProfile(user.id)" class="profile-link" style="color:black ;text-decoration: none; cursor: pointer;">{{user.fullName}}</a></h5>
             </div>
             <div class="col-md-3 col-sm-3 d-flex justify-content-end align-items-center">
-              <button class="btn btn-success btn-sm mr-sm-2 accept-button" (click)="response(user, true)"><i class="fa fa-check" aria-hidden="true"></i> Accept</button>
-              <button class="btn btn-danger btn-sm" (click)="response(user, false)"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
+              <button class="btn btn-success btn-sm mr-sm-2 accept-button button-33" (click)="response(user, true)"><i class="fa fa-check" aria-hidden="true"></i> Accept</button>
+              <button class="btn btn-danger btn-sm button-33-reject" (click)="response(user, false)"><i class="fa fa-times" aria-hidden="true"></i> Reject</button>
             </div>
           </div>
         </div>

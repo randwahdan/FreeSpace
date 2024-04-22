@@ -13,26 +13,25 @@ export class UserService  {
   constructor(private httpClient: HttpClient) {
   }
 
-
+  getNonFriends():  Observable<any> {
+    return this.httpClient.get('/user/getNonFriends');
+  }
 
   getSuggestedFriends():  Observable<any> {
-    return this.httpClient.get('/user/getNonFriends');
+    return this.httpClient.get('/user/getNonFriendsWithCommonFriends');
   }
   getUserById(userId:any):  Observable<any> {
     return this.httpClient.get(`/user/get-user/${userId}`);
   }
 
-
-
   getFriends():  Observable<any> {
     return this.httpClient.get('/user/getFriends');
   }
-  
-  getFriendsById(userId:any):  Observable<any> {
+
+  getMutualFriends(userId:any):  Observable<any> {
     return this.httpClient.get(`/user/getFriends/${userId}`);
   }
   getPendingFriends():  Observable<any> {
-
     return this.httpClient.get('/user/getPendingFriends');
   }
 
@@ -43,5 +42,7 @@ export class UserService  {
   responseFriend(friend:any):Observable<any>{
     return this.httpClient.post('/user/aceept-reject-friend',friend);
   }
-
+  searchUsers(searchTerm: string):  Observable<any> {
+    return this.httpClient.get(`/user/search/${searchTerm}`);
+  }
 }

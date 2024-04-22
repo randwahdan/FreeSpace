@@ -46,8 +46,8 @@ export class ChangeProfileComponent {
   uploadCoverImage(file: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('file', file, file.name);
-
     return this.http.post(`/user/uploadCover`, formData);
+
   }
 
   onFileCoverChanged(event: any) {

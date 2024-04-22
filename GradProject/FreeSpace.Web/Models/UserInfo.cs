@@ -29,6 +29,8 @@ namespace FreeSpace.Web.Models
         public string Token { get; set; } 
         public  string ProfilePicture { get; set; }
         public string CoverPicture { get; set; }
+        public int MutualFriendsCount { get; set; }
+
 
     }
 }

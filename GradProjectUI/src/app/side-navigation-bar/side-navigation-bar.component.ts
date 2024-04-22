@@ -6,6 +6,8 @@ import {PostService} from "../services/post.service";
 import {NotificationModel} from "../models/Notification-model";
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { UserProfileModel } from '../models/userProfile';
+import { UserService } from '../services/user.service';
 @Component({
   selector: 'side-navigation-bar',
   templateUrl: './side-navigation-bar.component.html',
@@ -18,8 +20,10 @@ export class SideBarComponent implements OnInit {
   hideActionMenu2: boolean = true;
   user:UserModel;
   notificationsModels:NotificationModel[]=[];
+  searchTerm: string = '';
+  users: UserProfileModel[] = [];
 
-  constructor(private router: Router, private sharedService: SharedService, private  postService :PostService,private toastr:ToastrService){
+  constructor(private router: Router, private sharedService: SharedService, private  postService :PostService,private toastr:ToastrService,private userService :UserService){
 
   }
   ngOnInit(): void {
@@ -55,7 +59,21 @@ export class SideBarComponent implements OnInit {
   getNotifications() {
     this.postService.getNotifications().subscribe(async result => {
       this.notificationsModels = result
-
     });
   }
+
+  onSubmit(): void {
+    if (this.searchTerm.trim() !== '') {
+      // Perform search action (e.g., fetch users based on search term)
+      this.userService.searchUsers(this.searchTerm).subscribe((users) => {
+        this.users = users; // Update users array with search results
+        this.hideActionMenu2 = false; // Show user toggle menu
+      });
+    } else {
+      // Handle empty search term (reset users array and hide menu)
+      this.users = []; // Reset users array
+      this.hideActionMenu2 = true; // Hide user toggle menu
+    }
+  }
+
 }

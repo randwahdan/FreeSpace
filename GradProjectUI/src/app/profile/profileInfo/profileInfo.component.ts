@@ -16,14 +16,12 @@ export class ProfileInfo implements OnInit {
     let userStorge = localStorage.getItem('user');
     this.user = userStorge ? JSON.parse(userStorge) : null;
     this.getFriends();
-
     this.sharedService.profile$.subscribe((isInfoCreated) => {
       if (isInfoCreated) {
         let userStorge = localStorage.getItem('user');
         this.user = userStorge ? JSON.parse(userStorge) : null;
       }
     });
-
   }
 
   getFriends() {
