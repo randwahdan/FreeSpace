@@ -39,6 +39,10 @@ export class UserService  {
     return this.httpClient.post('/user/add-friend',friend);
   }
 
+  removeFriend(friend:any):Observable<any>{
+    return this.httpClient.post('/user/remove-friend',friend);
+  }
+
   responseFriend(friend:any):Observable<any>{
     return this.httpClient.post('/user/aceept-reject-friend',friend);
   }

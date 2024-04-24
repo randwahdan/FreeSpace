@@ -30,11 +30,9 @@ export class PendingFriendsList implements OnInit {
     friendRequestModel.status = acceptOrReject==true? 'Approved':'Rejected';
     friendRequestModel.userSourceId=user.id;
     this.userService.responseFriend(friendRequestModel).subscribe(async result => {
-
       if(result==true){
         user.isAdded = true
       }
-
     });
   }
   navigateToUserProfile(userId: string): void {

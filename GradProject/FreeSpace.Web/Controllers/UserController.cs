@@ -390,6 +390,34 @@ namespace FreeSpace.Web.Controllers
 
             return true;
         }
+        [HttpPost("remove-friend")]
+        public bool RemoveFriend([FromBody] FriendRequestModel friendRequestModel)
+        {
+            Guid userId = Guid.Parse(User.Identity?.Name);
+
+            var user = _dbContext.Users.Find(userId);
+            friendRequestModel.UserTargetId = userId;
+
+            // Find the friend request sent by another user to the authenticated user
+            FriendShip userFriendship = _dbContext.FriendShips.FirstOrDefault(u =>
+                           (u.SourceId == friendRequestModel.UserSourceId && u.TargetId == friendRequestModel.UserTargetId) ||
+                           (u.SourceId == friendRequestModel.UserTargetId && u.TargetId == friendRequestModel.UserSourceId) &&
+                           u.Status == "Approved");
+            if (userFriendship != null)
+            {
+                if (friendRequestModel.Status == "Removed") {
+                    userFriendship.Status = "Removed";
+                    _dbContext.FriendShips.Remove(userFriendship);
+
+                }
+                _dbContext.Entry(user).State = EntityState.Modified;
+                _dbContext.SaveChanges();
+
+            }
+
+
+            return true;
+        }
 
 
 

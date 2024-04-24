@@ -41,7 +41,19 @@ export class ProfilePageNavigator implements OnInit{
       );
     }
 
-   
+    calculateContainerHeight(): string {
+      const numFriends = this.mutualFriends.length;
+
+      // Adjust max height based on the number of mutual friends
+      if (numFriends === 1 || numFriends === 3) {
+        // Display full height for 1 or 3 friends
+        return 'auto';
+      } else {
+        // Limit height to show up to 6 friends with fixed height per friend item
+        const maxHeight = Math.min(numFriends, 6) * 120; // Assuming 120px per friend item
+        return maxHeight + 'px';
+      }
+    }
 
 
 }

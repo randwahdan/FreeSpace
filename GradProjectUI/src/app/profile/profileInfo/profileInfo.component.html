@@ -24,24 +24,26 @@
 
                 </ul>
             </div>
-            <div class ="bg-light" *ngIf="users.length > 0" >
-            <div class="title-box ">
-              <h3>Friends</h3>
-              <a routerLink="/friends" style="color:#DF2E38 ;" >All Friends</a>
-            </div>
-                <div class="friends-container">
-                <div class="friends-box">
-                    <div *ngFor="let friend of users" class="friend-item">
-                      <a (click)="navigateToUserProfile(friend.id)" >
-                        <img [src]="friend.profilePicture" alt="">
-                        <span style="color: black; font-family: inherit;">{{friend.fullName}}</span>
+            <div class="row profile-info">
+              <div class="profile-intro bg-light" *ngIf="users.length > 0">
+                <div class="title-box">
+                  <h3 style="font-family: serifttf; font-weight: 600;">Friends ({{ users.length }})</h3>
+                  <a routerLink="/friends" style="color: #DF2E38;">All Friends</a>
+                </div>
+
+                <div class="friends-container" [ngStyle]="{ 'max-height.px': calculateContainerHeight() }">
+                  <div class="friends-box">
+                    <div *ngFor="let friend of users.slice(0, 6)" class="friend-item">
+                      <a (click)="navigateToUserProfile(friend.id)">
+                        <img [src]="friend.profilePicture" alt="profile picture" class="profile-picture">
+                        <span style="color: black; font-family: inherit;">{{ friend.fullName }}</span>
                       </a>
                     </div>
                   </div>
+                </div>
+              </div>
             </div>
         </div>
-      </div>
-
       <div class="col-md-7">
             <app-mange-post></app-mange-post>
             <app-post-list [userId]="userId"></app-post-list>

@@ -32,6 +32,20 @@ export class ProfileInfo implements OnInit {
   navigateToUserProfile(userId: string): void {
     this.router.navigate(['/UserProfile', userId]);
   }
+  calculateContainerHeight(): string {
+    const numUsers = this.users.length;
+
+    // Adjust max height based on the number of friends
+    if (numUsers === 1 || numUsers === 3) {
+      // Display full height for 1 or 3 friends
+      return 'auto';
+    } else {
+      // Limit height to show up to 6 friends with fixed height per friend item
+      const maxHeight = Math.min(numUsers, 6) * 120; // Assuming 120px per friend item
+      return maxHeight + 'px';
+    }
+  }
+
   @Input() userId: any;
 
 }

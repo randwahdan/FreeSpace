@@ -27,20 +27,20 @@
           </ul>
       </div>
       <div class="row profile-info">
-            <div class="profile-intro bg-light"*ngIf="mutualFriends.length > 0">
-        <div class="title-box">
-            <h3 style="font-family: serifttf; font-weight: 600;">Mutual Friends</h3>
-        </div>
-        <div class="friends-container">
+        <div class="profile-intro bg-light" *ngIf="mutualFriends.length > 0">
+          <div class="title-box">
+            <h3 style="font-family: serifttf; font-weight: 600;">Mutual Friends ({{ mutualFriends.length }})</h3>
+          </div>
+          <div class="friends-container" [ngStyle]="{ 'max-height.px': calculateContainerHeight() }">
             <div class="friends-box">
-              <div *ngFor="let friend of mutualFriends" class="friend-item" style="cursor: default;">
-                    <img [src]="friend.profilePicture" alt="" style="cursor: default;">
-                    <span style="color: black; font-family: inherit; cursor: default;">{{ friend.fullName }}</span>
+              <div *ngFor="let friend of mutualFriends.slice(0, 6)" class="friend-item">
+                <img [src]="friend.profilePicture" alt="profile picture" class="profile-picture">
+                <span style="color: black; font-family: inherit;">{{ friend.fullName }}</span>
+              </div>
             </div>
-            </div>
+          </div>
         </div>
-    </div>
-    </div>
+      </div>
     </div>
 
   <div class="col-md-7">
