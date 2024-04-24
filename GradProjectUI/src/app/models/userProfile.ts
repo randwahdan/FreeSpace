@@ -9,7 +9,8 @@ export class UserProfileModel {
   coverPicture!: string;
   bio!: string;
   fullName!: string;
-  isAdded: boolean
+  isAdded: boolean;
+  isFriend:boolean;
   nickName!: string;
   mobileNumber!: number;
   createdDate: Date;

@@ -596,7 +596,10 @@ namespace FreeSpace.Web.Controllers
         [HttpGet("get-user/{userId}")]
         public ActionResult<UserInfoModel> GetUserById(string userId)
         {
-            var user = _dbContext.Users.FirstOrDefault(u => u.Id == Guid.Parse(userId));
+            var targetUserId = Guid.Parse(userId);
+            var currentUserId = Guid.Parse(User.Identity?.Name); // Assuming you are using authentication and have access to the current user's ID
+
+            var user = _dbContext.Users.FirstOrDefault(u => u.Id == targetUserId);
 
             if (user == null)
             {
@@ -615,8 +618,7 @@ namespace FreeSpace.Web.Controllers
                 DateOfBirth = user.DateOfBirth,
                 Gender = user.Gender,
                 MobileNumber = user.MobileNumber,
-                CreatedDate=user.CreatedDate
-                
+                CreatedDate = user.CreatedDate
                 // You can include more properties as needed
             };
 
@@ -635,6 +637,21 @@ namespace FreeSpace.Web.Controllers
                 userInfo.CoverPicture = dataUrl;
             }
 
+            // Check if the target user is added by the current user
+            var isFriend = _dbContext.FriendShips.Any(fs =>
+                (fs.SourceId == currentUserId && fs.TargetId == targetUserId && fs.Status == "Approved") ||
+                (fs.SourceId == targetUserId && fs.TargetId == currentUserId && fs.Status == "Approved"));
+            if (isFriend)
+            {
+                userInfo.IsFriend = true;
+            }
+            var isPending = _dbContext.FriendShips.Any(fs =>
+                (fs.SourceId == currentUserId && fs.TargetId == targetUserId && fs.Status == "Pending") ||
+                (fs.SourceId == targetUserId && fs.TargetId == currentUserId && fs.Status == "Pending"));
+            if (isPending) 
+            {
+                userInfo.IsAdded = true;
+            }
             return Ok(userInfo); // Return user info with 200 OK status
         }
 

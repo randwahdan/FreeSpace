@@ -30,6 +30,9 @@ namespace FreeSpace.Web.Models
         public  string ProfilePicture { get; set; }
         public string CoverPicture { get; set; }
         public int MutualFriendsCount { get; set; }
+        public bool IsAdded { get; set; } // Add the IsAdded property to indicate if user is added by current user
+
+        public bool IsFriend { get; set; } // Add the IsAdded property to indicate if user is added by current user
 
 
     }

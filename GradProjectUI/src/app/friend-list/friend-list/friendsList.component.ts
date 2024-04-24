@@ -31,9 +31,7 @@ export class FriendsComponent implements OnInit {
 
   getFriends() {
     this.userService.getFriends().subscribe(async result => {
-
       this.users = result
-
     });
   }
   @Input() userId: any;

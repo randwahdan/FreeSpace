@@ -1,10 +1,11 @@
 body,html{
   height: 100%;
   margin: 0;
-  background: white;
+  padding: 0;
      background: -webkit-linear-gradient(to right, #4caf50, #a0dda3, #d32f2f);
-      background: linear-gradient(to right, #4caf50, #a0dda3, #d32f2f);
-      width: 100%;
+     background: linear-gradient(to right, #4caf50, #a0dda3, #d32f2f);
+  max-height:fit-content;
+
 }
 
 .chat{
@@ -14,7 +15,7 @@ body,html{
 .card{
   height: 650px;
   border-radius: 15px !important;
-  background-color: rgba(0,0,0,0.4) !important;
+  background-color: rgba(5, 4, 4, 0.635) !important;
 }
 .contacts_body{
   padding:  0.75rem 0 !important;
@@ -39,7 +40,7 @@ border-radius: 0 0 15px 15px !important;
 
 
 .type_msg{
-  background-color: rgba(0,0,0,0.3) !important;
+  background-color: rgba(22, 21, 21, 0.3) !important;
   border:0 !important;
   color:white !important;
   height: 60px !important;
@@ -103,19 +104,8 @@ background-color: rgba(0,0,0,0.3) !important;
   height: 40px;
   width: 40px;
 }
-.online_icon{
-position: absolute;
-height: 15px;
-width:15px;
-background-color: #4cd137;
-border-radius: 50%;
-bottom: 0.2em;
-right: 0.4em;
-border:1.5px solid white;
-}
-.offline{
-background-color: #c23616 !important;
-}
+
+
 .user_info{
 margin-top: auto;
 margin-bottom: auto;
@@ -129,16 +119,8 @@ color: white;
 font-size: 10px;
 color: rgba(255,255,255,0.6);
 }
-.video_cam{
-margin-left: 50px;
-margin-top: 5px;
-}
-.video_cam span{
-color: white;
-font-size: 20px;
-cursor: pointer;
-margin-right: 20px;
-}
+
+
 .msg_cotainer{
 margin-top: auto;
 margin-bottom: auto;
@@ -174,45 +156,6 @@ font-size: 10px;
 .msg_head{
 position: relative;
 }
-#action_menu_btn{
-position: absolute;
-right: 10px;
-top: 10px;
-color: white;
-cursor: pointer;
-font-size: 20px;
-}
-.action_menu{
-z-index: 1;
-position: absolute;
-padding: 15px 0;
-background-color: rgba(0,0,0,0.5);
-color: white;
-border-radius: 15px;
-top: 30px;
-right: 15px;
-display: none;
-}
-.action_menu ul{
-list-style: none;
-padding: 0;
-margin: 0;
-}
-.action_menu ul li{
-width: 100%;
-padding: 10px 15px;
-margin-bottom: 5px;
-}
-.action_menu ul li i{
-padding-right: 10px;
 
-}
-.action_menu ul li:hover{
-cursor: pointer;
-background-color: rgba(0,0,0,0.2);
-}
-@media(max-width: 576px){
-.contacts_card{
-margin-bottom: 15px !important;
-}
-}
+
+

@@ -28,17 +28,14 @@ export class UsersListComponent implements OnInit {
       }
     });
   }
-
   addFriend(user :any){
     let friendRequestModel=new FriendRequestModel();
     friendRequestModel.userTargetId=user.id;
     friendRequestModel.userSourceId=null;
     this.userService.addFriend(friendRequestModel).subscribe(async result => {
-
       if(result==true){
         user.isAdded = true
       }
-
     });
   }
   navigateToUserProfile(userId: string): void {

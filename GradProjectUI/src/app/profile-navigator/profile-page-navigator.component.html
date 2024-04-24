@@ -34,8 +34,8 @@
           <div class="friends-container" [ngStyle]="{ 'max-height.px': calculateContainerHeight() }">
             <div class="friends-box">
               <div *ngFor="let friend of mutualFriends.slice(0, 6)" class="friend-item">
-                <img [src]="friend.profilePicture" alt="profile picture" class="profile-picture">
-                <span style="color: black; font-family: inherit;">{{ friend.fullName }}</span>
+                <img [src]="friend.profilePicture" alt="profile picture" style="cursor: default;" class="profile-picture">
+                <span style="color: black; font-family: inherit; cursor: default;">{{ friend.fullName }}</span>
               </div>
             </div>
           </div>

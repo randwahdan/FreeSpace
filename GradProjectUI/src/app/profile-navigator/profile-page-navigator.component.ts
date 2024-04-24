@@ -54,6 +54,6 @@ export class ProfilePageNavigator implements OnInit{
         return maxHeight + 'px';
       }
     }
-
+    
 
 }

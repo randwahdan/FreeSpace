@@ -10,4 +10,18 @@
       </div>
     </div>
   </div>
-</div>
+  <div class="pd-right">
+    <ng-container >
+      <button class="btn btn-light btn-sm button-33" (click)="addFriend(user)" style="font-weight: 600;">
+        <ng-container *ngIf="!user?.isFriend && !user?.isAdded">
+          <i class="fa fa-plus" aria-hidden="true"></i>&nbsp; Add Friend
+        </ng-container>
+      </button>
+      <button class="btn btn-light btn-sm" style="cursor: default;" *ngIf="user?.isAdded">
+        <img src="assets\image\icons\pending.png" alt=""> Pending
+      </button>
+      <button class="btn btn-light btn-sm" style="cursor: de;" *ngIf="user?.isFriend">
+        <i class="fa fa-check" aria-hidden="true"></i>&nbsp; Friends
+      </button>
+    </ng-container>
+  </div>
