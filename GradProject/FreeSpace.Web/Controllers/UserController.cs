@@ -296,8 +296,6 @@ namespace FreeSpace.Web.Controllers
                         }
                     }
                 }
-
-
                 // You might want to return a DTO or transform the entities before returning them
                 return userInfoModels;
             }

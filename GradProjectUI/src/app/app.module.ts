@@ -5,7 +5,6 @@ import {DeleteAccountComponent} from './settings-menu/delete-account/delete-acco
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { LeftSideMenuComponent } from './left-side-menu/left-side-menu.component';
-import { RightSideMenuComponent } from './right-side-menu/right-side-menu.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MangePostComponent } from './mange-post/mange-post.component';
@@ -25,7 +24,6 @@ import { EventCards } from './event/event-card/event-card.component';
 import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from "@angular/common/http";
 import {AppHttpInterceptor} from "./services/app-interceptor.service";
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {RegisterComponent} from './registration/sign-up.component';
 import { ToastrModule } from 'ngx-toastr';
@@ -43,13 +41,15 @@ import {EventDetails}from'./event/event-details/event-details.component';
 import{ProfilePageNavigator}from './profile-navigator/profile-page-navigator.component';
 import{ProfileNavigatorDetails}from'./profile-navigator/profile-navigator-details/profile-navigator-details.component';
 import { CustomCarouselControlsComponent } from './custom-carousel-controls/custom-carousel-controls.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button'; // Make sure this is imported only once
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     HomeComponent,
     LeftSideMenuComponent,
-    RightSideMenuComponent,
     HeaderComponent,
     FriendsListComponent,
     MangePostComponent,
@@ -80,6 +80,7 @@ import { CustomCarouselControlsComponent } from './custom-carousel-controls/cust
     CustomCarouselControlsComponent,
     ProfileNavigatorDetails,
     ProfilePageNavigator,
+    ConfirmationDialogComponent,
 
 
   ],
@@ -90,6 +91,8 @@ import { CustomCarouselControlsComponent } from './custom-carousel-controls/cust
     AppRoutingModule,
     CarouselModule.forRoot(),
     HttpClientModule,
+    MatButtonModule,
+    MatDialogModule,
     MatButtonModule,
     MatSnackBarModule,
     NgbModule,
@@ -108,9 +111,6 @@ import { CustomCarouselControlsComponent } from './custom-carousel-controls/cust
       useClass: AppHttpInterceptor,
       multi: true,}
   ],
-
-
-
   bootstrap: [AppComponent]
 })
 export class AppModule { }
