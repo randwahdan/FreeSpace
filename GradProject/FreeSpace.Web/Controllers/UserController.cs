@@ -652,59 +652,77 @@ namespace FreeSpace.Web.Controllers
             }
             return Ok(userInfo); // Return user info with 200 OK status
         }
-
-        [HttpGet("search")]
-        public ActionResult<IEnumerable<UserInfoModel>> SearchUsersByName(string name)
+        [HttpGet("search/{name}")]
+        public List<UserInfoModel> searchUsers(string name)
         {
-            // Search for users whose FirstName or LastName contains the specified name (case-insensitive)
-            var users = _dbContext.Users
-                .Where(u => EF.Functions.Like(u.FirstName, $"%{name}%") || EF.Functions.Like(u.LastName, $"%{name}%"))
-                .ToList();
-
-            if (users == null || users.Count == 0)
+            try
             {
-                return NotFound(); // Return 404 Not Found if no users match the search criteria
-            }
+                List<UserInfoModel> userModels = new List<UserInfoModel>();
 
-            // Map each user data to UserInfoModel
-            var userInfoList = new List<UserInfoModel>();
-            foreach (var user in users)
-            {
-                var userInfo = new UserInfoModel
+                // Ensure name is not null or empty
+                if (string.IsNullOrWhiteSpace(name))
                 {
-                    Id = user.Id,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    Email = user.Email,
-                    Bio = user.Bio,
-                    NickName = user.NickName,
-                    DateOfBirth = user.DateOfBirth,
-                    Gender = user.Gender,
-                    MobileNumber = user.MobileNumber,
-                    CreatedDate = user.CreatedDate
-                    // Include more properties as needed
-                };
-
-                // Handle profile and cover pictures if available
-                if (user.ProfilePicture != null)
-                {
-                    var base64String = Convert.ToBase64String(user.ProfilePicture);
-                    var dataUrl = $"data:image/jpeg;base64,{base64String}";
-                    userInfo.ProfilePicture = dataUrl;
+                    return userModels;
                 }
 
-                if (user.CoverPicture != null)
+                // Normalize the name (convert to lowercase)
+                var normalizedName = name.ToLower();
+
+                // Split the input into first and last names
+                var names = normalizedName.Split(' ');
+
+                // Query the database for users
+                var users = _dbContext.Users.AsQueryable();
+
+                // If both first and last names are provided, search for exact matches
+                if (names.Length == 2)
                 {
-                    var base64String = Convert.ToBase64String(user.CoverPicture);
-                    var dataUrl = $"data:image/jpeg;base64,{base64String}";
-                    userInfo.CoverPicture = dataUrl;
+                    users = users.Where(u => u.FirstName.ToLower() == names[0] && u.LastName.ToLower() == names[1]);
+                }
+                else
+                {
+                    // Otherwise, search for matches in both first and last names
+                    users = users.Where(u => EF.Functions.Like(u.FirstName.ToLower(), $"{names[0]}%") ||
+                                              EF.Functions.Like(u.LastName.ToLower(), $"{names[0]}%"));
                 }
 
-                userInfoList.Add(userInfo);
-            }
+                // Execute the query
+                var matchedUsers = users.ToList();
 
-            return Ok(userInfoList); // Return user info list with 200 OK status
+                // Map UserInfoModel to UserModel
+                foreach (var user in matchedUsers)
+                {
+                    UserInfoModel userModel = new UserInfoModel
+                    {
+                        Id = user.Id,
+                        FirstName = user.FirstName,
+                        LastName = user.LastName,
+                        Email = user.Email,
+                        Bio = user.Bio,
+                        NickName = user.NickName,
+                        DateOfBirth = user.DateOfBirth,
+                        Gender = user.Gender,
+                        MobileNumber = user.MobileNumber,
+                        CreatedDate = user.CreatedDate
+                        // Map other properties as needed
+                    };
+
+                    // Add user to the list
+                    userModels.Add(userModel);
+                }
+
+                // Return the list of users
+                return userModels;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it accordingly
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return null; // Or return an empty list if appropriate
+            }
         }
+
+
 
     }
 }

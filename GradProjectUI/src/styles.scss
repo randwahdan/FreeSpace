@@ -316,6 +316,62 @@ color: #626262;
     text-decoration: none;
     color: var(--text-color);
 }
+.search-results-menu {
+  position: absolute;
+  width: 308px; /* Take the width of the parent container */
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  top: 70%; /* Position it right below the search form */
+  left:8.8%; /* Adjust for the border of the input field */
+  max-height: 0;
+  transition: max-height 0.3s;
+  z-index: 1000;
+}
+
+.search-results-menu.show {
+  max-height: 600px; /* Adjust the maximum height */
+}
+
+.search-results-menu ul {
+  list-style: none;
+}
+
+.search-results-menu li {
+  border-bottom: 1px solid #ccc; /* Add separator between items */
+}
+.list-search-item
+{
+  height: 50px;
+  cursor: pointer;
+}
+.search-results-menu li:last-child {
+  border-bottom: none; /* Remove border for last item */
+}
+
+.search-results-menu li:hover {
+  background: -webkit-linear-gradient(to right, #4caf50, #d32f2f);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #4caf50, #d32f2f);
+}
+
+
+.search-results-menu a {
+  text-decoration: none;
+  display: block;
+  font-size: 20px;
+}
+.profile-link {
+  text-decoration: none; /* Remove underline from anchor links */
+  color: black; /* Default text color */
+  margin-left: 5px;
+}
+
+/* Hover effect for anchor link */
+.profile-link:hover {
+  color: white; /* Change text color on hover */
+}
+
 #dark-btn{
     position: absolute;
     right: 20px;

@@ -21,6 +21,8 @@ export class SideBarComponent implements OnInit {
   user:UserModel;
   notificationsModels:NotificationModel[]=[];
   searchTerm: string = '';
+  showMenu: boolean = false;
+  searchResults: any[] = [];
   users: UserProfileModel[] = [];
 
   constructor(private router: Router, private sharedService: SharedService, private  postService :PostService,private toastr:ToastrService,private userService :UserService){
@@ -39,16 +41,16 @@ export class SideBarComponent implements OnInit {
       }
     });
 
-   }
-   Logout(){
+    }
+    Logout(){
     localStorage.removeItem('user');
     this.router.navigate(['/login']);
     this.toastr.success("GoodBye");
-   }
-   settingsMenuToggle(){
+    }
+    settingsMenuToggle(){
     this.hideActionMenu =!this.hideActionMenu;
-   }
-   viewUserDetail() {
+    }
+    viewUserDetail() {
     this.router.navigate(['/ProfilePage', this.user.id]);
   }
   toggleMenu(){
@@ -62,18 +64,37 @@ export class SideBarComponent implements OnInit {
     });
   }
 
+  onInputChange() {
+    if (this.searchTerm.length > 0) {
+      this.showMenu = true;
+      // Call your user service to retrieve users based on searchTerm
+      this.userService.searchUsers(this.searchTerm).subscribe(
+        (results: any[]) => {
+          this.searchResults = results;
+        },
+        (error) => {
+          console.error('Error fetching users:', error);
+        }
+      );
+    } else {
+      this.showMenu = false;
+      this.searchResults = [];
+    }
+  }
+
+
   onSubmit(): void {
     if (this.searchTerm.trim() !== '') {
-      // Perform search action (e.g., fetch users based on search term)
       this.userService.searchUsers(this.searchTerm).subscribe((users) => {
         this.users = users; // Update users array with search results
         this.hideActionMenu2 = false; // Show user toggle menu
       });
     } else {
-      // Handle empty search term (reset users array and hide menu)
       this.users = []; // Reset users array
       this.hideActionMenu2 = true; // Hide user toggle menu
     }
   }
-
+  navigateToUserProfile(userId: string): void {
+    this.router.navigate(['/UserProfile', userId]);
+  }
 }

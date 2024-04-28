@@ -47,6 +47,7 @@ export class UserService  {
     return this.httpClient.post('/user/aceept-reject-friend',friend);
   }
   searchUsers(searchTerm: string):  Observable<any> {
+    debugger
     return this.httpClient.get(`/user/search/${searchTerm}`);
   }
 }

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FreeSpace.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+15f5aebef30c9b84d0c83cce5ffc7bada5638cdd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8eb115e629cdcb45961d518761955e9e6a322cd4")]
 [assembly: System.Reflection.AssemblyProductAttribute("FreeSpace.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FreeSpace.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

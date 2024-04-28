@@ -3,7 +3,7 @@
   <div class="container-fluid justify-content-between">
     <!-- Left elements -->
     <div class="d-flex">
-      <a class="navbar-brand me-2 mb-1 d-flex align-items-center" routerLink="/home">
+      <a class="navbar-brand me-2 mb-1 d-flex align-items-center " routerLink="/home/manage" routerLinkActive="active">
         <img
           src="assets\image\logo\watermelon.png"
           height="40"
@@ -15,24 +15,36 @@
       </a>
       <!-- Search form -->
 
-      <form class="input-group w-auto my-auto d-none d-sm-flex" style="margin-left: 10px;">
+      <form class="d-none d-md-flex input-group w-auto my-auto">
         <input
           autocomplete="off"
           type="search"
           class="form-control rounded"
-          placeholder="Search"
+          placeholder='Search'
+          [(ngModel)]="searchTerm"
+          name="searchTerm"
           style="min-width: 300px;"
+          (input)="onInputChange()"
         />
-        <span class="input-group-text border-0 d-none d-lg-flex"
-          ><i class="fas fa-search"></i
-        ></span>
-      </form>
+        <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
+    </form>
+    <div class="search-results-menu" [ngClass]="{ 'show': showMenu && searchResults.length > 0 }">
+      <ul class="list-group">
+        <li class="list-search-item" *ngFor="let result of searchResults">
+          <div class="row">
+            <div class="col ">
+              <a (click)="navigateToUserProfile(result.id)" class="profile-link">{{result.fullName}}</a>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
     </div>
     <!-- Left elements -->
     <!-- Center elements -->
     <ul class="navbar-nav flex-row d-none d-md-flex"[ngClass]="{'notifi-box-height': !hideActionMenu2}">
       <li class="nav-item me-3 me-lg-1 active">
-        <a class="nav-link" routerLink="/home" routerLinkActive="true" >
+        <a class="nav-link " routerLink="/home/manage" routerLinkActive="true" >
           <span><i class="fas fa-home fa-lg"></i></span>
         </a>
         </li>
