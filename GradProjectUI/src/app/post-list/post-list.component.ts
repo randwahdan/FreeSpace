@@ -60,38 +60,33 @@ export class PostListComponent implements OnInit {
     });
   }
   fetchPosts(): void {
-    if (this.userId==null){
-      this.postService.getPost().subscribe((result: PostModel[]) => {
-        this.postModelList = result || []; // Ensure postModelList is not null or undefined
+    const postSubscription = this.userId == null ?
+      this.postService.getPost() :
+      this.postService.getPostByUser(this.userId);
+
+    postSubscription.subscribe(
+      (result: PostModel[]) => {
+        this.postModelList = result || [];
         this.postModelList.forEach(post => {
           if (post.media && Array.isArray(post.media)) {
             post.media.forEach(media => {
-              media.isVideo = this.isVideo(media); // Set 'isVideo' property for each media item
+              media.isVideo = this.isVideo(media);
             });
           }
         });
-      }, error => {
+      },
+      (error) => {
         console.error('Error fetching posts:', error);
-        this.toastr.error('Failed to fetch posts. Please try again.');
-      });
-    }
-    else{
-      this.postService.getPostByUser(this.userId).subscribe((result: PostModel[]) => {
-          this.postModelList = result || []; // Ensure postModelList is not null or undefined
-          this.postModelList.forEach(post => {
-            if (post.media && Array.isArray(post.media)) {
-              post.media.forEach(media => {
-                media.isVideo = this.isVideo(media); // Set 'isVideo' property for each media item
-              });
-            }
-          });
-    }, error => {
-      console.error('Error fetching posts:', error);
-      // Handle error here (e.g., show error message to user)
-      this.toastr.error('Failed to fetch posts. Please try again.');
-    });
-    }
+        this.handlePostFetchError();
+      }
+    );
   }
+
+  private handlePostFetchError(): void {
+    // You can customize error handling based on error types here
+    this.toastr.error('Failed to fetch posts. Please try again.');
+  }
+
 
   isVideo(media: any): boolean {
     return media && media.isVideo; // Assuming 'isVideo' property indicates if the media is a video

@@ -1,3 +1,6 @@
+<div *ngIf="postModelList.length === 0" class="no-posts-message">
+  <h4 class="text-muted center">No posts available</h4>
+</div>
 <div  *ngFor="let post of postModelList">
   <div class="card gedf-card">
     <div class="card-header">

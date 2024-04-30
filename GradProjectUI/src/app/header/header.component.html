@@ -32,8 +32,11 @@
       <ul class="list-group">
         <li class="list-search-item" *ngFor="let result of searchResults">
           <div class="row">
-            <div class="col ">
-              <a (click)="navigateToUserProfile(result.id)" class="profile-link">{{result.fullName}}</a>
+            <div class="col-md-2 col-sm-2">
+                <img [src]="result.profilePicture" alt="user" class="profile-photo-lg">
+            </div>
+            <div class="col-md-7 col-sm-7 align-items-center d-flex">
+                <h5><a (click)="navigateToUserProfile(result.id)" class="profile-link" >{{result.fullName}}</a></h5>
             </div>
           </div>
         </li>

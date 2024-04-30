@@ -64,11 +64,7 @@ a{
   transition: max-height 0.3s;
   z-index: 1000;
 }
-img.profile-photo-lg {
-  height: 80px;
-  width: 80px;
-  border-radius: 50%;
-}
+
 .search-results-menu.show {
   max-height: 600px; /* Adjust the maximum height */
 }
@@ -80,9 +76,20 @@ img.profile-photo-lg {
 .search-results-menu li {
   border-bottom: 1px solid #ccc; /* Add separator between items */
 }
+.list-search-item img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: inline-block; /* Ensure the image and link are treated as inline elements */
+  vertical-align: middle; /* Align them vertically */
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+
 .list-search-item
 {
-  height: 50px;
+  height: 76px;
 }
 .search-results-menu li:last-child {
   border-bottom: none; /* Remove border for last item */
@@ -92,18 +99,20 @@ img.profile-photo-lg {
   background: -webkit-linear-gradient(to right, #4caf50, #d32f2f);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, #4caf50, #d32f2f);
+  color: #fff;
 }
-
 
 .search-results-menu a {
   text-decoration: none;
   display: block;
-  font-size: 20px;
+  font-size: 15px;
+  margin-top: 10px;
 }
 .profile-link {
   text-decoration: none; /* Remove underline from anchor links */
   color: black; /* Default text color */
-    margin-left: 5px;
+  margin-left: 5px;
+  margin-top: 5px;
 
 }
 

@@ -342,7 +342,7 @@ color: #626262;
 }
 .list-search-item
 {
-  height: 50px;
+  height: 65px;
   cursor: pointer;
 }
 .search-results-menu li:last-child {
@@ -353,13 +353,23 @@ color: #626262;
   background: -webkit-linear-gradient(to right, #4caf50, #d32f2f);
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to right, #4caf50, #d32f2f);
+  color: white;
 }
 
-
+.list-search-item img {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: inline-block; /* Ensure the image and link are treated as inline elements */
+  vertical-align: middle; /* Align them vertically */
+  margin-left: 10px;
+  margin-top: 5px;
+}
 .search-results-menu a {
   text-decoration: none;
   display: block;
-  font-size: 20px;
+  font-size: 15px;
+  margin-top: 10px;
 }
 .profile-link {
   text-decoration: none; /* Remove underline from anchor links */

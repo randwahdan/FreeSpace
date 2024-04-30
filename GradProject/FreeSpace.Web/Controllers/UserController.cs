@@ -703,9 +703,16 @@ namespace FreeSpace.Web.Controllers
                         DateOfBirth = user.DateOfBirth,
                         Gender = user.Gender,
                         MobileNumber = user.MobileNumber,
-                        CreatedDate = user.CreatedDate
+                        CreatedDate = user.CreatedDate,
+
                         // Map other properties as needed
                     };
+                    if (user.ProfilePicture != null)
+                    {
+                        var base64String = Convert.ToBase64String(user.ProfilePicture);
+                        var dataUrl = $"data:image/jpeg;base64,{base64String}";
+                        userModel.ProfilePicture = dataUrl;
+                    }
 
                     // Add user to the list
                     userModels.Add(userModel);
