@@ -9,8 +9,6 @@
                   <option value="all">All Categories</option>
                   <option *ngFor="let category of uniqueCategories" [value]="category">{{ category }}</option>
               </optgroup>
-              <hr> <!-- Line to visually separate the options -->
-              <option value="archive">Archive</option> <!-- Add this option for viewing archived events -->
           </select>
 
           <!-- Add another select for Country here -->

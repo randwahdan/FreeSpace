@@ -24,6 +24,9 @@
                 <li>
                   <i class="fa-solid fa-clock"></i> &nbsp;Joined On {{ user.createdDate | date:'dd/MM/yyyy' }}
                 </li>
+                <li *ngIf="user.country">
+                  <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;Live in {{ user.country }}
+                </li>
           </ul>
       </div>
       <div class="row profile-info">

@@ -22,7 +22,7 @@
   <!-- Sidebar -->
 
   <!-- Navbar -->
-  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+  <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <!-- Container wrapper -->
     <div class="container-fluid">
       <div class="d-flex align-items-center ">
@@ -40,16 +40,16 @@
       </button>
 
       <!-- Brand -->
-      <a class="navbar-brand" routerLink="/home">
+      <a class="navbar-brand " routerLink="/home/manage"style="display: flex; align-items: center;">
         <img
         src="assets\image\logo\watermelon.png"
-        height="40"
+        height="50"
         alt=""
         loading="lazy"
         style="margin-top: 2px;"
         alt="FreeSpace Logo"
         />
-        <span style="font-family: 'CustomLogoFont'; font-size: 40px;margin-top: 4px;">FreeSpace</span>
+        <span style="font-family: 'CustomLogoFont'; font-size: 50px;vertical-align: top;">FreeSpace</span>
       </a>
       <!-- Search form -->
       <form class="d-none d-md-flex input-group w-auto my-auto">
@@ -57,20 +57,29 @@
           autocomplete="off"
           type="search"
           class="form-control rounded"
-          placeholder='Search'
-          style="min-width: 225px;"
+          placeholder='Search for user'
+          [(ngModel)]="searchTerm"
+          name="searchTerm"
+          style="min-width: 300px;"
+          (input)="onInputChange()"
         />
         <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
-      </form>
-      <ul class="navbar-nav  d-none  d-md-flex  w-auto mt-4 " >
-        <li class="nav-item me-3 me-lg-1 active">
-          <a class="nav-link" routerLink="/home">
-            <span><i class="fas fa-home fa-lg"></i></span>
-          </a>
-          </li>
+    </form>
+    <div class="search-results-menu" [ngClass]="{ 'show': showMenu && searchResults.length > 0 }">
+      <ul class="list-group">
+        <li class="list-search-item" *ngFor="let result of searchResults">
+          <div class="row">
+            <div class="col-md-2 col-sm-2">
+                <img [src]="result.profilePicture" alt="user" class="profile-photo-lg">
+            </div>
+            <div class="col-md-7 col-sm-7 align-items-center d-flex">
+                <h5><a  (click)="navigateToUserProfile(result.id)" class="profile-link" >{{result.fullName}}</a></h5>
+            </div>
+          </div>
+        </li>
       </ul>
     </div>
-
+      </div>
       <!-- Right links -->
       <div class="d-flex">
         <ul class="navbar-nav flex-row">
@@ -97,7 +106,9 @@
           </li>
         </ul>
       </div>
-    </div>
+      </div>
+    
+
     <!-- Container wrapper -->
   </nav>
   <!-- Navbar -->

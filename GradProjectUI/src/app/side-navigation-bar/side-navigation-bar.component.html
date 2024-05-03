@@ -17,23 +17,25 @@
         <a routerLink="/Event"  routerLinkActive="active" class="list-group-item list-group-item-action py-4 ripple custom-link"
           ><i class="fa-solid fa-calendar-days fa-fw me-3"></i><span>Events</span></a
         >
+        <a routerLink="/ArchivedEvents"  routerLinkActive="active" class="list-group-item list-group-item-action py-4 ripple custom-link"
+          ><img src="assets\image\icons\pending.png" alt="">&nbsp;<span> Archive</span></a
+        >
         <a routerLink="/notofication" routerLinkActive="active"  class="list-group-item list-group-item-action py-4 ripple custom-link"
           ><i class="fa-solid fa-bell fa-fw me-3"></i><span>Notification</span></a
           >
         <a routerLink="/friends"  routerLinkActive="active" class="list-group-item list-group-item-action py-4 ripple custom-link">
           <i class="fa-solid fa-user-group fa-fw me-3"></i><span>Friends</span>
         </a>
-        <a routerLink="/Chat"  routerLinkActive="active" class="list-group-item list-group-item-action py-4 ripple custom-link"
-          ><i class="fa-solid fa-message fa-fw me-3"></i><span>Massages</span></a
+        <a routerLink="/users" class="list-group-item list-group-item-action py-4 ripple custom-link"
+        ><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a
         >
+
         <a routerLink="/setting"  routerLinkActive="active" class="list-group-item list-group-item-action py-4 ripple custom-link"
           ><i class="fa-solid fa-gear fa-fw me-3"></i><span>Sittings</span></a
         >
 
 
-        <a routerLink="/users" class="list-group-item list-group-item-action py-4 ripple custom-link"
-          ><i class="fas fa-users fa-fw me-3"></i><span>Users</span></a
-        >
+
         <a (click)="Logout()" style="cursor: pointer;" class="list-group-item list-group-item-action py-4 ripple custom-link"
           ><i class="fa-solid fa-right-from-bracket fa-fw me-3"></i><span>Logout</span></a
         >
@@ -61,16 +63,16 @@
       </button>
 
       <!-- Brand -->
-      <a class="navbar-brand" routerLink="/home/manage">
+      <a class="navbar-brand " routerLink="/home/manage"style="display: flex; align-items: center;">
         <img
         src="assets\image\logo\watermelon.png"
-        height="40"
+        height="50"
         alt=""
         loading="lazy"
         style="margin-top: 2px;"
         alt="FreeSpace Logo"
         />
-        <span style="font-family: 'CustomLogoFont'; font-size: 40px;margin-top: 4px;">FreeSpace</span>
+        <span style="font-family: 'CustomLogoFont'; font-size: 50px;vertical-align: top;">FreeSpace</span>
       </a>
       <!-- Search form -->
       <form class="d-none d-md-flex input-group w-auto my-auto">

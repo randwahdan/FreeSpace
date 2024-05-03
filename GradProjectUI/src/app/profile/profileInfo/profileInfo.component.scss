@@ -40,23 +40,29 @@
   }
 
   .friend-item {
-    width: calc(33.33% - 20px);  // Adjust as needed, considering the grid gap
-    margin-bottom: 15px;         // Adjust as needed for vertical spacing
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-
-    span {
-      display: block;
-      text-align: center;
-      margin-top: 10px;
-      font-weight: bold;
-      font-size: 15px;
-    }
+    width: calc(33.33% - 20px);  /* Adjust as needed, considering the grid gap */
+    margin-right: 15px;
   }
+
+  .profile-picture {
+    width: 100%; /* Set your desired width */
+    height: 100%; /* Set your desired height */
+    object-fit: cover; /* Ensure the image covers the entire container */
+    border-radius: 4px; /* Add border-radius if needed */
+    cursor: pointer;
+  }
+
+  .friend-item a {
+    display: block;
+    text-align: center;
+  }
+
+  .fullName  {
+    color: black; /* Ensure text color is visible */
+    font-family: inherit;
+    display: block;
+    font-weight: bold;
+    font-size: 15px;
+  }
+
 

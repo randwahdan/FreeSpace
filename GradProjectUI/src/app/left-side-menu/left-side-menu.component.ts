@@ -7,6 +7,7 @@ import {SharedService} from "../services/shared.service";
 import {PostService} from "../services/post.service";
 import {NotificationModel} from "../models/Notification-model";
 import { ToastrService } from 'ngx-toastr';
+import { UserProfileModel } from '../models/userProfile';
 @Component({
   selector: 'app-left-side-menu',
   templateUrl: './left-side-menu.component.html',
@@ -18,8 +19,12 @@ export class LeftSideMenuComponent implements OnInit {
   hideActionMenu2: boolean = true;
   user:UserModel;
   notificationsModels:NotificationModel[]=[];
+  searchTerm: string = '';
+  showMenu: boolean = false;
+  searchResults: any[] = [];
+  users: UserProfileModel[] = [];
 
-  constructor(private router: Router, private sharedService: SharedService, private  postService :PostService,private toastr:ToastrService){
+  constructor(private router: Router, private sharedService: SharedService, private  postService :PostService,private toastr:ToastrService, private userService :UserService){
 
   }
   ngOnInit(): void {
@@ -57,5 +62,25 @@ export class LeftSideMenuComponent implements OnInit {
       this.notificationsModels = result
 
     });
+  }
+  navigateToUserProfile(userId: string): void {
+    this.router.navigate(['/UserProfile', userId]);
+  }
+  onInputChange() {
+    if (this.searchTerm.length > 0) {
+      this.showMenu = true;
+      // Call your user service to retrieve users based on searchTerm
+      this.userService.searchUsers(this.searchTerm).subscribe(
+        (results: any[]) => {
+          this.searchResults = results;
+        },
+        (error) => {
+          console.error('Error fetching users:', error);
+        }
+      );
+    } else {
+      this.showMenu = false;
+      this.searchResults = [];
+    }
   }
 }

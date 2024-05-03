@@ -21,7 +21,9 @@
                       <li *ngIf="user.createdDate !== null && user.createdDate !== undefined">
                         <i class="fa-solid fa-clock"></i> &nbsp;Joined On {{ user.createdDate | date:'dd/MM/yyyy' }}
                       </li>
-
+                      <li *ngIf="user.country">
+                        <i class="fa fa-map-marker" aria-hidden="true"></i> &nbsp;Live in {{ user.country }}
+                      </li>
                 </ul>
             </div>
             <div class="row profile-info">
@@ -36,7 +38,7 @@
                     <div *ngFor="let friend of users.slice(0, 6)" class="friend-item">
                       <a (click)="navigateToUserProfile(friend.id)">
                         <img [src]="friend.profilePicture" alt="profile picture" class="profile-picture">
-                        <span style="color: black; font-family: inherit;">{{ friend.fullName }}</span>
+                        <span class="fullName" style="color: black; font-family: inherit;">{{ friend.fullName }}</span>
                       </a>
                     </div>
                   </div>

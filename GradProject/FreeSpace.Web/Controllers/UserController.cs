@@ -66,7 +66,8 @@ namespace FreeSpace.Web.Controllers
                             Id = nonFriend.Id,
                             FirstName = nonFriend.FirstName,
                             LastName = nonFriend.LastName,
-                            MutualFriendsCount = mutualFriendsCount
+                            MutualFriendsCount = mutualFriendsCount,
+                            Country=nonFriend.Country
                         };
 
                         // Assign profile picture data if available
@@ -101,18 +102,19 @@ namespace FreeSpace.Web.Controllers
 
                 // Query the database to get a list of friend relationships involving the authenticated user
                 var friendIds = _dbContext.FriendShips
-              .Where(f => (f.SourceId == userId || f.TargetId == userId))
-              .ToList();
+                    .Where(f => f.SourceId == userId || f.TargetId == userId)
+                    .ToList();
 
                 // Extract the IDs of the source and target users from the friend relationships
                 var sourceList = friendIds.Select(c => c.SourceId).ToList();
                 var targetList = friendIds.Select(c => c.TargetId).ToList();
                 var allUsers = targetList.Concat(sourceList);
 
-                // Retrieve users who are not friends with the user
+                // Retrieve users who are not friends with the user and have a common country
                 List<User> nonFriends = _dbContext.Users
-                    .Where(u => !allUsers.Contains(u.Id) && u.Id != userId)
-                    .ToList();
+                  .Where(u => !allUsers.Contains(u.Id) && u.Id != userId && u.Country.ToLower() == _dbContext.Users.FirstOrDefault(u => u.Id == userId).Country.ToLower())
+                  .ToList();
+
 
                 if (nonFriends != null && nonFriends.Count() > 0)
                 {
@@ -122,7 +124,7 @@ namespace FreeSpace.Web.Controllers
                         user.Id = friend.Id;
                         user.FirstName = friend.FirstName;
                         user.LastName = friend.LastName;
-
+                        user.Country = friend.Country;
 
                         if (friend.ProfilePicture != null)
                         {
@@ -144,6 +146,7 @@ namespace FreeSpace.Web.Controllers
                 throw ex;
             }
         }
+
 
 
         [HttpGet("getFriends")]
@@ -391,32 +394,76 @@ namespace FreeSpace.Web.Controllers
         [HttpPost("remove-friend")]
         public bool RemoveFriend([FromBody] FriendRequestModel friendRequestModel)
         {
-            Guid userId = Guid.Parse(User.Identity?.Name);
-
-            var user = _dbContext.Users.Find(userId);
-            friendRequestModel.UserTargetId = userId;
-
-            // Find the friend request sent by another user to the authenticated user
-            FriendShip userFriendship = _dbContext.FriendShips.FirstOrDefault(u =>
-                           (u.SourceId == friendRequestModel.UserSourceId && u.TargetId == friendRequestModel.UserTargetId) ||
-                           (u.SourceId == friendRequestModel.UserTargetId && u.TargetId == friendRequestModel.UserSourceId) &&
-                           u.Status == "Approved");
-            if (userFriendship != null)
+            try
             {
-                if (friendRequestModel.Status == "Removed") {
-                    userFriendship.Status = "Removed";
-                    _dbContext.FriendShips.Remove(userFriendship);
+                Guid userId = Guid.Parse(User.Identity?.Name);
 
+                // Find the authenticated user and the friend to be removed
+                var user = _dbContext.Users.Find(userId);
+
+                if (friendRequestModel.UserSourceId.HasValue) // Check if UserSourceId is not null
+                {
+                    Guid friendId = friendRequestModel.UserSourceId.Value; // Convert Guid? to Guid
+
+                    var friendToRemove = _dbContext.Users.Find(friendId);
+
+                    friendRequestModel.UserTargetId = userId;
+
+                    // Find the friendship between the authenticated user and the friend
+                    FriendShip userFriendship = _dbContext.FriendShips.FirstOrDefault(u =>
+                        ((u.SourceId == friendId && u.TargetId == userId) ||
+                        (u.SourceId == userId && u.TargetId == friendId)) &&
+                        u.Status == "Approved");
+
+                    if (userFriendship != null)
+                    {
+                        // Update friendship status to "Removed" and remove from DbContext
+                        userFriendship.Status = "Removed";
+                        _dbContext.FriendShips.Remove(userFriendship);
+
+                        // Update mutual friends count for both users
+                        UpdateMutualFriendsCount(userId, friendId);
+
+                        // Save changes to DbContext
+                        _dbContext.SaveChanges();
+                    }
                 }
-                _dbContext.Entry(user).State = EntityState.Modified;
-                _dbContext.SaveChanges();
-
+                else
+                {
+                    // Handle the case where friendRequestModel.UserSourceId is null
+                    // (This might indicate an issue with the request)
+                    return false;
+                }
             }
-
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                return false;
+            }
 
             return true;
         }
+        private void UpdateMutualFriendsCount(Guid userId1, Guid userId2)
+        {
+            var user1FriendsIds = _dbContext.FriendShips
+                .Where(f => f.SourceId == userId1 || f.TargetId == userId1)
+                .Select(f => f.SourceId == userId1 ? f.TargetId : f.SourceId)
+                .ToList();
 
+            var user2FriendsIds = _dbContext.FriendShips
+                .Where(f => f.SourceId == userId2 || f.TargetId == userId2)
+                .Select(f => f.SourceId == userId2 ? f.TargetId : f.SourceId)
+                .ToList();
+
+            // Calculate mutual friends count for user 1
+            int mutualFriendsCountUser1 = user1FriendsIds.Intersect(user2FriendsIds).Count();
+
+            // Calculate mutual friends count for user 2
+            int mutualFriendsCountUser2 = mutualFriendsCountUser1;
+
+            // Update mutual friends count in UserInfoModel or User entity for both users
+            // (You may need to fetch and update the corresponding entities)
+        }
 
 
         [HttpPost("upload")]
@@ -616,7 +663,9 @@ namespace FreeSpace.Web.Controllers
                 DateOfBirth = user.DateOfBirth,
                 Gender = user.Gender,
                 MobileNumber = user.MobileNumber,
-                CreatedDate = user.CreatedDate
+                CreatedDate = user.CreatedDate,
+                Country=user.Country
+                
                 // You can include more properties as needed
             };
 

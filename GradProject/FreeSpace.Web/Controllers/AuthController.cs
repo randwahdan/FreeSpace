@@ -3,6 +3,7 @@ using FreeSpace.Web.Data;
 using FreeSpace.Web.Entities;
 using FreeSpace.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -85,6 +86,7 @@ namespace FreeSpace.Web.Controllers
             userInfo.NickName = user.NickName;
             user.MobileNumber = user.MobileNumber;
             user.CreatedDate = user.CreatedDate;
+            user.Country = user.Country;
             if (userInfo != null)
             {
                 return Ok(userInfo);
@@ -122,6 +124,10 @@ namespace FreeSpace.Web.Controllers
             {
                 return BadRequest(new { message = "Email needs to entered" });
             }
+            else if (String.IsNullOrEmpty(user.Country))
+            {
+                return BadRequest(new { message = "Country of Residence needs to entered" });
+            }
             else if (String.IsNullOrEmpty(user.Password))
             {
                 return BadRequest(new { message = "Password needs to entered" });
@@ -139,6 +145,7 @@ namespace FreeSpace.Web.Controllers
             userToRegister.FirstName = user.FirstName;
             userToRegister.LastName = user.LastName;
             userToRegister.Email = user.Email;
+            userToRegister.Country = user.Country;
             userToRegister.Password = user.Password;
             userToRegister.DateOfBirth = user.DateOfBirth;
             userToRegister.Gender = user.Gender;
@@ -271,6 +278,7 @@ namespace FreeSpace.Web.Controllers
             userInfo.Gender = user.Gender;
             userInfo.MobileNumber = user.MobileNumber;
             userInfo.CreatedDate = user.CreatedDate;
+            userInfo.Country= user.Country;
             return userInfo;
         }
 

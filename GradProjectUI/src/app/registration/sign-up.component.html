@@ -1,19 +1,17 @@
 <section class="h-100 gradient-form" style="background-color: #eee;">
-  <div class="container py-5 h-100">
+  <div class="container  h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-xl-10">
         <div class="card rounded-3 text-black">
           <div class="row g-0">
             <div class="col-lg-6">
               <div class="card-body p-md-5 mx-md-4">
-
                 <div class="text-center">
                   <div class="logo"><img src="assets\image\logo\watermelon.png"><span >FreeSpace</span></div>
                 </div>
-
                 <form [formGroup]="registerationForm" (ngSubmit)="Register()" autocomplete="off">
                   <div class="row">
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-6 mb-2">
                       <div class="form-outline">
                         <label class="form-label" for="firstName">First Name</label>
                         <input type="text" id="firstName" class="form-control form-control-lg" name="firstName" formControlName="firstname" placeholder="First Name" autocomplete="new-firstName"/>
@@ -22,7 +20,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 mb-4">
+                    <div class="col-md-6 mb-2">
                       <div class="form-outline">
                         <label class="form-label" for="lastName">Last Name</label>
                         <input type="text" id="lastName" class="form-control form-control-lg" name="lastName" formControlName="lastname" placeholder="Last Name" autocomplete="new-lastName"/>
@@ -32,9 +30,8 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="row">
-                    <div class="col-md-12 mb-4 pb-2">
+                    <div class="col-md-12 mb-2 pb-2">
                       <div class="form-outline">
                         <label class="form-label" for="emailAddress">Email</label>
                         <input type="email" id="emailAddress" class="form-control form-control-lg" formControlName="email"   name="email" placeholder="Enter your Email..." autocomplete="new-email"/>
@@ -46,7 +43,18 @@
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-12 mb-4 pb-2">
+                    <div class="col-md-12 mb-2 pb-2">
+                      <div class="form-outline">
+                        <label class="form-label" for="country">Country of Residence</label>
+                        <input type="text" id="country" class="form-control form-control-lg" formControlName="country" name="country" placeholder="Enter your Country..." autocomplete="new-country" />
+                        <div *ngIf="registerationForm.get('country')?.invalid && (registerationForm.get('country')?.dirty || registerationForm.get('country')?.touched)" class="text-danger">
+                          <div *ngIf="registerationForm.get('country')?.errors?.['required']">Country is required</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 mb-2 pb-2">
                       <div class="form-outline">
                         <label class="form-label" for="password">Password</label>
                         <div class="input-group">
@@ -64,7 +72,7 @@
 
 
                   <div class="row">
-                    <div class="col-md-12 mb-4 d-flex align-items-center">
+                    <div class="col-md-12 mb-3 d-flex align-items-center">
                       <div class="form-outline datepicker w-100">
                         <label for="birthdayDate" class="form-label">Birthday</label>
                         <input type="date" formControlName="dateOfBirth" class="form-control form-control-lg" />
@@ -76,7 +84,7 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-md-12 mb-4">
+                    <div class="col-md-12 mb-2">
                       <h6 class="mb-2 pb-1 d-inline-block ml-3">Gender: </h6>
                       <div class="form-check form-check-inline mr-5 d-inline-block" >
                         <input class="form-check-input" type="radio" name="gender" id="fem" value="female" formControlName="gender"  />
@@ -91,24 +99,19 @@
                       </div>
                     </div>
                   </div>
-
                   <div class="pt-2">
                     <input class="btn btn-primary btn-lg col-md-12 rounded-5" type="submit" value="Sign Up" style="background-color: #1E5128;" />
                   </div>
                 </form>
-
               </div>
             </div>
             <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
               <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                  <h4 class="mb-4 text-center">Create Your FreeSpace Account</h4>
-                  <p class="small mb-4">Welcome to FreeSpace, where your voice matters. We stand for freedom of expression and provide a platform where every opinion is heard and respected. Join us and be part of a community where you can freely express your thoughts without fear of censorship or limited reach.</p>
-                  <h5>Why Choose FreeSpace?</h5>
-                  <p class="small mb-4">Join our inclusive community where your voice matters. Share stories, connect with like-minded individuals, and express yourself freely. Your freedom of speech is protected, and our team ensures a seamless and enjoyable experience every step of the way.</p>
-                  <p class="mb-0">Already have an account? <a routerLink="/login" routerLinkActive="active" class="text-white">Log in here</a></p>
+                <h3 class="mb-4 text-center" style="line-height:2;">Welcome to FreeSpace Where Your Voice Matters</h3>
+                <h6 class=" mb-4" style="line-height:1.5;">Welcome to FreeSpace where your voice matters and express yourself freely, your freedom of speech is protected.</h6>
+                <p class="mb-0">Already have an account? <a routerLink="/login" routerLinkActive="active" class="text-white">Log in here</a></p>
               </div>
           </div>
-
           </div>
         </div>
       </div>

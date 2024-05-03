@@ -1,0 +1,39 @@
+<side-navigation-bar></side-navigation-bar>
+<div class="my-custom-position">
+<div class="container mt-5">
+  <h2 class="m-b-50 heading-line"><img src="assets\image\icons\pending.png" alt="">&nbsp; <span style="font-size: 23px;"> Archive Events </span></h2>
+  <div class="row" *ngIf="archiveEvents.length === 0">
+    <div class="col-lg-12 mt-5">
+      <h4 class="text-muted center" style="display: flex;justify-content: center; align-items: center;">No Archived Events Available</h4>
+    </div>
+  </div>
+  <div class="row"*ngIf="archiveEvents.length > 0">
+    <div class="col-lg-4 mt-5" *ngFor="let event of archiveEvents">
+      <div class="card card-margin">
+        <div class="card-body pt-0">
+          <div class="card-img mt-4">
+            <img *ngIf="event.media && event.media.length > 0" [src]="event.media[0].url" class="card-img-top" alt="...">
+            <img *ngIf="!(event.media && event.media.length > 0)" src="placeholder_image_url" class="card-img-top" alt="...">
+          </div>
+          <div class="widget-49 mt-3 justify-content-between">
+            <div class="widget-49-title-wrapper">
+              <div class="widget-49-date-success ">
+                <span class="widget-49-date-day">{{ event.startDate | date: 'dd' }}</span>
+                <span class="widget-49-date-month">{{ event.startDate | date: 'MMM' | lowercase }}</span>
+              </div>
+              <div class="widget-49-title-wrapper text-center " style="height: 50px; overflow: hidden; margin-left: 10px ;font-family: 'serifttfBold';cursor:default;">
+                <h5 class="widget-49-pro-title ">{{ event.title }}</h5>
+              </div>
+            </div>
+            <div class="widget-49-meeting-action mt-3">
+              <div class="btn-group" role="group">
+                <a [routerLink]="['/event-details', event.eventId]" class="btn mr-2"><i class="fas fa-link"></i> Details</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>

@@ -3,6 +3,7 @@ export class UserModel {
   firstName: string;
   lastName!: string;
   email!: string;
+  country!:string;
   dateOfBirth!: Date;
   gender!: number;
   profilePicture!: string;

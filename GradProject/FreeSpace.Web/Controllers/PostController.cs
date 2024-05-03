@@ -64,34 +64,34 @@ public class PostController : ControllerBase
                 postModel.ProfilePicture = dataUrl;
             }
 
-            if (postEntity.Medias != null && postEntity.Medias.Any())
+            if (postEntity.Medias != null)
             {
                 List<MediaModel> mediaList = new List<MediaModel>();
-
                 foreach (var postMedia in postEntity.Medias)
                 {
-                    MediaModel mediaModel = new MediaModel
-                    {
-                        FileName = postMedia.FileName,
-                        IsVideo = postMedia.IsVideo
-                    };
+                    MediaModel mediaModel = new MediaModel();
+                    mediaModel.FileName = postMedia.FileName;
+                    mediaModel.IsVideo = IsVideoFile(postMedia.FileName); // Check if the file is a video based on its extension
 
                     if (mediaModel.IsVideo)
                     {
-                        // For video media, handle URL and data
+                        // Read the video file from disk and get its content as a byte array
                         byte[] videoData = ReadVideoFile(postMedia.Url);
 
                         if (videoData != null)
                         {
-                            // Construct data URL for video
+                            // Serve the video content through your ASP.NET Core application
+                            // Store the video data in the response body and set the appropriate content type
                             mediaModel.Url = $"data:video/mp4;base64,{Convert.ToBase64String(videoData)}";
                         }
                         else
                         {
-                            // Handle if video data could not be retrieved
-                            mediaModel.Url = $"Error: Unable to retrieve video data for {postMedia.FileName}";
+                            // Handle if video data could not be read
+                            // For example, return a placeholder URL or log an error
+                            mediaModel.Url = $"Error: Unable to read video data for {postMedia.FileName}";
                         }
-                    }
+                    
+                }
                     else
                     {
                         // For image media, handle URL and data
@@ -227,33 +227,33 @@ public class PostController : ControllerBase
                 postModel.ProfilePicture = dataUrl;
             }
 
-            if (postEntity.Medias != null && postEntity.Medias.Any())
+            if (postEntity.Medias != null)
             {
                 List<MediaModel> mediaList = new List<MediaModel>();
-
                 foreach (var postMedia in postEntity.Medias)
                 {
-                    MediaModel mediaModel = new MediaModel
-                    {
-                        FileName = postMedia.FileName,
-                        IsVideo = postMedia.IsVideo
-                    };
+                    MediaModel mediaModel = new MediaModel();
+                    mediaModel.FileName = postMedia.FileName;
+                    mediaModel.IsVideo = IsVideoFile(postMedia.FileName); // Check if the file is a video based on its extension
 
                     if (mediaModel.IsVideo)
                     {
-                        // For video media, handle URL and data
+                        // Read the video file from disk and get its content as a byte array
                         byte[] videoData = ReadVideoFile(postMedia.Url);
 
                         if (videoData != null)
                         {
-                            // Construct data URL for video
+                            // Serve the video content through your ASP.NET Core application
+                            // Store the video data in the response body and set the appropriate content type
                             mediaModel.Url = $"data:video/mp4;base64,{Convert.ToBase64String(videoData)}";
                         }
                         else
                         {
-                            // Handle if video data could not be retrieved
-                            mediaModel.Url = $"Error: Unable to retrieve video data for {postMedia.FileName}";
+                            // Handle if video data could not be read
+                            // For example, return a placeholder URL or log an error
+                            mediaModel.Url = $"Error: Unable to read video data for {postMedia.FileName}";
                         }
+
                     }
                     else
                     {
@@ -531,52 +531,73 @@ public class PostController : ControllerBase
             return BadRequest("Post content and media cannot be empty.");
         }
 
+
         Guid userId = Guid.Parse(User.Identity?.Name);
-        Post post = new Post
-        {
-            UserId = userId,
-            Content = model.content,
-            CreatedDate = DateTime.UtcNow,
-            CreatedBy = userId
-        };
+        Post post = new Post();
+        post.UserId = userId;
+        post.Content = model.content;
+        post.CreatedDate = DateTime.UtcNow;
+        post.CreatedBy = userId;
 
-        List<Media> mediaList = new List<Media>();
-
-        foreach (var file in files)
+        if (files != null)
         {
-            if (IsImage(file) || IsVideo(file))
+            List<Media> mediaList = new List<Media>();
+            foreach (var file in files)
             {
-                using (var memoryStream = new MemoryStream())
+                if (IsImage(file))
                 {
-                    file.CopyTo(memoryStream);
+                    // Generate file path for image
+                    var imagePath = GenerateImagePath(file);
 
-                    Media mediaModel = new Media
+                    Media mediaModel = new Media();
+                    mediaModel.FileName = file.FileName;
+                    mediaModel.Url = imagePath;
+
+                    // Set the 'File' property with image data
+                    using (var memoryStream = new MemoryStream())
                     {
-                        FileName = file.FileName,
-                        File = memoryStream.ToArray(),
-                        Url = IsImage(file) ? GenerateImagePath(file) : GenerateVideoPath(file),
-                        IsVideo = IsVideo(file),
-                        FileType = IsImage(file) ? FreeSpace.Web.Enums.MediaType.Image.ToString() : FreeSpace.Web.Enums.MediaType.Video.ToString()
-                    };
+                        file.CopyTo(memoryStream);
+                        mediaModel.File = memoryStream.ToArray();
+                    }
 
                     mediaList.Add(mediaModel);
                 }
+                else if (IsVideo(file))
+                {
+                    // Generate file path for video
+                    var videoFilePath = GenerateVideoPath(file);
+
+                    Media mediaModel = new Media();
+                    mediaModel.FileName = file.FileName;
+                    mediaModel.Url = videoFilePath; // Store the file path where the video is saved
+
+                    // Read video file data and assign it to the 'File' property
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        file.CopyTo(memoryStream);
+                        mediaModel.File = memoryStream.ToArray();
+                    }
+
+                    mediaList.Add(mediaModel);
+                
             }
-            else
-            {
-                return BadRequest("Uploaded file is neither an image nor a video.");
+                else
+                {
+                    // Return BadRequest with an error message
+                    return BadRequest("Uploaded file is neither an image nor a video.");
+                }
             }
+            post.Medias = mediaList;
         }
 
-        post.Medias = mediaList;
         _dbContext.Posts.Add(post);
         _dbContext.SaveChanges();
-
         return Ok();
     }
 
-        // Helper method to check if the file is an image
-        private bool IsImage(IFormFile file)
+
+    // Helper method to check if the file is an image
+    private bool IsImage(IFormFile file)
     {
         string[] allowedImageTypes = { "image/jpeg", "image/png", "image/gif" };
         return allowedImageTypes.Contains(file.ContentType.ToLower())
@@ -594,7 +615,7 @@ public class PostController : ControllerBase
     }
     private string GenerateImagePath(IFormFile imageFile)
     {
-        // Define the target directory path
+        // Define the target directory path for images
         string directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "PostImages");
 
         // Check if the target directory exists; if not, create it
@@ -622,7 +643,7 @@ public class PostController : ControllerBase
     private string GenerateVideoPath(IFormFile videoFile)
     {
 
-        string videoDirectory = @"C:\Users\rand_\OneDrive\Desktop\FreeSpace\FreeSpace\GradProject\FreeSpace.Web\Videos\"; ; // Path to directory where videos will be saved
+        string videoDirectory = Path.Combine(Directory.GetCurrentDirectory(), "PostVideos");
         string fileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(videoFile.FileName)}"; // Generate unique file name
         string filePath = Path.Combine(videoDirectory, fileName);
 

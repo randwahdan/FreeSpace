@@ -18,6 +18,7 @@ import {ChatAppComponent} from './chat/chat.component';
 import{CreateEvent} from './event/create-event/create-event.component';
 import {EventDetails}from './event/event-details/event-details.component';
 import { ProfilePageNavigator } from './profile-navigator/profile-page-navigator.component';
+import {ArchiveEventComponent} from './archive-event/archive-event.component'
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent },
@@ -68,6 +69,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'Chat', component:ChatAppComponent,
+  },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: 'ArchivedEvents', component:ArchiveEventComponent,
   },
   { path: '', redirectTo: '/Event', pathMatch: 'full' },
   {

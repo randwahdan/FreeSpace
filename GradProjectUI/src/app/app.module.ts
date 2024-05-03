@@ -43,7 +43,8 @@ import{ProfileNavigatorDetails}from'./profile-navigator/profile-navigator-detail
 import { CustomCarouselControlsComponent } from './custom-carousel-controls/custom-carousel-controls.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button'; // Make sure this is imported only once
+import { MatButtonModule } from '@angular/material/button';
+import { ArchiveEventComponent } from './archive-event/archive-event.component'; // Make sure this is imported only once
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,6 +82,7 @@ import { MatButtonModule } from '@angular/material/button'; // Make sure this is
     ProfileNavigatorDetails,
     ProfilePageNavigator,
     ConfirmationDialogComponent,
+    ArchiveEventComponent,
 
 
   ],

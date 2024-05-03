@@ -24,6 +24,9 @@
                                   <p *ngIf="user.mutualFriendsCount > 0" class="text-muted">
                                       {{ user.mutualFriendsCount }} mutual friend(s)
                                   </p>
+                                  <p *ngIf="user.country.toLowerCase() === currentUser.country.toLowerCase()" class="text-success small">
+                                    You are in the same country with {{user.fullName}}!
+                                </p>
                               </div>
                         <div class="col-md-3 col-sm-3 d-flex justify-content-end align-items-center"> <!-- Align button to the end of the row -->
                           <button class="btn btn-light btn-sm button-33 " (click)="addFriend(user)" style="font-weight: 600;">

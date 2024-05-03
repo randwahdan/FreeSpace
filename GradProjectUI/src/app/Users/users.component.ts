@@ -11,9 +11,13 @@ import { Router } from '@angular/router';
 })
 export class UsersListComponent implements OnInit {
   users:UserModel[]=[];
+  currentUser: UserModel; // Define currentUser property
+
   constructor(private  userService: UserService, private router: Router) {
   }
   ngOnInit(): void {
+    let userStorge=localStorage.getItem('user');
+    this.currentUser  = userStorge ? JSON.parse(userStorge) : null;
     this.getSuggestedFriends();
   }
   getSuggestedFriends() {

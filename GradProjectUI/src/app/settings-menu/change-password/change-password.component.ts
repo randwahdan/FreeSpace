@@ -14,6 +14,8 @@ export class ChangePasswordComponent {
   ChangePassword: FormGroup;
   ChangePasswordModel: ChangePasswordModel = new ChangePasswordModel();
   oldPasswordVisibility: boolean = false; // Property to toggle old password visibility
+  ConfirmVisibility: boolean = false; // Property to toggle old password visibility
+  NewPasswordVisibility: boolean = false; // Property to toggle old password visibility
 
   constructor(
     private router: Router,
@@ -31,7 +33,13 @@ export class ChangePasswordComponent {
   toggleOldPasswordVisibility() {
     this.oldPasswordVisibility = !this.oldPasswordVisibility;
   }
-
+  toggleConfirmPasswordVisibility(){
+    this.ConfirmVisibility=!this.ConfirmVisibility;
+  }
+  toggleNewPasswordVisibility()
+  {
+    this.NewPasswordVisibility=!this.NewPasswordVisibility;
+  }
   UpdatePassword() {
     var formValue = this.ChangePassword.value;
     this.ChangePasswordModel.oldPassword = formValue.oldPassword;

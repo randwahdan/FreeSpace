@@ -42,7 +42,16 @@ export class MangePostComponent implements OnInit {
 
   ngOnInit(): void {
     // Load user details from local storage
-    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    let userStorage = localStorage.getItem('user');
+    this.user = userStorage ? JSON.parse(userStorage) : null;
+
+    this.sharedService.profile$.subscribe((isPostCreated) => {
+      if (isPostCreated) {
+        let userStorage = localStorage.getItem('user');
+        this.user = userStorage ? JSON.parse(userStorage) : null;
+      }
+    });
+
   }
 
   onImageSelected(event: any): void {

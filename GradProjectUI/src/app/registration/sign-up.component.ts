@@ -24,6 +24,7 @@ showPasswordText: string = 'Show';
         firstname: ['', Validators.required],
         lastname: ['', Validators.required],
         email: ['', [Validators.required, Validators.email]],
+        country: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(6)]], // Example: Minimum length of 6 characters
         dateOfBirth: ['', Validators.required],
         gender: ['', Validators.required]
@@ -43,7 +44,7 @@ showPasswordText: string = 'Show';
     // Get the form values from the registration form
     var formValue = this.registerationForm.value;
     const dateOfBirth = new Date(formValue.dateOfBirth);
-  const currentDate = new Date();
+    const currentDate = new Date();
 
   // Check if the date of birth is in the future
   if (dateOfBirth > currentDate) {
@@ -55,6 +56,7 @@ showPasswordText: string = 'Show';
     this.RegisterModel.FirstName=formValue.firstname;
     this.RegisterModel.LastName=formValue.lastname;
     this.RegisterModel.Email=formValue.email;
+    this.RegisterModel.Country=formValue.country;
     this.RegisterModel.Password=formValue.password;
     this.RegisterModel.DateOfBirth=formValue.dateOfBirth;
     if (formValue.gender === "female") {
@@ -91,6 +93,9 @@ showPasswordText: string = 'Show';
         }
         else if(error.message === "Invalid email syntax"){
           this.toastr.error('Invalid email pattern  , Please enter email.');
+        }
+        else if(error.message === "Country of Residence needs to entered"){
+          this.toastr.error('Country of Residence needs to be entered..');
         }
         else if(error.message === "Password needs to entered"){
           this.toastr.error('Password needs to be entered.');

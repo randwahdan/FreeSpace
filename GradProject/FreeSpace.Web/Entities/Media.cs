@@ -11,8 +11,7 @@ namespace FreeSpace.Web.Entities;
         public byte[] File { get; set; }
         public string Url { get; set; }
         public bool IsVideo { get; set; }  // New property to indicate if the media is a video
-        public string FileType { get; set; }
-        public MediaType MediaType { get; set; }
+        
 
     #region Releations
 

@@ -568,94 +568,50 @@ public class EventController : Controller
         // Get the current user's ID
         Guid userId = Guid.Parse(User.Identity?.Name);
 
-        // Get all users except the current user
-        var allUsers = _dbContext.Users.Where(u => u.Id != userId).Select(u => u.Id).ToList();
-
-        // Query events for archive
+        // Query events for archive for the current user
         var events = _dbContext.Events
-            .Where(c => allUsers.Contains(c.UserId) || c.UserId == userId)
+            .Include(e => e.User) // Eagerly load the User entity
+            .Where(e => e.UserId == userId)
             .Include(e => e.EventResponses)
             .Include(e => e.Medias)
             .Where(e => e.EndDate < DateTime.Now) // Filter events whose end date has passed
-            .OrderByDescending(c => c.CreatedDate)
+            .OrderByDescending(e => e.CreatedDate)
             .ToList();
 
         // Convert events to EventModel and return
         List<EventModel> eventListResult = new List<EventModel>();
         foreach (var eventEntity in events)
         {
-            EventModel eventModel = new EventModel();
-            var userEntity = _dbContext.Users.Find(eventEntity.UserId);
-            eventModel.FullName = userEntity.FirstName + " " + userEntity.LastName;
-            eventModel.CreatedDate = eventEntity.CreatedDate;
-            eventModel.Title = eventEntity.Title;
-            eventModel.Description = eventEntity.Description;
-            eventModel.Country = eventEntity.Country;
-            eventModel.City = eventEntity.City;
-            eventModel.StartDate = eventEntity.StartDate;
-            eventModel.EndDate = eventEntity.EndDate;
-            eventModel.Link = eventEntity.Link;
-            eventModel.Category = eventEntity.Category;
-            eventModel.EventId = eventEntity.Id;
-
-            if (userEntity.ProfilePicture != null)
+            EventModel eventModel = new EventModel
             {
-                // Convert profile picture from Byte[] to dataUrl
-                var base64String = Convert.ToBase64String(userEntity.ProfilePicture);
-                var dataUrl = $"data:image/jpeg;base64,{base64String}";
-                eventModel.ProfilePicture = dataUrl;
-            }
-
-            if (eventEntity.Medias != null)
-            {
-                List<EventMediaModel> mediaList = new List<EventMediaModel>();
-
-                foreach (var eventMedia in eventEntity.Medias)
+                FullName = $"{eventEntity.User.FirstName} {eventEntity.User.LastName}",
+                CreatedDate = eventEntity.CreatedDate,
+                Title = eventEntity.Title,
+                Description = eventEntity.Description,
+                Country = eventEntity.Country,
+                City = eventEntity.City,
+                StartDate = eventEntity.StartDate,
+                EndDate = eventEntity.EndDate,
+                Link = eventEntity.Link,
+                Category = eventEntity.Category,
+                EventId = eventEntity.Id,
+                ProfilePicture = eventEntity.User.ProfilePicture != null ? $"data:image/jpeg;base64,{Convert.ToBase64String(eventEntity.User.ProfilePicture)}" : null,
+                Media = eventEntity.Medias?.Select(eventMedia => new EventMediaModel
                 {
-                    EventMediaModel mediaModel = new EventMediaModel
-                    {
-                        FileName = eventMedia.FileName
-                    };
-
-                    // Convert image URL to base64 data URL if it's an image
-                    if (IsImage(eventMedia.FileName))
-                    {
-                        byte[] imageData = ReadImageFile(eventMedia.Url);
-
-                        if (imageData != null)
-                        {
-                            string base64String = Convert.ToBase64String(imageData);
-                            string dataUrl = $"data:{GetMimeType(eventMedia.FileName)};base64,{base64String}";
-                            mediaModel.Url = dataUrl;
-                        }
-                    }
-                    else
-                    {
-                        // For non-image media, use the original URL
-                        mediaModel.Url = eventMedia.Url;
-                    }
-
-                    mediaList.Add(mediaModel);
-                }
-
-                eventModel.Media = mediaList;
-            }
-
-            if (eventEntity.EventResponses != null)
-            {
-                eventModel.AttendanceNumber = eventEntity.EventResponses.Count;
-                EventResponse eventResponse = eventEntity.EventResponses.FirstOrDefault(c => c.UserId == userId);
-                if (eventResponse != null)
-                {
-                    eventModel.IsAttend = true;
-                }
-            }
+                    FileName = eventMedia.FileName,
+                    Url = IsImage(eventMedia.FileName) ? $"data:{GetMimeType(eventMedia.FileName)};base64,{Convert.ToBase64String(ReadImageFile(eventMedia.Url))}" : eventMedia.Url
+                }).ToList(),
+                AttendanceNumber = eventEntity.EventResponses?.Count ?? 0,
+                IsAttend = eventEntity.EventResponses?.Any(er => er.UserId == userId) ?? false
+            };
 
             eventListResult.Add(eventModel);
         }
 
         return eventListResult;
     }
+
+
 
 
 
