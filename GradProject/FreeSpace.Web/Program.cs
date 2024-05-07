@@ -53,7 +53,7 @@ builder.Services.AddAuthentication(opt =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-/*builder.Services.AddSwaggerGen(c => {
+builder.Services.AddSwaggerGen(c => {
     c.SwaggerDoc("v1", new OpenApiInfo
     {
         Title = "JWT Auth Sample",
@@ -80,13 +80,12 @@ builder.Services.AddEndpointsApiExplorer();
         }
     });
 });
-*/
-//Build the application using services
+
 var app = builder.Build();
 
-//app.UseSwagger();
+app.UseSwagger();
 
-//app.UseSwaggerUI();
+app.UseSwaggerUI();
     
 app.UseHttpsRedirection();
 
