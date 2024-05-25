@@ -1,5 +1,5 @@
 # FreeSpace
-##Introduction
+## Introduction
 Welcome to FreeSpace - a social platform designed to provide a safe and open space for users to freely express themselves without fear of censorship or limitations. FreeSpace aims to address the challenges posed by censorship measures implemented by major social media platforms and create an inclusive environment where users can share their thoughts, opinions, and experiences without restrictions.
 
 ## Key Features
