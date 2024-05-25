@@ -28,7 +28,6 @@ export class FriendsComponent implements OnInit {
         this.user = userStorge ? JSON.parse(userStorge) : null;
       }
     });
-
   }
 
   getFriends() {

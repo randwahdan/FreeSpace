@@ -34,7 +34,7 @@ namespace FreeSpace.Web.Controllers
 
                 // Get IDs of all friends of the authenticated user
                 var userFriendsIds = _dbContext.FriendShips
-                    .Where(f => f.SourceId == userId || f.TargetId == userId)
+                    .Where(f => (f.SourceId == userId || f.TargetId == userId) && f.Status == "Approved")
                     .Select(f => f.SourceId == userId ? f.TargetId : f.SourceId)
                     .ToList();
 
@@ -734,7 +734,8 @@ namespace FreeSpace.Web.Controllers
                     users = users.Where(u => EF.Functions.Like(u.FirstName.ToLower(), $"{names[0]}%") ||
                                               EF.Functions.Like(u.LastName.ToLower(), $"{names[0]}%"));
                 }
-
+                Guid userId = Guid.Parse(User.Identity?.Name);
+                users = users.Where(u => u.Id != userId);
                 // Execute the query
                 var matchedUsers = users.ToList();
 

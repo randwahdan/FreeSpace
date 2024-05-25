@@ -3,6 +3,7 @@ import {UserModel} from "../../models/user-model";
 import {UserService} from "../../services/user.service";
 import {FriendRequestModel} from "../../models/friend-request";
 import { Router } from '@angular/router';
+import { SharedService } from '../../services/shared.service';
 @Component({
   selector: 'pending-list',
   templateUrl: './pending-list.component.html',
@@ -10,18 +11,17 @@ import { Router } from '@angular/router';
 })
 export class PendingFriendsList implements OnInit {
   users:UserModel[]=[];
-  constructor(private  userService: UserService,private router: Router) {
+  constructor(private  userService: UserService,
+    private router: Router,
+    private sharedService: SharedService) {
   }
   ngOnInit(): void {
     this.getPendingFriends();
   }
-  showAllFriends(){}
-  showPendingFriends(){}
 
   getPendingFriends() {
     this.userService.getPendingFriends().subscribe(async result => {
       this.users = result
-
     });
   }
 
@@ -32,9 +32,11 @@ export class PendingFriendsList implements OnInit {
     this.userService.responseFriend(friendRequestModel).subscribe(async result => {
       if(result==true){
         user.isAdded = true
+        this.users.length--;
       }
     });
   }
+
   navigateToUserProfile(userId: string): void {
     this.router.navigate(['/UserProfile', userId]);
   }

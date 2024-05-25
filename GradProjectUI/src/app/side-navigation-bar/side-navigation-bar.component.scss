@@ -54,12 +54,12 @@ a{
 }
 .search-results-menu {
   position: absolute;
-  width: 305px; /* Take the width of the parent container */
+  width: 310px; /* Take the width of the parent container */
   background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   border-radius: 4px;
   top: 70%; /* Position it right below the search form */
-  left:11.3%; /* Adjust for the border of the input field */
+  left:11.8%; /* Adjust for the border of the input field */
   max-height: 0;
   transition: max-height 0.3s;
   z-index: 1000;

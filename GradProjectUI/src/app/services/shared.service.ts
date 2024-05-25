@@ -25,6 +25,9 @@ export class SharedService {
   private commentLikesSubject: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
   commentLikes$ = this.commentLikesSubject.asObservable();
 
+  private FriendsSubject: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
+  Friends$ = this.FriendsSubject.asObservable();
+
 
   private infoSubject: BehaviorSubject<boolean> = new BehaviorSubject<any>(false);
   info$ = this.infoSubject.asObservable();
@@ -44,6 +47,10 @@ export class SharedService {
   }
   updateCommentLikes( isCommentLiked: boolean) {
     this.commentLikesSubject.next(isCommentLiked);
+  }
+
+  updateFriends( isFriendstUpdated: boolean) {
+    this.FriendsSubject.next(isFriendstUpdated);
   }
 
   updateProfile(isProfileUpdated:boolean) {
